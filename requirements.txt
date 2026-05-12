@@ -1,0 +1,7 @@
+# Phase 1 (fetch_commits.py): stdlib only — no extras needed
+# Phase 2 (topic_model.py): add when implementing
+#   bertopic>=0.16
+#   sentence-transformers>=2.2
+#   umap-learn>=0.5
+#   hdbscan>=0.8
+#   scikit-learn>=1.3
