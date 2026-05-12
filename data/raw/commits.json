@@ -8,7 +8,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "tool"
   },
   {
     "sha": "188fe8abe93aca12a3402832e4fbf1b2103df6a9",
@@ -19,7 +19,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "tool"
   },
   {
     "sha": "578ccb897a3d23865644a453399696f97187e723",
@@ -30,7 +30,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "tool"
   },
   {
     "sha": "a83e97cdfa62f6804a5e970099a29c831173d7a0",
@@ -41,7 +41,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "6a499c1a2d4110af584145f158dd57485a7e54c0",
@@ -52,7 +52,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "4f57e182c5007899417bbbc824699ac3bd2f733f",
@@ -63,7 +63,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "962f7c14069aba4469580901af533e42b6b7fe84",
@@ -74,7 +74,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "education"
   },
   {
     "sha": "9f0af73263951daa59bcb6bd348d2faa5f54f5be",
@@ -85,7 +85,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "education"
   },
   {
     "sha": "e7715b3746c88dace97b8afc67eab5967bc26f48",
@@ -96,7 +96,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "e6a773c180460bdbac89fed9038df79a8f48db39",
@@ -107,7 +107,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "3f9b2ca588ba5ae2b0162c7f89b034367b47f2a3",
@@ -118,7 +118,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "50aa548de23fdf40327a4977e800b82d0c7d5f20",
@@ -129,7 +129,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "7d683e0d932479614b2f398bd56198b9544cba58",
@@ -140,7 +140,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "479edcc5d71d4171cb84f6db7b72b3fa235d1b85",
@@ -151,7 +151,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "6fd52a2d75af3ba2386f045575e089817f7303d1",
@@ -162,7 +162,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "774b2b18c18eab9472a7f13142840a6f100261e9",
@@ -173,7 +173,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "3c77debfdd4e1d1352df682407e18bf55a049e62",
@@ -184,7 +184,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "tool"
   },
   {
     "sha": "17c692a52337de399eed1411a07d1a6f4b8a08a0",
@@ -195,7 +195,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "tool"
   },
   {
     "sha": "5aeee481fb9a8385330914e53e12b68c2f4ba356",
@@ -206,7 +206,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "tool"
   },
   {
     "sha": "28e95b2a173ab89cb67fb9ad9654170823f7d3b2",
@@ -217,7 +217,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "1668443b43a5c589a0d63cf428292c3191c02efb",
@@ -228,7 +228,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "tool"
   },
   {
     "sha": "e6525ab2a9eaaefa3495c900b5ca6df6cd0165bd",
@@ -239,7 +239,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "tool"
   },
   {
     "sha": "d931bc657b5dc06341f0b65a7b0ae73b900bd4db",
@@ -250,7 +250,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "tool"
   },
   {
     "sha": "6ad5cb1d97e251fe7c9a8653a016f2e38c564938",
@@ -261,7 +261,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "tool"
   },
   {
     "sha": "deeb265f3a304ac9a52bfbf01a1a8dcdc04f8858",
@@ -272,7 +272,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "5738f9ffa3e3e5e70fc9f2ce8afea0c7c6d37a48",
@@ -283,7 +283,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "ac4c7423068d44995e834486ac505f003233a059",
@@ -294,7 +294,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "ac7c8734580fb51c4293f53727baa5fe6ab41324",
@@ -305,7 +305,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "5228c7fe053251a9865d6187003e2d6578d8d87a",
@@ -316,7 +316,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "1043c945bafeb5de9999c59d1c3ffca4320fa7cb",
@@ -327,7 +327,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "729892f388c532b6cc0e0c593d0f5e018d09cfc2",
@@ -338,7 +338,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "2b80fa1c2a209f6a0be822aa53edda887c7690db",
@@ -349,7 +349,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "757740f968be42e55dda7f32db46a11f6e8e75da",
@@ -360,7 +360,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "d69c032a0811b2a35a2c8d6144ca841fe48b1786",
@@ -371,7 +371,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "3c706c94ad6df6cd34d7bc8e0e34cc5390119a40",
@@ -382,7 +382,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "57aa25a13bbc788831128b1793384aa08624d2bc",
@@ -393,7 +393,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "b770d91b706679e41bb7e6b8921d67c321344950",
@@ -404,7 +404,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "51b4b3b8472500fb307b0e7085d184595aa70172",
@@ -415,7 +415,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "8de5fab3cfa5d0898c50e7992e770272d1afd04d",
@@ -426,7 +426,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "ff52054dfab0cf347c27a2802ba7a97925911d9f",
@@ -437,7 +437,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "tool"
   },
   {
     "sha": "c3f2b7dd1753804b24c9bee22325cd02b33139be",
@@ -448,7 +448,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "5d9cebfdab483a786f33aa3056a09ac434c1f64e",
@@ -459,7 +459,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "743d2bf1c1034c27438d99d0ffea61b62f819130",
@@ -470,7 +470,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "0616745bab4a3586d4d547bcfd9fd7dcf100c186",
@@ -481,7 +481,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "9e0c9de4c1f80f61a7a79f2ea1cc1b447850d395",
@@ -492,7 +492,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "41bac161baca3d4c78eede49c074b5e38ccb654e",
@@ -503,7 +503,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "c3d5d947167b3b459775708afbd047efddb8f71d",
@@ -514,7 +514,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "064fc89fed9d1f03d85c0c7235301685f1259e88",
@@ -525,7 +525,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "960d2d3f58cbd0c195ec017a87b813a1857a9f08",
@@ -536,7 +536,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "94e95b9274ca8bdb96d2eecc6191496ee1dcc674",
@@ -547,7 +547,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "ba222c3c92540ed465bcc8c62c11ebe037bb7962",
@@ -558,7 +558,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "884c65f6b4282a8ce379f952a006292e5491ea88",
@@ -569,7 +569,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "8f855a1a805e512483fc7ed14f6620f3fc0a63f7",
@@ -580,7 +580,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "8d4e1f2b9800ca5bb672e1f1bbfdebeb7dd44a9b",
@@ -591,7 +591,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "49518122bcd54f3ce911fc80f41ee8f9c2d57608",
@@ -602,7 +602,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "other"
   },
   {
     "sha": "55543dfefff62bfe04ce777df94496808307dcc7",
@@ -613,7 +613,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "other"
   },
   {
     "sha": "cffab85fab6b649492d078ae1434792a337eb643",
@@ -624,7 +624,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "other"
   },
   {
     "sha": "c30cc858d143ac9d93b773e235a7a2cfe4389bec",
@@ -635,7 +635,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "other"
   },
   {
     "sha": "b381d408f4b71e39b8943e16b5b601548f873b54",
@@ -646,7 +646,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "other"
   },
   {
     "sha": "fb466980ce9505ef6eac37e12e35be3800c012b4",
@@ -657,7 +657,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "other"
   },
   {
     "sha": "c169a45b4b866ef6f49ce65d1448ccbf7661a6e6",
@@ -668,7 +668,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "other"
   },
   {
     "sha": "4c6c3d1edf291edb872fdc01e89f14bc2341cb1f",
@@ -679,7 +679,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "other"
   },
   {
     "sha": "801e82e9285f7b26687e05b14fbca7f47693a08c",
@@ -690,7 +690,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "other"
   },
   {
     "sha": "d3e99fa6f60f7c50eb4f55a77d3836cac48d4dca",
@@ -701,7 +701,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "other"
   },
   {
     "sha": "9c81b03dfa92183964c12ad40000596fcdcbe883",
@@ -712,7 +712,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "other"
   },
   {
     "sha": "392cdeb73eb4f51d0ba29b961b339b93dd0d81f0",
@@ -723,7 +723,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "other"
   },
   {
     "sha": "21549401ccb8ae16d3c45de79edf95c7eef63dee",
@@ -734,7 +734,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "education"
   },
   {
     "sha": "95baf7a18552e762042129e78a927496d64dcfdf",
@@ -745,7 +745,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "education"
   },
   {
     "sha": "99d1a6bfba3f9f1941b7a1053d5b611940d0f91e",
@@ -756,7 +756,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "29fb1c13c1e4b32268d77ab6e49312d0ae99b728",
@@ -767,7 +767,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "8104b94c64384a7912aa0252675179178d1f3101",
@@ -778,7 +778,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "ed49ccb2c5d844a99ef21a1f8e1cf9535c8bc541",
@@ -789,7 +789,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "paper"
   },
   {
     "sha": "7890b635ca4ca750e56d7cf59ccb5ffbdc5d45b4",
@@ -800,7 +800,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "7890b635ca4ca750e56d7cf59ccb5ffbdc5d45b4",
@@ -811,7 +811,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "006a795f6b10004508ac09027e8994398a818497",
@@ -822,7 +822,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "bac9bbd6b0abc4d9fb5575bbc8836f3e93f65206",
@@ -833,7 +833,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "35854e23ddf218361ad4b8d729bb4fed398a6c83",
@@ -844,7 +844,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "proposal"
   },
   {
     "sha": "f808f3b18ca7e2b67bd2ec9be2aa083351596f9f",
@@ -855,7 +855,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "education"
   },
   {
     "sha": "ec4cf7a806eb0eed836cf071ce924bceb614d79e",
@@ -866,7 +866,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "education"
   },
   {
     "sha": "bf626aee205fc899121505870cb7e12567906094",
@@ -877,7 +877,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "education"
   },
   {
     "sha": "99951342f617c9fe6d8ac96fe78b1be18270c06c",
@@ -888,7 +888,7 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "education"
   },
   {
     "sha": "1e31b238ae3b9151a0f99a16413f3b84700f8dd8",
@@ -899,6 +899,6 @@
     "additions": null,
     "deletions": null,
     "files_count": null,
-    "repo_category": "core"
+    "repo_category": "education"
   }
 ]

@@ -24,11 +24,44 @@ AUTHOR = "snuconnectome"  # active gh account (Type: User)
 OUTPUT = Path(__file__).resolve().parent.parent / "data" / "raw" / "commits.json"
 LOOKBACK_DAYS = 365  # last 12 months
 
-# TODO(human): Map each `org/repo` to one of: proposal | paper | education | core | tool | other
-# Run this script once with the dict empty; the summary at the bottom will print
-# every repo that appeared. Copy that list here with the right label for each.
-# Categories are defined in data/schema.json (commit.repo_category enum).
-REPO_CATEGORIES: dict[str, str] = {}
+# Repo→category mapping (filled 2026-05-12; user-confirmed).
+# Categories defined in data/schema.json commit.repo_category enum:
+#   proposal | paper | education | core | tool | other
+# 3 entries are educated guesses (marked with ?); revise after first dashboard pass.
+REPO_CATEGORIES: dict[str, str] = {
+    # === proposals (grant/program applications) ===
+    "snuconnectome/IITP-2026-Proposal": "proposal",
+    "snuconnectome/bk21-aix": "proposal",
+    "snuconnectome/innoedu-innovation": "proposal",
+    "snuconnectome/Setup_arpah": "proposal",                # ? ARPA-H setup vs generic setup
+    "Transconnectome/00IITP-AI": "proposal",
+    "Transconnectome/InnoEdu": "proposal",
+    "Transconnectome/eurohpc-tvb-digital-twin": "proposal",
+    "Transconnectome/k-bfm-neurox": "proposal",
+    "Transconnectome/nrf-neuro-ai": "proposal",
+    "neurox-org/ai4science-2026": "proposal",
+    "neurox-org/k-bfm-neurox": "proposal",
+
+    # === papers (manuscripts / publications) ===
+    "Transconnectome/neurips-2026-diver": "paper",
+    "Transconnectome/neurips-2026-diver-paper": "paper",
+    "Transconnectome/neurips-2026-lbm-qualia": "paper",
+    "Transconnectome/ssk-book-chapter": "paper",
+    "neurox-org/neural-field-fm-mouse": "paper",
+
+    # === education (teaching, curriculum, mentoring) ===
+    "snuconnectome/veritas2026": "education",
+    "snuconnectome/AI4Psych_writing": "education",          # ? writing class vs paper-writing tool
+    "Transconnectome/intern-2026-summer": "education",
+
+    # === tools (infrastructure, frameworks) ===
+    "Transconnectome/paper-review": "tool",
+    "Transconnectome/sci-method": "tool",
+    "snuconnectome/activity-atlas": "tool",
+
+    # === other ===
+    "snuconnectome/decoding-annual-report": "other",        # ? slide deck — other vs tool
+}
 
 
 # ---------------------------------------------------------------------------
