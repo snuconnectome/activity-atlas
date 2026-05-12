@@ -11,14 +11,22 @@ exploration, and rule-based weekly storytelling.
 
 ## Why this exists
 
-<!-- TODO(human): Personal narrative — replace this section with 4–8 lines in your own voice
-     answering: What pattern in your work do you most want to see? What would change
-     if you noticed it 6 months earlier? Who else (lab members, collaborators, your
-     future self) might benefit from seeing this?
-     This is the only part of the README that should not be generic. Keep the rest
-     of the document factual. -->
+<!-- DRAFT by Claude — please refine in your own voice. Original TODO(human) guidance:
+     What pattern in your work do you most want to see? What would change if you
+     noticed it 6 months earlier? Who else (lab members, collaborators, your
+     future self) might benefit from seeing this? -->
 
-(Personal motivation goes here — see TODO above.)
+지난 8개월간 세 개 organization에 흩어진 ~93건의 commit을 돌아보면,
+무엇이 어디로 흘러갔는지 내 머릿속에서도 이미 흐릿해진다.
+제안서 마감 burst, 논문 review cycle, 강의 자료, 학생 협업 —
+이 흐름들이 어떤 주제로 묶이는지, 어느 주에 무게중심이 어디 있었는지를
+정량으로, 그리고 시각적으로 보고 싶다.
+
+작년 가을에 이 그림이 있었다면 핵심 thread에 더 일찍 집중했을 것이고,
+마감 직전 burst를 한두 주 평탄화했을 것이다.
+이 atlas는 일차적으로 미래의 내가 자기 시간 배분을 정직하게 들여다보기 위한
+거울이고, 부차적으로는 협력자들이 "지금 어디에 무게가 실려 있는지"를
+빠르게 읽도록 돕는 도구다.
 
 ---
 
