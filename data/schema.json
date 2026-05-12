@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Activity Atlas Data Schema",
+  "description": "Locked data contracts between Python pipeline (Phase 1-2) and Quarto frontend (Phase 3-7). Changing these fields requires updating ALL consumers.",
+  "version": "0.1.0",
+  "definitions": {
+    "commit": {
+      "type": "object",
+      "description": "One row per commit. Output of scripts/fetch_commits.py → data/raw/commits.json",
+      "required": ["sha", "org", "repo", "author_date", "message"],
+      "properties": {
+        "sha": {"type": "string", "description": "Git commit SHA (40 chars)"},
+        "org": {"type": "string", "enum": ["snuconnectome", "Transconnectome", "neurox-org"]},
+        "repo": {"type": "string", "description": "Repo name without org prefix"},
+        "author_date": {"type": "string", "format": "date-time", "description": "ISO 8601 timestamp"},
+        "message": {"type": "string", "description": "Full commit message; multiline allowed"},
+        "additions": {"type": "integer", "description": "Lines added (optional, may be null if API didn't return)"},
+        "deletions": {"type": "integer"},
+        "files_count": {"type": "integer"},
+        "repo_category": {
+          "type": "string",
+          "description": "Manual mapping defined by user. See TODO(human) in scripts/fetch_commits.py",
+          "enum": ["proposal", "paper", "education", "core", "tool", "other"]
+        }
+      }
+    },
+    "topic": {
+      "type": "object",
+      "description": "One row per BERTopic cluster. Output of scripts/topic_model.py → data/topics.json",
+      "required": ["topic_id", "label", "top_words", "size", "color"],
+      "properties": {
+        "topic_id": {"type": "integer", "description": "BERTopic-assigned ID; -1 = outlier cluster"},
+        "label": {"type": "string", "description": "Human-curated label. See TODO(human) in scripts/topic_model.py"},
+        "top_words": {"type": "array", "items": {"type": "string"}, "minItems": 3, "maxItems": 10},
+        "size": {"type": "integer", "description": "Number of commits in this cluster"},
+        "color": {"type": "string", "description": "Okabe-Ito hex from palette"}
+      }
+    },
+    "embedding": {
+      "type": "object",
+      "description": "One row per commit's 2D UMAP projection. Output of scripts/topic_model.py → data/embeddings.json",
+      "required": ["sha", "x", "y", "topic_id"],
+      "properties": {
+        "sha": {"type": "string", "description": "Must match commit.sha"},
+        "x": {"type": "number", "description": "UMAP dim 1"},
+        "y": {"type": "number", "description": "UMAP dim 2"},
+        "topic_id": {"type": "integer"}
+      }
+    },
+    "weekly_pulse": {
+      "type": "object",
+      "description": "One row per ISO week. Output of scripts/weekly_pulse.py → data/weekly_pulse.json",
+      "required": ["week_iso", "commit_count", "top_topics", "delta_bullets"],
+      "properties": {
+        "week_iso": {"type": "string", "pattern": "^[0-9]{4}-W[0-9]{2}$", "description": "e.g. 2026-W18"},
+        "commit_count": {"type": "integer"},
+        "top_topics": {"type": "array", "items": {"type": "integer"}, "maxItems": 3, "description": "topic_id values"},
+        "delta_bullets": {"type": "array", "items": {"type": "string"}, "description": "Rule-based diff strings, e.g. '+3 commits in neurox-org/foo'"}
+      }
+    },
+    "topics_metadata": {
+      "type": "object",
+      "description": "Wrapped in data/topics.json alongside the topic array, to record clustering provenance",
+      "properties": {
+        "clustering_method": {"type": "string", "enum": ["hdbscan", "kmeans_fallback"]},
+        "n_commits": {"type": "integer"},
+        "model": {"type": "string", "description": "sentence-transformers model name"},
+        "generated_at": {"type": "string", "format": "date-time"}
+      }
+    }
+  }
+}

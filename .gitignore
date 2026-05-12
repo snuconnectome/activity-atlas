@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Quarto
+_site/
+.quarto/
+*.html.cache
+_freeze/
+
+# Hugging Face cache (only when running locally)
+.hf_cache/
+
+# Generated data (recomputed by CI; keep raw + topic outputs in repo for diffability)
+data/cache/
+data/tmp/
+
+# Node (only if we add dev tooling)
+node_modules/
+package-lock.json
+yarn.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Secrets
+.env
+.env.local
+*.token
