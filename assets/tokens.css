@@ -1,0 +1,210 @@
+/*!
+ * Activity Atlas — Design Tokens
+ * Adapted from ~/.claude/skills/cha-marp/themes/cha.css (lines 18-43)
+ * Namespaced as --aa-* to avoid Bootstrap collision in Quarto.
+ *
+ * Palette: SNU Blue + Okabe-Ito color-blind safe (8% prevalence safe)
+ * Typography: Pretendard / KoPub Batang / Noto Sans KR fallback
+ * Reference: https://jfly.uni-koeln.de/color/
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;700&display=swap');
+
+:root {
+  /* SNU primary palette */
+  --aa-snu-blue:     #003380;
+  --aa-snu-ice:      #EDF6FC;
+  --aa-snu-dark:     #282945;
+  --aa-snu-gray:     #5A5A6E;
+  --aa-snu-border:   #A0A0A0;
+
+  /* Okabe-Ito accents — use sparingly; semantically loaded */
+  --aa-signal:       #E69F00;  /* THE killer-metric color, use sparingly */
+  --aa-neural-teal:  #0072B2;  /* primary chart accent */
+  --aa-cog-blue:     #56B4E9;
+  --aa-vermillion:   #D55E00;
+  --aa-bluish-green: #009E73;
+  --aa-yellow:       #F0E442;
+  --aa-purple:       #CC79A7;
+  --aa-outlier-gray: #9E9E9E;  /* HDBSCAN -1 cluster */
+
+  /* Category colors (matches commits.json repo_category enum) */
+  --aa-cat-proposal:  var(--aa-snu-blue);
+  --aa-cat-paper:     var(--aa-neural-teal);
+  --aa-cat-education: var(--aa-bluish-green);
+  --aa-cat-tool:      var(--aa-vermillion);
+  --aa-cat-other:     var(--aa-purple);
+  --aa-cat-core:      var(--aa-snu-gray);
+
+  /* Org colors (3 orgs) */
+  --aa-org-snuconnectome: var(--aa-snu-blue);
+  --aa-org-transconnectome: var(--aa-neural-teal);
+  --aa-org-neurox-org: var(--aa-signal);
+
+  /* Typography */
+  --aa-font-ko: 'Pretendard', 'KoPubWorld Dotum', 'Apple SD Gothic Neo',
+                'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  --aa-font-en: 'Inter', 'Helvetica Neue', 'Arial', sans-serif;
+  --aa-font-mono: 'JetBrains Mono', 'Menlo', 'Consolas', monospace;
+
+  /* Spacing scale */
+  --aa-s-1: 4px;
+  --aa-s-2: 8px;
+  --aa-s-3: 12px;
+  --aa-s-4: 16px;
+  --aa-s-5: 24px;
+  --aa-s-6: 32px;
+  --aa-s-7: 48px;
+  --aa-s-8: 64px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Global typography & body
+   ───────────────────────────────────────────────────────────── */
+body {
+  font-family: var(--aa-font-ko);
+  color: var(--aa-snu-dark);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  color: var(--aa-snu-blue);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.5rem; margin-top: var(--aa-s-7); }
+h3 { font-size: 1.15rem; }
+
+a { color: var(--aa-neural-teal); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code, pre { font-family: var(--aa-font-mono); font-size: 0.92em; }
+
+/* ─────────────────────────────────────────────────────────────
+   Navbar (Quarto generates this)
+   ───────────────────────────────────────────────────────────── */
+.navbar {
+  background: var(--aa-snu-blue) !important;
+}
+.navbar a, .navbar .nav-link {
+  color: white !important;
+  font-weight: 500;
+}
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Cards / KPI tiles
+   ───────────────────────────────────────────────────────────── */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--aa-s-4);
+  margin: var(--aa-s-6) 0;
+}
+.kpi-tile {
+  background: var(--aa-snu-ice);
+  border-left: 4px solid var(--aa-neural-teal);
+  border-radius: 4px;
+  padding: var(--aa-s-4) var(--aa-s-5);
+}
+.kpi-tile .label {
+  font-size: 0.85rem;
+  color: var(--aa-snu-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.kpi-tile .value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--aa-snu-blue);
+  font-family: var(--aa-font-en);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Topic chips (used in Latent + Pulse pages)
+   ───────────────────────────────────────────────────────────── */
+.topic-chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: 2px 4px 2px 0;
+  cursor: pointer;
+  color: white;
+  user-select: none;
+  transition: opacity 0.15s ease;
+}
+.topic-chip.dimmed { opacity: 0.3; }
+.topic-chip:hover { opacity: 0.85; }
+
+/* ─────────────────────────────────────────────────────────────
+   Viz containers
+   ───────────────────────────────────────────────────────────── */
+.viz-container {
+  margin: var(--aa-s-6) 0;
+  min-height: 400px;
+}
+.viz-container svg {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+/* Tooltip used by D3 scatter */
+.aa-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(40, 41, 69, 0.96);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-family: var(--aa-font-en);
+  max-width: 320px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+.aa-tooltip.visible { opacity: 1; }
+.aa-tooltip a { color: var(--aa-cog-blue); }
+.aa-tooltip code {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Weekly Pulse details
+   ───────────────────────────────────────────────────────────── */
+details.pulse-week {
+  border-left: 3px solid var(--aa-snu-border);
+  padding: var(--aa-s-3) var(--aa-s-4);
+  margin: var(--aa-s-3) 0;
+  background: white;
+}
+details.pulse-week[open] {
+  border-left-color: var(--aa-signal);
+  background: var(--aa-snu-ice);
+}
+details.pulse-week summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--aa-snu-blue);
+}
+details.pulse-week ul { margin: var(--aa-s-3) 0 0 var(--aa-s-5); }
+
+/* ─────────────────────────────────────────────────────────────
+   Mobile responsive
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.25rem; }
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+  .viz-container { min-height: 320px; }
+}

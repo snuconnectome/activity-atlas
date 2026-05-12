@@ -1,0 +1,63 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+    - "data/**/*.json"
+    - "assets/**"
+  render:
+    - index.qmd
+    - latent.qmd
+    - network.qmd
+    - pulse.qmd
+    - about.qmd
+
+website:
+  title: "Activity Atlas"
+  description: "8개월간 GitHub 활동의 시각적 거울 — snuconnectome × Transconnectome × neurox-org"
+  page-navigation: true
+  search:
+    type: textbox
+    location: navbar
+  navbar:
+    background: primary
+    left:
+      - text: "Overview"
+        href: index.qmd
+      - text: "Latent"
+        href: latent.qmd
+      - text: "Network"
+        href: network.qmd
+      - text: "Pulse"
+        href: pulse.qmd
+    right:
+      - text: "About"
+        href: about.qmd
+      - icon: github
+        href: https://github.com/snuconnectome/activity-atlas
+        aria-label: "GitHub repository"
+  page-footer:
+    border: true
+    left: |
+      Built with Quarto · Observable Plot · D3 · Cytoscape · BERTopic
+    right: |
+      Rebuilds every Monday 08:00 UTC
+
+format:
+  html:
+    theme: cosmo
+    css:
+      - assets/tokens.css
+    toc: false
+    embed-resources: false
+    page-layout: full
+    code-link: false
+    code-tools: false
+    grid:
+      sidebar-width: 220px
+      body-width: 1000px
+      margin-width: 220px
+
+execute:
+  echo: false
+  warning: false
+  freeze: false

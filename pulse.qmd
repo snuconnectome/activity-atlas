@@ -1,0 +1,54 @@
+---
+title: "Pulse — 주간 변화"
+subtitle: "Rule-based delta · 매주 무엇이 바뀌었는가"
+---
+
+각 주의 commit 분포, 신규 repo/topic, 무게중심 org를 자동으로 추출합니다. LLM 생성 narrative는 v1에서 의도적으로 제외 — N≈2.7 commits/week에선 hallucination 위험이 큽니다.
+
+::: {.callout-tip appearance="simple"}
+가장 최근 주가 자동으로 펼쳐져 있습니다. 다른 주는 ▶ 클릭으로 펼쳐보세요.
+:::
+
+```{=html}
+<div id="pulse-list" style="margin-top: 24px;"></div>
+
+<script type="module">
+const [pulse, topicsDoc] = await Promise.all([
+  fetch("data/weekly_pulse.json").then(r => r.json()),
+  fetch("data/topics.json").then(r => r.json()),
+]);
+
+const topicById = new Map(topicsDoc.topics.map(t => [t.topic_id, t]));
+const container = document.getElementById("pulse-list");
+
+pulse.forEach((week, i) => {
+  const details = document.createElement("details");
+  details.className = "pulse-week";
+  if (i === 0) details.open = true;
+
+  const summary = document.createElement("summary");
+  const topTopicLabels = (week.top_topics || [])
+    .map(tid => topicById.get(tid))
+    .filter(Boolean)
+    .map(t => `<span class="topic-chip" style="background:${t.color}; padding:2px 8px; font-size:0.75rem;">${t.label}</span>`)
+    .join("");
+  summary.innerHTML = `
+    <span style="font-size:1.05rem; margin-right:12px;">${week.week_iso}</span>
+    <span style="color: var(--aa-snu-gray); margin-right:12px;">${week.commit_count} commit${week.commit_count > 1 ? "s" : ""}</span>
+    ${topTopicLabels}
+  `;
+  details.appendChild(summary);
+
+  const ul = document.createElement("ul");
+  for (const bullet of week.delta_bullets) {
+    const li = document.createElement("li");
+    // Convert markdown-ish `code` to <code>
+    li.innerHTML = bullet.replace(/`([^`]+)`/g, '<code>$1</code>');
+    ul.appendChild(li);
+  }
+  details.appendChild(ul);
+
+  container.appendChild(details);
+});
+</script>
+```

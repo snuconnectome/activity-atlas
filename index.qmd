@@ -1,0 +1,214 @@
+---
+title: "Activity Atlas"
+subtitle: "지난 12개월, snuconnectome × Transconnectome × neurox-org"
+---
+
+::: {.kpi-row #kpi-row}
+:::
+
+## 📅 캘린더 — 일별 commit 분포
+
+```{=html}
+<div class="viz-container">
+  <div style="margin-bottom: 12px;">
+    <label for="org-filter" style="font-weight:500; margin-right:8px;">Org 필터:</label>
+    <select id="org-filter" style="padding:4px 8px; border:1px solid var(--aa-snu-border); border-radius:4px;">
+      <option value="all">전체 (All)</option>
+      <option value="snuconnectome">snuconnectome</option>
+      <option value="Transconnectome">Transconnectome</option>
+      <option value="neurox-org">neurox-org</option>
+    </select>
+  </div>
+  <div id="calendar"></div>
+</div>
+```
+
+Single-color teal heatmap. Org 필터로 단일 조직 활동 패턴 분리 가능. 마감일 직전 burst는 색 농도로 즉시 식별.
+
+## 🌊 스트림 — 카테고리별 활동 흐름
+
+```{=html}
+<div class="viz-container">
+  <div id="stream"></div>
+</div>
+```
+
+Repo 카테고리(proposal · paper · education · tool · other)별 누적 흐름. 본인 시간 무게중심이 어디로 흐르는지 한눈에 보입니다.
+
+## 📦 카테고리 분포
+
+```{=html}
+<div class="viz-container">
+  <div id="category-bars"></div>
+</div>
+```
+
+```{=html}
+<script type="module">
+import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.16/+esm";
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+const commits = await fetch("data/raw/commits.json").then(r => r.json());
+
+// ─── KPI tiles ────────────────────────────────────────────
+const distinctRepos = new Set(commits.map(c => `${c.org}/${c.repo}`)).size;
+const distinctWeeks = new Set(commits.map(c => {
+  const d = new Date(c.author_date);
+  const onejan = new Date(d.getFullYear(), 0, 1);
+  const week = Math.ceil(((d - onejan) / 86400000 + onejan.getDay() + 1) / 7);
+  return `${d.getFullYear()}-W${week}`;
+})).size;
+const lastCommit = commits[0]?.author_date?.slice(0, 10) ?? "—";
+
+document.getElementById("kpi-row").innerHTML = `
+  <div class="kpi-tile"><div class="label">Total commits</div><div class="value">${commits.length}</div></div>
+  <div class="kpi-tile"><div class="label">Repos active</div><div class="value">${distinctRepos}</div></div>
+  <div class="kpi-tile"><div class="label">Active weeks</div><div class="value">${distinctWeeks}</div></div>
+  <div class="kpi-tile"><div class="label">Last commit</div><div class="value" style="font-size:1.1rem;">${lastCommit}</div></div>
+`;
+
+// ─── Calendar heatmap (single-color teal + org filter) ────
+function renderCalendar(orgFilter = "all") {
+  const filtered = orgFilter === "all" ? commits : commits.filter(c => c.org === orgFilter);
+
+  // Aggregate by day
+  const byDay = d3.rollup(filtered, v => v.length, c => c.author_date.slice(0, 10));
+  const data = Array.from(byDay, ([date, count]) => ({
+    date: new Date(date),
+    count,
+    weekday: new Date(date).getUTCDay(),
+    week: d3.timeFormat("%Y-%V")(new Date(date)),
+  }));
+
+  const target = document.getElementById("calendar");
+  target.innerHTML = "";
+  const chart = Plot.plot({
+    width: 980,
+    height: 200,
+    marginLeft: 60,
+    marginRight: 20,
+    color: {
+      scheme: "blues",
+      type: "linear",
+      legend: true,
+      label: "commits/day",
+    },
+    x: { axis: "top", label: "ISO week", tickFormat: "%b %Y", type: "time" },
+    y: {
+      tickFormat: d => ["일", "월", "화", "수", "목", "금", "토"][d],
+      label: "요일",
+      domain: [0, 1, 2, 3, 4, 5, 6],
+    },
+    marks: [
+      Plot.cell(data, {
+        x: d => d3.timeWeek(d.date),
+        y: "weekday",
+        fill: "count",
+        title: d => `${d3.timeFormat("%Y-%m-%d")(d.date)}\n${d.count} commit${d.count > 1 ? "s" : ""}`,
+        inset: 0.5,
+      }),
+    ],
+    style: {
+      background: "transparent",
+      fontFamily: "var(--aa-font-en)",
+    },
+  });
+  target.appendChild(chart);
+}
+
+renderCalendar();
+document.getElementById("org-filter").addEventListener("change", e => renderCalendar(e.target.value));
+
+// ─── Stream graph by category ─────────────────────────────
+const byMonthCat = d3.rollups(
+  commits,
+  v => v.length,
+  c => d3.timeFormat("%Y-%m")(new Date(c.author_date)),
+  c => c.repo_category,
+);
+const streamData = [];
+byMonthCat.forEach(([month, catRolls]) => {
+  catRolls.forEach(([cat, n]) => {
+    streamData.push({ month: new Date(month + "-01"), category: cat, n });
+  });
+});
+
+const catColors = {
+  proposal: "#003380",
+  paper: "#0072B2",
+  education: "#009E73",
+  tool: "#D55E00",
+  other: "#CC79A7",
+  core: "#5A5A6E",
+};
+
+const streamChart = Plot.plot({
+  width: 980,
+  height: 320,
+  marginLeft: 40,
+  marginRight: 120,
+  x: { type: "time", label: "month" },
+  y: { label: "commits", grid: true },
+  color: {
+    domain: Object.keys(catColors),
+    range: Object.values(catColors),
+    legend: true,
+  },
+  marks: [
+    Plot.areaY(streamData, {
+      x: "month",
+      y: "n",
+      z: "category",
+      fill: "category",
+      curve: "catmull-rom",
+      tip: true,
+    }),
+    Plot.ruleY([0]),
+  ],
+  style: {
+    background: "transparent",
+    fontFamily: "var(--aa-font-en)",
+  },
+});
+document.getElementById("stream").appendChild(streamChart);
+
+// ─── Category bars ────────────────────────────────────────
+const catCounts = d3.rollups(commits, v => v.length, c => c.repo_category)
+  .map(([category, n]) => ({ category, n }))
+  .sort((a, b) => b.n - a.n);
+
+const barChart = Plot.plot({
+  width: 980,
+  height: 280,
+  marginLeft: 90,
+  x: { label: "commits" },
+  y: { label: null, domain: catCounts.map(c => c.category) },
+  color: {
+    domain: Object.keys(catColors),
+    range: Object.values(catColors),
+  },
+  marks: [
+    Plot.barX(catCounts, {
+      x: "n",
+      y: "category",
+      fill: "category",
+      tip: true,
+    }),
+    Plot.text(catCounts, {
+      x: "n",
+      y: "category",
+      text: d => d.n,
+      dx: 8,
+      textAnchor: "start",
+      fontWeight: 600,
+    }),
+    Plot.ruleX([0]),
+  ],
+  style: {
+    background: "transparent",
+    fontFamily: "var(--aa-font-en)",
+  },
+});
+document.getElementById("category-bars").appendChild(barChart);
+</script>
+```

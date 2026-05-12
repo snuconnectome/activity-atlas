@@ -1,0 +1,141 @@
+---
+title: "Latent — 의미적 군집"
+subtitle: "Commit message embedding을 BERTopic + UMAP으로 투영"
+---
+
+마우스로 zoom · 드래그로 pan · hover 시 GitHub commit 링크. 위쪽 토픽 chip을 클릭하면 해당 토픽만 강조됩니다.
+
+```{=html}
+<div id="topic-chips" style="margin: 16px 0;"></div>
+<div class="viz-container">
+  <svg id="umap-svg" viewBox="0 0 980 600" preserveAspectRatio="xMidYMid meet" style="width:100%; max-width:980px; background: var(--aa-snu-ice); border-radius: 6px;"></svg>
+</div>
+<div id="umap-tooltip" class="aa-tooltip"></div>
+
+<details style="margin-top: 24px;">
+<summary style="cursor:pointer; font-weight:600; color: var(--aa-snu-blue);">📚 토픽 라벨</summary>
+<table style="margin-top: 12px; border-collapse: collapse; width:100%;">
+  <thead>
+    <tr style="border-bottom: 2px solid var(--aa-snu-blue); text-align:left;">
+      <th style="padding: 8px 12px;">ID</th>
+      <th style="padding: 8px 12px;">Label</th>
+      <th style="padding: 8px 12px;">Size</th>
+      <th style="padding: 8px 12px;">Top words</th>
+    </tr>
+  </thead>
+  <tbody id="topic-table"></tbody>
+</table>
+</details>
+
+<script type="module">
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+const [commits, embeddings, topicsDoc] = await Promise.all([
+  fetch("data/raw/commits.json").then(r => r.json()),
+  fetch("data/embeddings.json").then(r => r.json()),
+  fetch("data/topics.json").then(r => r.json()),
+]);
+
+const topics = topicsDoc.topics;
+const topicById = new Map(topics.map(t => [t.topic_id, t]));
+const commitBySha = new Map(commits.map(c => [c.sha, c]));
+
+// ─── Topic chips ──────────────────────────────────────────
+const chipContainer = document.getElementById("topic-chips");
+let activeTopic = null;
+topics.forEach(t => {
+  const chip = document.createElement("span");
+  chip.className = "topic-chip";
+  chip.style.background = t.color;
+  chip.textContent = `${t.label} (${t.size})`;
+  chip.dataset.topicId = t.topic_id;
+  chip.addEventListener("click", () => {
+    activeTopic = activeTopic === t.topic_id ? null : t.topic_id;
+    document.querySelectorAll(".topic-chip").forEach(c => {
+      c.classList.toggle("dimmed", activeTopic !== null && +c.dataset.topicId !== activeTopic);
+    });
+    updateDimmed();
+  });
+  chipContainer.appendChild(chip);
+});
+
+// ─── Topic table ──────────────────────────────────────────
+const tbody = document.getElementById("topic-table");
+topics.forEach(t => {
+  const tr = document.createElement("tr");
+  tr.style.borderBottom = "1px solid var(--aa-snu-border)";
+  tr.innerHTML = `
+    <td style="padding:8px 12px;"><span style="display:inline-block; width:14px; height:14px; background:${t.color}; border-radius:2px; vertical-align:middle; margin-right:6px;"></span>${t.topic_id}</td>
+    <td style="padding:8px 12px; font-weight:500;">${t.label}</td>
+    <td style="padding:8px 12px;">${t.size}</td>
+    <td style="padding:8px 12px; color: var(--aa-snu-gray); font-family: var(--aa-font-mono); font-size: 0.85rem;">${(t.top_words || []).join(", ")}</td>
+  `;
+  tbody.appendChild(tr);
+});
+
+// ─── UMAP scatter ─────────────────────────────────────────
+const svg = d3.select("#umap-svg");
+const tooltip = d3.select("#umap-tooltip");
+const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+const width = 980 - margin.left - margin.right;
+const height = 600 - margin.top - margin.bottom;
+
+const g = svg.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+const xExt = d3.extent(embeddings, d => d.x);
+const yExt = d3.extent(embeddings, d => d.y);
+const xPad = (xExt[1] - xExt[0]) * 0.08;
+const yPad = (yExt[1] - yExt[0]) * 0.08;
+const xScale = d3.scaleLinear().domain([xExt[0] - xPad, xExt[1] + xPad]).range([0, width]);
+const yScale = d3.scaleLinear().domain([yExt[0] - yPad, yExt[1] + yPad]).range([height, 0]);
+
+const dots = g.selectAll("circle")
+  .data(embeddings)
+  .join("circle")
+  .attr("cx", d => xScale(d.x))
+  .attr("cy", d => yScale(d.y))
+  .attr("r", 6)
+  .attr("fill", d => topicById.get(d.topic_id)?.color ?? "#9E9E9E")
+  .attr("stroke", "white")
+  .attr("stroke-width", 1.2)
+  .attr("opacity", 0.85)
+  .attr("data-topic", d => d.topic_id)
+  .style("cursor", "pointer")
+  .on("mouseover", (event, d) => {
+    const commit = commitBySha.get(d.sha);
+    if (!commit) return;
+    const msg = (commit.message || "").split("\n")[0].slice(0, 80);
+    const url = `https://github.com/${commit.org}/${commit.repo}/commit/${commit.sha}`;
+    tooltip
+      .html(`
+        <div style="margin-bottom:4px; opacity:0.7; font-size:0.75rem;">${commit.org}/${commit.repo}</div>
+        <div style="margin-bottom:6px;">${msg}</div>
+        <div><a href="${url}" target="_blank" rel="noopener">↗ GitHub commit</a></div>
+      `)
+      .style("left", (event.pageX + 14) + "px")
+      .style("top", (event.pageY + 14) + "px")
+      .classed("visible", true);
+  })
+  .on("mouseout", () => tooltip.classed("visible", false));
+
+function updateDimmed() {
+  dots.attr("opacity", d => activeTopic === null || d.topic_id === activeTopic ? 0.85 : 0.12);
+}
+
+// Zoom/pan
+const zoom = d3.zoom()
+  .scaleExtent([0.5, 10])
+  .on("zoom", event => {
+    g.attr("transform", `translate(${margin.left + event.transform.x}, ${margin.top + event.transform.y}) scale(${event.transform.k})`);
+  });
+svg.call(zoom);
+
+// Hint
+g.append("text")
+  .attr("x", 6)
+  .attr("y", 14)
+  .attr("font-size", 12)
+  .attr("fill", "#5A5A6E")
+  .text("← drag to pan · scroll to zoom · click chip to filter");
+</script>
+```

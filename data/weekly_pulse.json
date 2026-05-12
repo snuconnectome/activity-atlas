@@ -1,0 +1,140 @@
+[
+  {
+    "week_iso": "2026-W20",
+    "commit_count": 15,
+    "top_topics": [
+      3,
+      2,
+      1
+    ],
+    "delta_bullets": [
+      "15 commits (-9 vs 전주)",
+      "신규 활동 repo: `snuconnectome/activity-atlas`, `Transconnectome/nrf-neuro-ai`, `Transconnectome/intern-2026-summer` + 1 more",
+      "신규 토픽: initial commit / commit / initial",
+      "🔥 notable burst (≥ 4)"
+    ]
+  },
+  {
+    "week_iso": "2026-W19",
+    "commit_count": 24,
+    "top_topics": [
+      3,
+      2,
+      0
+    ],
+    "delta_bullets": [
+      "24 commits (+20 vs 전주)",
+      "신규 활동 repo: `neurox-org/ai4science-2026`, `Transconnectome/paper-review`, `Transconnectome/InnoEdu` + 3 more",
+      "신규 토픽: via / add files / files via, final / 혐오 박스 / lab, readme / md / handoff",
+      "무게중심: `Transconnectome` (23/24)",
+      "🔥 notable burst (≥ 4)"
+    ]
+  },
+  {
+    "week_iso": "2026-W18",
+    "commit_count": 4,
+    "top_topics": [
+      3,
+      4,
+      1
+    ],
+    "delta_bullets": [
+      "4 commits (-21 vs 전주)",
+      "신규 활동 repo: `Transconnectome/sci-method`, `Transconnectome/eurohpc-tvb-digital-twin`",
+      "신규 토픽: initial commit / commit / initial",
+      "무게중심: `Transconnectome` (4/4)",
+      "🔥 notable burst (≥ 4)",
+      "주요 repo: `Transconnectome/eurohpc-tvb-digital-twin` (3건)"
+    ]
+  },
+  {
+    "week_iso": "2026-W17",
+    "commit_count": 25,
+    "top_topics": [
+      3,
+      1
+    ],
+    "delta_bullets": [
+      "25 commits (+23 vs 전주)",
+      "신규 활동 repo: `Transconnectome/nrf-neuro-ai`, `snuconnectome/decoding-annual-report`, `snuconnectome/veritas2026`",
+      "신규 토픽: phase / add / pi",
+      "🔥 notable burst (≥ 4)"
+    ]
+  },
+  {
+    "week_iso": "2026-W15",
+    "commit_count": 2,
+    "top_topics": [
+      2,
+      1
+    ],
+    "delta_bullets": [
+      "2 commits (+1 vs 전주)",
+      "신규 활동 repo: `snuconnectome/innoedu-innovation`",
+      "신규 토픽: via / add files / files via, 현재제안서 / initial / plan",
+      "무게중심: `snuconnectome` (2/2)",
+      "주요 repo: `snuconnectome/innoedu-innovation` (2건)"
+    ]
+  },
+  {
+    "week_iso": "2026-W14",
+    "commit_count": 1,
+    "top_topics": [
+      3
+    ],
+    "delta_bullets": [
+      "1 commits (±0 vs 전주)",
+      "신규 활동 repo: `snuconnectome/bk21-aix`",
+      "신규 토픽: phase / add / pi"
+    ]
+  },
+  {
+    "week_iso": "2026-W12",
+    "commit_count": 1,
+    "top_topics": [
+      1
+    ],
+    "delta_bullets": [
+      "1 commits (-2 vs 전주)",
+      "신규 활동 repo: `Transconnectome/ssk-book-chapter`"
+    ]
+  },
+  {
+    "week_iso": "2026-W06",
+    "commit_count": 3,
+    "top_topics": [
+      1
+    ],
+    "delta_bullets": [
+      "3 commits (+2 vs 전주)",
+      "신규 활동 repo: `Transconnectome/k-bfm-neurox`, `neurox-org/k-bfm-neurox`, `snuconnectome/IITP-2026-Proposal`"
+    ]
+  },
+  {
+    "week_iso": "2026-W05",
+    "commit_count": 1,
+    "top_topics": [
+      1
+    ],
+    "delta_bullets": [
+      "1 commits (-5 vs 전주)",
+      "신규 활동 repo: `Transconnectome/00IITP-AI`",
+      "신규 토픽: 현재제안서 / initial / plan"
+    ]
+  },
+  {
+    "week_iso": "2025-W45",
+    "commit_count": 6,
+    "top_topics": [
+      0
+    ],
+    "delta_bullets": [
+      "6 commits (+6 vs 전주)",
+      "신규 활동 repo: `snuconnectome/Setup_arpah`, `snuconnectome/AI4Psych_writing`",
+      "신규 토픽: readme / md / handoff",
+      "무게중심: `snuconnectome` (6/6)",
+      "🔥 notable burst (≥ 4)",
+      "주요 repo: `snuconnectome/AI4Psych_writing` (5건)"
+    ]
+  }
+]

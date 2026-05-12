@@ -1,0 +1,95 @@
+name: Build Activity Atlas
+
+# Strategy: CI rebuilds visualizations from data/*.json already committed
+# to the repo. Cross-org commit fetch (fetch_commits.py) is NOT run in CI
+# because it requires a broad-scope GitHub token (admin:org+repo) which is
+# a security risk to store as a workflow secret. Refresh data locally with
+# `python scripts/fetch_commits.py && git push`.
+#
+# What CI DOES do:
+#  - Re-run topic_model.py (clusters can shift if scripts evolve)
+#  - Re-run weekly_pulse.py (delta logic can evolve)
+#  - Quarto render → deploy to GitHub Pages
+
+on:
+  schedule:
+    # Every Monday 08:00 UTC = 17:00 KST
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/topic_model.py"
+      - "scripts/weekly_pulse.py"
+      - "*.qmd"
+      - "_quarto.yml"
+      - "assets/**"
+      - "requirements.txt"
+      - "data/raw/commits.json"
+      - ".github/workflows/build.yml"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Cache HuggingFace + Torch
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/huggingface
+            ~/.cache/torch
+          key: hf-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            hf-${{ runner.os }}-
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Topic modeling (BERTopic + UMAP)
+        run: python scripts/topic_model.py
+
+      - name: Weekly pulse delta
+        run: python scripts/weekly_pulse.py
+
+      - name: Quarto render
+        run: quarto render
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

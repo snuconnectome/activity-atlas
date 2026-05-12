@@ -1,0 +1,181 @@
+---
+title: "Network — repo와 토픽의 그래프"
+subtitle: "Cytoscape force-directed + Org→Topic Sankey 흐름"
+---
+
+각 node는 repo, edge는 공유 토픽. 토픽 페이지([Latent](latent.qmd))에서 본 군집이 어느 repo들에 분산되는지 구조적으로 보여줍니다.
+
+## Force-directed network
+
+```{=html}
+<div class="viz-container">
+  <div id="cy" style="height: 600px; border-radius: 6px; background: var(--aa-snu-ice);"></div>
+</div>
+```
+
+## Org → Topic Sankey
+
+```{=html}
+<div class="viz-container">
+  <div id="sankey"></div>
+</div>
+
+<script type="module">
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.16/+esm";
+import cytoscape from "https://cdn.jsdelivr.net/npm/cytoscape@3.30.0/+esm";
+
+const [commits, embeddings, topicsDoc] = await Promise.all([
+  fetch("data/raw/commits.json").then(r => r.json()),
+  fetch("data/embeddings.json").then(r => r.json()),
+  fetch("data/topics.json").then(r => r.json()),
+]);
+
+const topics = topicsDoc.topics;
+const shaToTopic = new Map(embeddings.map(e => [e.sha, e.topic_id]));
+const topicById = new Map(topics.map(t => [t.topic_id, t]));
+const orgColors = {
+  "snuconnectome": "#003380",
+  "Transconnectome": "#0072B2",
+  "neurox-org": "#E69F00",
+};
+
+// ─── Build repo nodes + shared-topic edges ────────────────
+const repoCommits = new Map();  // org/repo → list of {sha, topic_id}
+for (const c of commits) {
+  const key = `${c.org}/${c.repo}`;
+  if (!repoCommits.has(key)) repoCommits.set(key, []);
+  repoCommits.get(key).push({ sha: c.sha, topic_id: shaToTopic.get(c.sha) ?? -1 });
+}
+
+const repoTopicSets = new Map();
+for (const [key, list] of repoCommits) {
+  repoTopicSets.set(key, new Set(list.map(x => x.topic_id).filter(t => t !== -1)));
+}
+
+const repos = [...repoCommits.keys()].sort();
+const nodes = repos.map(key => {
+  const [org, repo] = key.split("/", 2);
+  const n = repoCommits.get(key).length;
+  return {
+    data: {
+      id: key,
+      label: repo,
+      org,
+      n,
+      size: Math.max(20, Math.log(n + 1) * 18),
+      color: orgColors[org] ?? "#888",
+    },
+  };
+});
+
+const edges = [];
+for (let i = 0; i < repos.length; i++) {
+  for (let j = i + 1; j < repos.length; j++) {
+    const a = repoTopicSets.get(repos[i]);
+    const b = repoTopicSets.get(repos[j]);
+    let shared = 0;
+    for (const t of a) if (b.has(t)) shared++;
+    if (shared > 0) {
+      edges.push({
+        data: {
+          id: `${repos[i]}--${repos[j]}`,
+          source: repos[i],
+          target: repos[j],
+          weight: shared,
+        },
+      });
+    }
+  }
+}
+
+// ─── Cytoscape ────────────────────────────────────────────
+const cy = cytoscape({
+  container: document.getElementById("cy"),
+  elements: { nodes, edges },
+  style: [
+    {
+      selector: "node",
+      style: {
+        "background-color": "data(color)",
+        "label": "data(label)",
+        "width": "data(size)",
+        "height": "data(size)",
+        "font-size": "11px",
+        "color": "#282945",
+        "text-valign": "bottom",
+        "text-margin-y": 4,
+        "border-width": 2,
+        "border-color": "white",
+      },
+    },
+    {
+      selector: "edge",
+      style: {
+        "width": "mapData(weight, 1, 6, 1, 5)",
+        "line-color": "#A0A0A0",
+        "opacity": 0.5,
+        "curve-style": "bezier",
+      },
+    },
+    {
+      selector: "node:active, node.hl",
+      style: {
+        "border-width": 4,
+        "border-color": "#E69F00",
+      },
+    },
+  ],
+  layout: {
+    name: "cose",
+    idealEdgeLength: 120,
+    nodeRepulsion: 8000,
+    animate: true,
+    animationDuration: 600,
+    fit: true,
+    padding: 30,
+  },
+});
+
+// ─── Sankey: Org → Topic ──────────────────────────────────
+const orgTopicCount = new Map();
+for (const c of commits) {
+  const t = shaToTopic.get(c.sha) ?? -1;
+  if (t === -1) continue;
+  const k = `${c.org}|${t}`;
+  orgTopicCount.set(k, (orgTopicCount.get(k) ?? 0) + 1);
+}
+
+const sankeyLinks = [...orgTopicCount].map(([k, v]) => {
+  const [org, topicStr] = k.split("|");
+  const topic_id = +topicStr;
+  return {
+    source: org,
+    target: topicById.get(topic_id)?.label ?? `topic-${topic_id}`,
+    value: v,
+    color: topicById.get(topic_id)?.color ?? "#888",
+  };
+});
+
+const sankeyChart = Plot.plot({
+  width: 980,
+  height: 360,
+  marginLeft: 100,
+  marginRight: 200,
+  marks: [
+    Plot.sankey(sankeyLinks, {
+      source: "source",
+      target: "target",
+      value: "value",
+      fill: "color",
+      tip: true,
+    }),
+  ],
+  style: {
+    background: "transparent",
+    fontFamily: "var(--aa-font-en)",
+  },
+});
+document.getElementById("sankey").appendChild(sankeyChart);
+</script>
+```

@@ -1,0 +1,61 @@
+---
+title: "About"
+subtitle: "이 사이트는 무엇이고, 어떻게 만들었는가"
+---
+
+## 무엇
+
+지난 12개월간 세 개의 GitHub 조직에서 제가 한 commit들을 — 무엇이 어디로 흘러갔는지 정량적으로 보기 위해 — 매주 자동으로 갱신되는 정적 웹사이트로 시각화합니다.
+
+| Org | Active repos |
+|-----|--------------|
+| [snuconnectome](https://github.com/snuconnectome) | 8 |
+| [Transconnectome](https://github.com/Transconnectome) | 12 |
+| [neurox-org](https://github.com/neurox-org) | 3 |
+
+## 네 가지 lens
+
+| Page | Lens | 주요 도구 |
+|------|------|----------|
+| [Overview](index.qmd) | Temporal | Observable Plot calendar + stream graph |
+| [Latent](latent.qmd) | Semantic | BERTopic + UMAP, D3 zoomable scatter |
+| [Network](network.qmd) | Structural | Cytoscape.js + Sankey |
+| [Pulse](pulse.qmd) | Narrative | Rule-based weekly delta |
+
+## 어떻게
+
+### 데이터 파이프라인 (Python)
+
+1. `scripts/fetch_commits.py` — `gh` CLI로 3 orgs의 commit metadata 수집
+2. `scripts/topic_model.py` — `paraphrase-multilingual-MiniLM-L12-v2`로 commit message 임베딩 후 BERTopic + HDBSCAN 클러스터링 (HDBSCAN fail 시 KMeans fallback)
+3. `scripts/weekly_pulse.py` — ISO week별 commit 집계 + 전주 대비 rule-based delta
+
+출력은 `data/*.json`으로 schema-locked: `commits` · `topics` · `embeddings` · `weekly_pulse`.
+
+### 시각화 (JavaScript ESM)
+
+- [Quarto](https://quarto.org/) for static site generation
+- [Observable Plot](https://observablehq.com/plot) for calendar heatmap, stream graph, Sankey
+- [D3.js](https://d3js.org/) for UMAP scatter zoom/pan
+- [Cytoscape.js](https://js.cytoscape.org/) for force-directed network
+- 모든 라이브러리는 [esm.sh](https://esm.sh) CDN에서 ES module로 직접 import (번들러 없음)
+
+### 디자인
+
+- **SNU Blue** (`#003380`) + **Signal Orange** (`#E69F00`)
+- **Okabe-Ito color-blind safe palette** (8% prevalence safe)
+- 한국어 우선 폰트 스택: Pretendard · KoPub · Noto Sans KR
+- WCAG AAA contrast on all text
+
+### 자동 갱신
+
+GitHub Actions cron: 매주 월요일 08:00 UTC + manual `workflow_dispatch`. HF 모델은 `actions/cache@v4`로 캐싱.
+
+## 영향 받은 곳
+
+디지털 저널리즘 — NYT The Upshot, Reuters Graphics, [Pudding](https://pudding.cool/), FiveThirtyEight.
+"여러 lens로 같은 데이터 보기" 패턴은 그쪽에서 빌려왔습니다.
+
+## 소스 / 라이센스
+
+[github.com/snuconnectome/activity-atlas](https://github.com/snuconnectome/activity-atlas) · MIT

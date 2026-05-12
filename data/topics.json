@@ -1,0 +1,88 @@
+{
+  "topics": [
+    {
+      "topic_id": 0,
+      "label": "readme / md / handoff",
+      "top_words": [
+        "readme",
+        "md",
+        "handoff",
+        "session",
+        "ids"
+      ],
+      "size": 5,
+      "color": "#0072B2"
+    },
+    {
+      "topic_id": 1,
+      "label": "현재제안서 / initial / plan",
+      "top_words": [
+        "현재제안서",
+        "initial",
+        "plan",
+        "iter",
+        "docs"
+      ],
+      "size": 22,
+      "color": "#E69F00"
+    },
+    {
+      "topic_id": 2,
+      "label": "via / add files / files via",
+      "top_words": [
+        "via",
+        "add files",
+        "files via",
+        "files",
+        "via upload"
+      ],
+      "size": 10,
+      "color": "#009E73"
+    },
+    {
+      "topic_id": 3,
+      "label": "phase / add / pi",
+      "top_words": [
+        "phase",
+        "add",
+        "pi",
+        "2026",
+        "document"
+      ],
+      "size": 34,
+      "color": "#D55E00"
+    },
+    {
+      "topic_id": 4,
+      "label": "initial commit / commit / initial",
+      "top_words": [
+        "initial commit",
+        "commit",
+        "initial",
+        "혐오 박스",
+        "lbm"
+      ],
+      "size": 2,
+      "color": "#56B4E9"
+    },
+    {
+      "topic_id": 5,
+      "label": "final / 혐오 박스 / lab",
+      "top_words": [
+        "final",
+        "혐오 박스",
+        "lab",
+        "neurips",
+        "nature"
+      ],
+      "size": 2,
+      "color": "#CC79A7"
+    }
+  ],
+  "metadata": {
+    "clustering_method": "kmeans_fallback",
+    "n_commits": 75,
+    "model": "paraphrase-multilingual-MiniLM-L12-v2",
+    "generated_at": "2026-05-12T15:40:06.116178+00:00"
+  }
+}

@@ -39,3 +39,6 @@ yarn.lock
 .env
 .env.local
 *.token
+
+/.quarto/
+**/*.quarto_ipynb
