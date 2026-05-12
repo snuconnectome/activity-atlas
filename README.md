@@ -1,11 +1,14 @@
 # Activity Atlas
 
+[![Build](https://github.com/snuconnectome/activity-atlas/actions/workflows/build.yml/badge.svg)](https://github.com/snuconnectome/activity-atlas/actions/workflows/build.yml)
+[![Pages](https://img.shields.io/badge/live-snuconnectome.github.io%2Factivity--atlas-0072B2)](https://snuconnectome.github.io/activity-atlas/)
+
 Weekly-evolving visualization of one researcher's GitHub activity across
 three organizations — `snuconnectome`, `Transconnectome`, `neurox-org` —
 built in the style of digital journalism: clean visuals, interactive
 exploration, and rule-based weekly storytelling.
 
-[Live site →](https://snuconnectome.github.io/activity-atlas/) (rebuilds every Monday 08:00 UTC)
+**[🌐 Live site →](https://snuconnectome.github.io/activity-atlas/)** · rebuilds every Monday 08:00 UTC + on push to `main`
 
 ---
 
@@ -79,17 +82,30 @@ activity-atlas/
 ## Local development
 
 ```bash
-# 1. Fetch data
-python scripts/fetch_commits.py
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 
-# 2. Run topic pipeline
-python scripts/topic_model.py
+# 1. Fetch latest commits across 3 orgs (requires `gh auth login` with repo scope)
+.venv/bin/python scripts/fetch_commits.py
 
-# 3. Compute weekly pulse
-python scripts/weekly_pulse.py
+# 2. Run topic pipeline (BERTopic + UMAP; downloads HF model ~440MB on first run)
+.venv/bin/python scripts/topic_model.py
+
+# 3. Compute weekly pulse delta
+.venv/bin/python scripts/weekly_pulse.py
 
 # 4. Preview site
-quarto preview
+~/.local/quarto/bin/quarto preview
+```
+
+### Refreshing data
+
+CI does **not** run `fetch_commits.py` (cross-org search would need an
+admin-scope token in a workflow secret — a security risk). To refresh data:
+
+```bash
+.venv/bin/python scripts/fetch_commits.py
+git add data/raw/commits.json && git commit -m "chore(data): refresh"
+git push  # triggers CI rebuild of topics + viz
 ```
 
 ## Design decisions
