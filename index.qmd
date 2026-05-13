@@ -68,17 +68,45 @@ document.getElementById("kpi-row").innerHTML = `
 `;
 
 // ─── Calendar heatmap (single-color teal + org filter) ────
+// Build full date domain to show empty days too (better visual density)
+const dateExtent = d3.extent(commits, c => new Date(c.author_date));
+const dayDomain = [];
+if (dateExtent[0]) {
+  const start = d3.utcMonday(dateExtent[0]);
+  const end = d3.utcMonday.offset(d3.utcMonday(new Date()), 1);
+  for (let d = new Date(start); d < end; d = d3.utcDay.offset(d, 1)) {
+    dayDomain.push(new Date(d));
+  }
+}
+const weekStrings = [...new Set(dayDomain.map(d => d3.utcFormat("%Y-W%V")(d)))].sort();
+
+// Choose week labels — show first week of each month
+const monthMarkers = new Map();
+for (const w of weekStrings) {
+  const sampleDay = dayDomain.find(d => d3.utcFormat("%Y-W%V")(d) === w);
+  if (sampleDay) {
+    const monthKey = d3.utcFormat("%Y-%m")(sampleDay);
+    if (!monthMarkers.has(monthKey)) {
+      monthMarkers.set(monthKey, { week: w, label: d3.utcFormat("%b '%y")(sampleDay) });
+    }
+  }
+}
+const tickWeeks = new Set([...monthMarkers.values()].map(m => m.week));
+
 function renderCalendar(orgFilter = "all") {
   const filtered = orgFilter === "all" ? commits : commits.filter(c => c.org === orgFilter);
-
-  // Aggregate by day
   const byDay = d3.rollup(filtered, v => v.length, c => c.author_date.slice(0, 10));
-  const data = Array.from(byDay, ([date, count]) => ({
-    date: new Date(date),
-    count,
-    weekday: new Date(date).getUTCDay(),
-    week: d3.timeFormat("%Y-%V")(new Date(date)),
-  }));
+
+  // Fill all days in domain so empty cells appear
+  const data = dayDomain.map(d => {
+    const key = d3.utcFormat("%Y-%m-%d")(d);
+    return {
+      date: d,
+      count: byDay.get(key) ?? 0,
+      weekday: d.getUTCDay(),
+      week: d3.utcFormat("%Y-W%V")(d),
+    };
+  });
 
   const target = document.getElementById("calendar");
   target.innerHTML = "";
@@ -87,25 +115,33 @@ function renderCalendar(orgFilter = "all") {
     height: 200,
     marginLeft: 60,
     marginRight: 20,
+    marginBottom: 40,
     color: {
       scheme: "blues",
       type: "linear",
       legend: true,
       label: "commits/day",
+      domain: [0, Math.max(1, d3.max(data, d => d.count) || 1)],
     },
-    x: { axis: "top", label: "ISO week", tickFormat: "%b %Y", type: "time" },
+    x: {
+      axis: "bottom",
+      label: null,
+      domain: weekStrings,
+      tickFormat: w => (tickWeeks.has(w) ? monthMarkers.get(d3.utcFormat("%Y-%m")(dayDomain.find(d => d3.utcFormat("%Y-W%V")(d) === w)))?.label : ""),
+      ticks: weekStrings.filter(w => tickWeeks.has(w)),
+    },
     y: {
       tickFormat: d => ["일", "월", "화", "수", "목", "금", "토"][d],
-      label: "요일",
-      domain: [0, 1, 2, 3, 4, 5, 6],
+      label: null,
+      domain: [1, 2, 3, 4, 5, 6, 0],  // Mon-first ordering
     },
     marks: [
       Plot.cell(data, {
-        x: d => d3.timeWeek(d.date),
+        x: "week",
         y: "weekday",
         fill: "count",
-        title: d => `${d3.timeFormat("%Y-%m-%d")(d.date)}\n${d.count} commit${d.count > 1 ? "s" : ""}`,
-        inset: 0.5,
+        title: d => `${d3.utcFormat("%Y-%m-%d")(d.date)}\n${d.count} commit${d.count === 1 ? "" : "s"}`,
+        inset: 1,
       }),
     ],
     style: {

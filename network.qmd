@@ -22,7 +22,7 @@ subtitle: "Cytoscape force-directed + Org→Topic Sankey 흐름"
 
 <script type="module">
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
-import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.16/+esm";
+import { sankey as d3sankey, sankeyLinkHorizontal, sankeyJustify } from "https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/+esm";
 import cytoscape from "https://cdn.jsdelivr.net/npm/cytoscape@3.30.0/+esm";
 
 const [commits, embeddings, topicsDoc] = await Promise.all([
@@ -137,7 +137,7 @@ const cy = cytoscape({
   },
 });
 
-// ─── Sankey: Org → Topic ──────────────────────────────────
+// ─── Sankey: Org → Topic (d3-sankey, manual SVG) ──────────
 const orgTopicCount = new Map();
 for (const c of commits) {
   const t = shaToTopic.get(c.sha) ?? -1;
@@ -146,36 +146,83 @@ for (const c of commits) {
   orgTopicCount.set(k, (orgTopicCount.get(k) ?? 0) + 1);
 }
 
-const sankeyLinks = [...orgTopicCount].map(([k, v]) => {
+const orgSet = [...new Set(commits.map(c => c.org))];
+const topicSet = topics.filter(t => t.topic_id !== -1);
+const nodeList = [
+  ...orgSet.map(o => ({ name: o, kind: "org", color: orgColors[o] ?? "#888" })),
+  ...topicSet.map(t => ({ name: t.label, kind: "topic", color: t.color, topic_id: t.topic_id })),
+];
+const nameIndex = new Map(nodeList.map((n, i) => [`${n.kind}:${n.name}`, i]));
+
+const linkList = [];
+for (const [k, v] of orgTopicCount) {
   const [org, topicStr] = k.split("|");
   const topic_id = +topicStr;
-  return {
-    source: org,
-    target: topicById.get(topic_id)?.label ?? `topic-${topic_id}`,
-    value: v,
-    color: topicById.get(topic_id)?.color ?? "#888",
-  };
+  const topic = topicById.get(topic_id);
+  if (!topic || topic.topic_id === -1) continue;
+  const srcIdx = nameIndex.get(`org:${org}`);
+  const tgtIdx = nameIndex.get(`topic:${topic.label}`);
+  if (srcIdx === undefined || tgtIdx === undefined) continue;
+  linkList.push({ source: srcIdx, target: tgtIdx, value: v, color: topic.color });
+}
+
+const sankeyWidth = 980;
+const sankeyHeight = 400;
+const sankeyLayout = d3sankey()
+  .nodeId(d => d.index)
+  .nodeAlign(sankeyJustify)
+  .nodeWidth(16)
+  .nodePadding(14)
+  .extent([[16, 20], [sankeyWidth - 200, sankeyHeight - 10]]);
+
+const { nodes: laidNodes, links: laidLinks } = sankeyLayout({
+  nodes: nodeList.map(n => ({ ...n })),
+  links: linkList.map(l => ({ ...l })),
 });
 
-const sankeyChart = Plot.plot({
-  width: 980,
-  height: 360,
-  marginLeft: 100,
-  marginRight: 200,
-  marks: [
-    Plot.sankey(sankeyLinks, {
-      source: "source",
-      target: "target",
-      value: "value",
-      fill: "color",
-      tip: true,
-    }),
-  ],
-  style: {
-    background: "transparent",
-    fontFamily: "var(--aa-font-en)",
-  },
-});
-document.getElementById("sankey").appendChild(sankeyChart);
+const sankeyDiv = document.getElementById("sankey");
+sankeyDiv.innerHTML = "";
+const svg = d3.select(sankeyDiv).append("svg")
+  .attr("viewBox", `0 0 ${sankeyWidth} ${sankeyHeight}`)
+  .attr("preserveAspectRatio", "xMidYMid meet")
+  .attr("style", "width:100%; max-width:980px; background:transparent; font-family: var(--aa-font-en);");
+
+// Links
+svg.append("g")
+  .attr("fill", "none")
+  .selectAll("path")
+  .data(laidLinks)
+  .join("path")
+  .attr("d", sankeyLinkHorizontal())
+  .attr("stroke", d => d.color)
+  .attr("stroke-opacity", 0.42)
+  .attr("stroke-width", d => Math.max(1, d.width))
+  .append("title")
+  .text(d => `${d.source.name} → ${d.target.name}\n${d.value} commit${d.value === 1 ? "" : "s"}`);
+
+// Nodes
+const nodeG = svg.append("g")
+  .selectAll("g")
+  .data(laidNodes)
+  .join("g");
+
+nodeG.append("rect")
+  .attr("x", d => d.x0)
+  .attr("y", d => d.y0)
+  .attr("height", d => Math.max(1, d.y1 - d.y0))
+  .attr("width", d => d.x1 - d.x0)
+  .attr("fill", d => d.color)
+  .attr("rx", 2)
+  .append("title")
+  .text(d => `${d.name}\n${d.value} commit${d.value === 1 ? "" : "s"}`);
+
+nodeG.append("text")
+  .attr("x", d => d.x0 < sankeyWidth / 2 ? d.x1 + 6 : d.x0 - 6)
+  .attr("y", d => (d.y1 + d.y0) / 2)
+  .attr("dy", "0.35em")
+  .attr("text-anchor", d => d.x0 < sankeyWidth / 2 ? "start" : "end")
+  .attr("font-size", 12)
+  .attr("fill", "var(--aa-snu-dark)")
+  .text(d => `${d.name} · ${d.value}`);
 </script>
 ```
