@@ -19,7 +19,7 @@ exploration, and rule-based weekly storytelling.
      noticed it 6 months earlier? Who else (lab members, collaborators, your
      future self) might benefit from seeing this? -->
 
-지난 8개월간 세 개 organization에 흩어진 ~93건의 commit을 돌아보면,
+지난 8개월간 세 개 organization에 흩어진 82건의 commit을 돌아보면,
 무엇이 어디로 흘러갔는지 내 머릿속에서도 이미 흐릿해진다.
 제안서 마감 burst, 논문 review cycle, 강의 자료, 학생 협업 —
 이 흐름들이 어떤 주제로 묶이는지, 어느 주에 무게중심이 어디 있었는지를
@@ -35,7 +35,7 @@ exploration, and rule-based weekly storytelling.
 
 ## What it shows
 
-Four pages, each a different lens on the same ~93-commit dataset:
+Four pages, each a different lens on the same 82-commit dataset:
 
 | Page | Lens | Key visualization |
 |------|------|-------------------|
@@ -110,13 +110,32 @@ git push  # triggers CI rebuild of topics + viz
 
 ## Design decisions
 
-See [`/home/juke/.claude/plans/quizzical-munching-muffin.md`](../../.claude/plans/quizzical-munching-muffin.md)
-for the full plan, including:
+See [`CLAUDE.md`](./CLAUDE.md) for the project onboarding guide aimed at Claude
+Code sessions. Key explicit out-of-scope decisions:
 
-- Why **not** Observable Framework (overkill at N=93)
-- Why **not** Neo4j (static publish mismatch)
-- Why Sankey is 2 layers, not 3
-- Why Weekly Pulse is rule-based, not LLM-generated
+- Why **not** Observable Framework (overkill at N=82)
+- Why **not** Neo4j (static publish mismatch; Cytoscape.js gives same viz)
+- Why Sankey is 2 layers (`Org → Topic`), not 3
+- Why Weekly Pulse is rule-based, not LLM-generated (hallucination risk at ~2.7 commits/week)
+- Why CI does **not** run `fetch_commits.py` (cross-org admin-scope token as workflow secret is unsafe)
+
+## Verification
+
+Both passes are required before claiming "it works":
+
+```bash
+# Pass 1 — HTML markers (file shipped)
+curl -s https://snuconnectome.github.io/activity-atlas/ | grep -oE 'd3@7|kpi-row|cytoscape'
+
+# Pass 2 — JS runtime (browser DOM + console errors)
+# Use Playwright (or any browser automation). Confirm:
+#   index:   0 errors, 4 KPI tiles, ~196 calendar cells
+#   latent:  0 errors, 75 UMAP circles, 6 topic chips
+#   network: 0 errors, 3 Cytoscape canvases, Sankey 9+14+9 (rect+path+text)
+#   pulse:   0 errors, 10 weeks, latest expanded
+```
+
+Pass 1 alone is **not sufficient** — see [`CLAUDE.md`](./CLAUDE.md) "Known gotchas" for two silent JS bugs caught only by Pass 2 on first ship.
 
 ## License
 
