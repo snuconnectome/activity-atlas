@@ -58,6 +58,26 @@
       "note": null,
       "source": "repo_map"
     },
+    "Transconnectome/BEACON-T": {
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "source": "manual",
+      "wp": "WP1",
+      "domain": "brain-foundation-model",
+      "note": "README: 'Temporal Diagnostic Benchmark for fMRI Brain Foundation Models'; REPO_MAP:138 benchmark manifest"
+    },
+    "Transconnectome/BEACON-T-paper": {
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "source": "manual",
+      "wp": "WP1",
+      "domain": "brain-foundation-model",
+      "note": "BEACON-T 원고"
+    },
     "Transconnectome/BrainVLM": {
       "wp": "WP1",
       "wp_role": "P",
@@ -158,6 +178,16 @@
       "indication": "OCD",
       "note": "OCD",
       "source": "repo_map"
+    },
+    "Transconnectome/EmoBrain": {
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "source": "manual",
+      "wp": "WP1",
+      "domain": "brain-foundation-model",
+      "note": "desc: 'Emotion representation learning with brain foundation models and naturalistic fMRI'"
     },
     "Transconnectome/EmoDe": {
       "wp": "WP3",
@@ -432,6 +462,16 @@
       "note": null,
       "source": "repo_map"
     },
+    "Transconnectome/beacon-benchmark": {
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "source": "manual",
+      "wp": "WP1",
+      "domain": "brain-foundation-model",
+      "note": "BEACON-T 벤치마크의 자매 repo (동일 라인)"
+    },
     "Transconnectome/bio-ai-scientist": {
       "wp": "WP2",
       "wp_role": "S",
@@ -479,6 +519,16 @@
       "indication": null,
       "note": null,
       "source": "repo_map"
+    },
+    "Transconnectome/colorBlind_analysis": {
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "source": "manual",
+      "wp": "WP3",
+      "domain": "clinical-translation",
+      "note": "desc: 'fMRI-based display filter for individuals with colour blindness' — 적용 대상이 있는 임상 응용"
     },
     "Transconnectome/connectome-paper-workshop": {
       "wp": "WP4",
@@ -607,6 +657,16 @@
       "indication": null,
       "note": null,
       "source": "repo_map"
+    },
+    "Transconnectome/jubin-neurox-reason": {
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "source": "manual",
+      "wp": "WP1",
+      "domain": "brain-foundation-model",
+      "note": "REPO_MAP:34 'NeuroX, NeuroX-Reason | P — reasoning extension'의 작업 repo"
     },
     "Transconnectome/k-bfm-neurox": {
       "wp": null,

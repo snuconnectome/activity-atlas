@@ -30,6 +30,7 @@ DERIVED_DIR = DATA_DIR / "derived"
 DERIVED_TOPICS = DERIVED_DIR / "topics.json"
 DERIVED_EMBEDDINGS = DERIVED_DIR / "embeddings.json"
 DERIVED_PULSE = DERIVED_DIR / "weekly_pulse.json"
+DERIVED_REGISTRY = DERIVED_DIR / "topic_registry.json"
 
 # [C] LAB-INTERNAL — gitignored, rendered locally, never deployed
 LAB_DIR = REPO / "data" / "lab"

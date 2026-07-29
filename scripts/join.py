@@ -136,6 +136,30 @@ def may_publish_text(author: str, consent: set[str]) -> bool:
     return author in consent
 
 
+# The scatter draws one SVG circle per point. Beyond a few thousand the page stops
+# being readable before it stops being fast — points overplot into a solid mass —
+# so thin uniformly per topic, which preserves each cluster's shape and relative
+# size rather than favouring the largest.
+MAX_SCATTER_POINTS = 2500
+
+
+def downsample_embeddings(embeddings: list[dict]) -> tuple[list[dict], int]:
+    if len(embeddings) <= MAX_SCATTER_POINTS:
+        return embeddings, 0
+    by_topic: dict[int, list[dict]] = {}
+    for e in embeddings:
+        by_topic.setdefault(e["topic_id"], []).append(e)
+    keep_ratio = MAX_SCATTER_POINTS / len(embeddings)
+    kept: list[dict] = []
+    for tid, rows in by_topic.items():
+        # Deterministic stride, not random sampling: the same input must give
+        # the same picture on every rebuild.
+        n = max(1, round(len(rows) * keep_ratio))
+        stride = len(rows) / n
+        kept.extend(rows[int(i * stride)] for i in range(n))
+    return kept, len(embeddings) - len(kept)
+
+
 def read_derived(path):
     if not path.exists():
         print(f"  ⚠️  {path.name} not found — skipping (run topic_model.py / weekly_pulse.py)",
@@ -322,21 +346,54 @@ def main() -> int:
     out_dir = PROFILE_DIRS[args.profile]
     public = args.profile == "pub"
 
+    # ── Topic / pulse projections ────────────────────────────────────────
+    topics_doc = read_derived(DERIVED_TOPICS)
+    embeddings = read_derived(DERIVED_EMBEDDINGS)
+    pulse = read_derived(DERIVED_PULSE)
+
+    dropped_points = 0
+    scatter_shas: set[str] = set()
+    if embeddings:
+        embeddings, dropped_points = downsample_embeddings(embeddings)
+        scatter_shas = {e["sha"] for e in embeddings}
+
+    # Refuse to project a topic model built from a different commit set. This
+    # is the failure that nearly shipped: after switching the raw store back to
+    # PI-only, a stale lab-wide topics/embeddings pair was still on disk, and
+    # join.py happily emitted it as the public projection.
+    if topics_doc:
+        meta = topics_doc.get("metadata", {})
+        src_n = meta.get("source_n_commits")
+        if src_n is not None and src_n != len(commits):
+            print(f"\n❌ topics.json was built from {src_n} commits but the raw store "
+                  f"holds {len(commits)}.", file=sys.stderr)
+            print("   Re-run topic_model.py and weekly_pulse.py before joining.", file=sys.stderr)
+            return 1
+
+    masked_topics = 0
+    if topics_doc and public:
+        topics_doc, masked_topics = mask_topic_labels(topics_doc, embeddings or [], commits, consent)
+
     # ── Commit rows ──────────────────────────────────────────────────────
+    # sha and subject exist only so the scatter can look up a hovered point.
+    # Carrying them on every row cost 655 KB of payload at lab scale for rows
+    # nothing could ever hover, so they ride only on rows the scatter draws.
     slim = []
     suppressed_subjects = 0
     for c in commits:
         full = f"{c['org']}/{c['repo']}"
         t = taxonomy[full]
-        row = {k: c[k] for k in KEEP_FIELDS if k in c}
+        on_scatter = c["sha"] in scatter_shas
+        row = {k: c[k] for k in KEEP_FIELDS if k in c and (k != "sha" or on_scatter)}
         author = c.get("author_canonical") or c.get("author_login") or ""
 
-        if public and not may_publish_text(author, consent):
-            # The person's activity still counts; their words do not.
-            row["subject"] = ""
-            suppressed_subjects += 1
-        else:
-            row["subject"] = (c.get("message") or "").split("\n")[0][:SUBJECT_MAX]
+        if on_scatter:
+            if public and not may_publish_text(author, consent):
+                # The person's activity still counts; their words do not.
+                row["subject"] = ""
+                suppressed_subjects += 1
+            else:
+                row["subject"] = (c.get("message") or "").split("\n")[0][:SUBJECT_MAX]
 
         if not public:
             row["author"] = author
@@ -357,25 +414,19 @@ def main() -> int:
         print("\n❌ author identity present in the public projection", file=sys.stderr)
         return 1
 
-    # ── Topic / pulse projections ────────────────────────────────────────
-    topics_doc = read_derived(DERIVED_TOPICS)
-    embeddings = read_derived(DERIVED_EMBEDDINGS)
-    pulse = read_derived(DERIVED_PULSE)
-
-    masked_topics = 0
-    if topics_doc and public:
-        topics_doc, masked_topics = mask_topic_labels(topics_doc, embeddings or [], commits, consent)
-
     out_dir.mkdir(parents=True, exist_ok=True)
+    # No indent on the two large payloads: pretty-printing commits_slim cost
+    # 2.4 MB of leading spaces at lab scale, all of it downloaded by the browser.
     (out_dir / "commits_slim.json").write_text(
-        json.dumps(slim, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        json.dumps(slim, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
 
-    for name, payload in (("topics.json", topics_doc),
-                          ("embeddings.json", embeddings),
-                          ("weekly_pulse.json", pulse)):
+    for name, payload, compact in (("topics.json", topics_doc, False),
+                                   ("embeddings.json", embeddings, True),
+                                   ("weekly_pulse.json", pulse, False)):
         if payload is not None:
+            kwargs = ({"separators": (",", ":")} if compact else {"indent": 2})
             (out_dir / name).write_text(
-                json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+                json.dumps(payload, ensure_ascii=False, **kwargs) + "\n", encoding="utf-8")
 
     (out_dir / "palette.json").write_text(json.dumps({
         "domain": DOMAIN_COLORS,
@@ -398,6 +449,8 @@ def main() -> int:
 
     print()
     print(f"✅ profile={args.profile}: {len(slim)} commits → {out_dir.relative_to(REPO)}/")
+    if dropped_points:
+        print(f"   산점도 다운샘플: {dropped_points}점 제외 → {len(embeddings)}점")
     if public:
         print(f"   비동의 저자 subject 비공개: {suppressed_subjects}건")
         print(f"   비동의 저자 우세 토픽 라벨 마스킹: {masked_topics}개")

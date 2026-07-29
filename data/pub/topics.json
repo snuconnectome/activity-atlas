@@ -5,6 +5,7 @@
       "label": "outliers",
       "top_words": [],
       "size": 764,
+      "slot": -1,
       "color": "#9E9E9E"
     },
     {
@@ -18,6 +19,7 @@
         "summary"
       ],
       "size": 597,
+      "slot": 0,
       "color": "#0072B2"
     },
     {
@@ -31,6 +33,7 @@
         "rag"
       ],
       "size": 192,
+      "slot": 1,
       "color": "#E69F00"
     },
     {
@@ -44,6 +47,7 @@
         "claude opus"
       ],
       "size": 159,
+      "slot": 2,
       "color": "#009E73"
     },
     {
@@ -57,6 +61,7 @@
         "exam final_2026"
       ],
       "size": 115,
+      "slot": 3,
       "color": "#D55E00"
     },
     {
@@ -70,6 +75,7 @@
         "in readme"
       ],
       "size": 85,
+      "slot": 4,
       "color": "#56B4E9"
     },
     {
@@ -83,6 +89,7 @@
         "variants update"
       ],
       "size": 83,
+      "slot": 5,
       "color": "#CC79A7"
     },
     {
@@ -96,6 +103,7 @@
         "p1b red"
       ],
       "size": 53,
+      "slot": 6,
       "color": "#F0E442"
     },
     {
@@ -109,6 +117,7 @@
         "wave 5c"
       ],
       "size": 51,
+      "slot": 7,
       "color": "#000000"
     },
     {
@@ -122,6 +131,7 @@
         "github"
       ],
       "size": 39,
+      "slot": 8,
       "color": "#0072B2"
     },
     {
@@ -135,6 +145,7 @@
         "files via"
       ],
       "size": 23,
+      "slot": 9,
       "color": "#E69F00"
     },
     {
@@ -148,13 +159,16 @@
         "proposal initial"
       ],
       "size": 22,
+      "slot": 10,
       "color": "#009E73"
     }
   ],
   "metadata": {
+    "source_n_commits": 2226,
+    "source_n_authors": 1,
     "clustering_method": "hdbscan",
     "n_commits": 2183,
     "model": "paraphrase-multilingual-MiniLM-L12-v2",
-    "generated_at": "2026-07-29T16:18:42.807373+00:00"
+    "generated_at": "2026-07-29T18:37:17.131141+00:00"
   }
 }

@@ -37,10 +37,14 @@ from umap import UMAP
 # Config
 # ---------------------------------------------------------------------------
 
-from aa_paths import DERIVED_DIR, DERIVED_EMBEDDINGS, DERIVED_TOPICS, raw_commits_path
+from aa_paths import (
+    DERIVED_DIR, DERIVED_EMBEDDINGS, DERIVED_REGISTRY, DERIVED_TOPICS,
+    raw_commits_path,
+)
 
 COMMITS_IN = raw_commits_path()
 TOPICS_OUT = DERIVED_TOPICS
+REGISTRY = DERIVED_REGISTRY
 EMBEDDINGS_OUT = DERIVED_EMBEDDINGS
 
 EMBED_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
@@ -203,13 +207,93 @@ def assign_colors(topic_ids: list[int]) -> dict[int, str]:
     return palette
 
 
+def jaccard(a: set[str], b: set[str]) -> float:
+    if not a or not b:
+        return 0.0
+    return len(a & b) / len(a | b)
+
+
+def stable_slots(records: list[dict]) -> list[dict]:
+    """Bind each cluster to a persistent colour slot across rebuilds.
+
+    HDBSCAN renumbers clusters whenever the data shifts. Measured against one
+    week of new commits: 11 of 12 topic_ids changed meaning, while the colour
+    stayed bound to the id — so the same colour silently came to mean a
+    different topic and week-over-week reading became actively misleading.
+
+    The registry matches this run's clusters to the previous run's by top-word
+    Jaccard overlap, greedily and best-first, and carries the slot across.
+
+    Slot numbers are never recycled. Handing a departed cluster's slot to a new
+    one reintroduces exactly the confusion this exists to prevent — in testing,
+    slot 5 went from "student_forum" to "brain_jepa" while keeping its colour.
+    New clusters therefore take numbers above every slot ever issued. Colours
+    still wrap at eight, so two live topics can share one; the slot is the
+    identity, and the legend carries the label.
+    """
+    prior, high_water = [], -1
+    if REGISTRY.exists():
+        try:
+            reg = json.loads(REGISTRY.read_text(encoding="utf-8"))
+            prior = reg.get("slots", [])
+            high_water = reg.get("high_water", -1)
+        except json.JSONDecodeError:
+            print("  ⚠️  topic_registry.json unreadable — assigning fresh slots", file=sys.stderr)
+
+    live = [r for r in records if r["topic_id"] != -1]
+    pairs = sorted(
+        ((jaccard(set(r["top_words"]), set(p["top_words"])), i, j)
+         for i, r in enumerate(live) for j, p in enumerate(prior)),
+        reverse=True,
+    )
+
+    MIN_OVERLAP = 0.20      # below this the clusters are not the same thing
+    slot_of: dict[int, int] = {}
+    used_slots, used_prior = set(), set()
+    for score, i, j in pairs:
+        if score < MIN_OVERLAP or i in slot_of or j in used_prior:
+            continue
+        slot = prior[j]["slot"]
+        if slot in used_slots:
+            continue
+        slot_of[i] = slot
+        used_slots.add(slot)
+        used_prior.add(j)
+
+    high_water = max([high_water] + [p["slot"] for p in prior] + list(used_slots))
+    for i in range(len(live)):
+        if i not in slot_of:
+            high_water += 1
+            slot_of[i] = high_water
+
+    for i, r in enumerate(live):
+        r["slot"] = slot_of[i]
+        r["color"] = OKABE_ITO[slot_of[i] % len(OKABE_ITO)]
+    for r in records:
+        if r["topic_id"] == -1:
+            r["slot"] = -1
+            r["color"] = OUTLIER_COLOR
+
+    REGISTRY.parent.mkdir(parents=True, exist_ok=True)
+    REGISTRY.write_text(json.dumps({
+        "_note": "Persistent colour slots. Matched to the previous run by top-word "
+                 "Jaccard so a colour keeps meaning the same thing week to week.",
+        "high_water": high_water,
+        "slots": [{"slot": r["slot"], "label": r["label"], "top_words": r["top_words"]}
+                  for r in live],
+    }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    carried = len(used_slots)
+    print(f"  Topic slots: {carried} carried over, {len(live) - carried} new")
+    return records
+
+
 def build_topic_records(
     topic_ids: list[int],
     topic_model: BERTopic | None,
     fallback_keywords: dict[int, list[str]] | None,
 ) -> list[dict]:
     """Construct topics.json records."""
-    palette = assign_colors(topic_ids)
     counts = {t: topic_ids.count(t) for t in set(topic_ids)}
     records: list[dict] = []
     for t in sorted(counts.keys()):
@@ -226,9 +310,8 @@ def build_topic_records(
             "label": label,
             "top_words": list(words),
             "size": int(counts[t]),
-            "color": palette[t],
         })
-    return records
+    return stable_slots(records)
 
 
 def main() -> int:
@@ -276,6 +359,13 @@ def main() -> int:
     topics_doc = {
         "topics": topic_records,
         "metadata": {
+            # Fingerprint of the commit set this model was built from. join.py
+            # refuses to publish when it does not match the commits it is
+            # projecting — otherwise a stale run over lab-wide data could be
+            # emitted into the public profile without anything looking wrong.
+            "source_n_commits": len(commits),
+            "source_n_authors": len({c.get("author_canonical") or c.get("author_login", "")
+                                     for c in commits}),
             "clustering_method": clustering_method,
             "n_commits": len(filtered),
             "model": EMBED_MODEL,
