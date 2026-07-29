@@ -20,9 +20,16 @@ _freeze/
 # Hugging Face cache (only when running locally)
 .hf_cache/
 
-# Generated data (recomputed by CI; keep raw + topic outputs in repo for diffability)
+# Raw commits carry full message bodies for mostly-PRIVATE repos. They stay on
+# the local machine; only the redacted projection in data/pub/ is committed.
+# See scripts/redact.py.
+data/raw/
 data/cache/
 data/tmp/
+
+# Private local-only working-memory exports
+.workmem/
+private/working-memory/
 
 # Node (only if we add dev tooling)
 node_modules/

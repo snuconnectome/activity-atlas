@@ -2,7 +2,10 @@ project:
   type: website
   output-dir: _site
   resources:
-    - "data/**/*.json"
+    # Allowlist, not a glob over data/. `data/**/*.json` published raw commit
+    # bodies for private repos to the open web. Only the redacted projection in
+    # data/pub/ is publishable.
+    - "data/pub/**/*.json"
     - "assets/**"
   render:
     - index.qmd

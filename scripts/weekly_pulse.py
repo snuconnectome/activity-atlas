@@ -1,7 +1,9 @@
 """Weekly Pulse — rule-based delta narrative for each ISO week.
 
-Reads:  data/raw/commits.json + data/topics.json + data/embeddings.json
-Writes: data/weekly_pulse.json
+Reads:  data/raw/commits.json + data/pub/topics.json + data/pub/embeddings.json
+Writes: data/pub/weekly_pulse.json
+
+Runs LOCALLY, not in CI: its input includes local-only raw commits.
 
 For each ISO week with >= 1 commit, generates:
 - commit_count
@@ -24,10 +26,11 @@ WEEKLY_PULSE_NOTABLE_THRESHOLD = 4
 
 
 REPO = Path(__file__).resolve().parent.parent
+PUB_DIR = REPO / "data" / "pub"
 COMMITS_IN = REPO / "data" / "raw" / "commits.json"
-TOPICS_IN = REPO / "data" / "topics.json"
-EMBEDDINGS_IN = REPO / "data" / "embeddings.json"
-OUT = REPO / "data" / "weekly_pulse.json"
+TOPICS_IN = PUB_DIR / "topics.json"
+EMBEDDINGS_IN = PUB_DIR / "embeddings.json"
+OUT = PUB_DIR / "weekly_pulse.json"
 
 
 def iso_week(iso_dt: str) -> str:

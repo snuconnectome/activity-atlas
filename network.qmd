@@ -26,9 +26,9 @@ import { sankey as d3sankey, sankeyLinkHorizontal, sankeyJustify } from "https:/
 import cytoscape from "https://cdn.jsdelivr.net/npm/cytoscape@3.30.0/+esm";
 
 const [commits, embeddings, topicsDoc] = await Promise.all([
-  fetch("data/raw/commits.json").then(r => r.json()),
-  fetch("data/embeddings.json").then(r => r.json()),
-  fetch("data/topics.json").then(r => r.json()),
+  fetch("data/pub/commits_slim.json").then(r => r.json()),
+  fetch("data/pub/embeddings.json").then(r => r.json()),
+  fetch("data/pub/topics.json").then(r => r.json()),
 ]);
 
 const topics = topicsDoc.topics;
@@ -152,7 +152,12 @@ const nodeList = [
   ...orgSet.map(o => ({ name: o, kind: "org", color: orgColors[o] ?? "#888" })),
   ...topicSet.map(t => ({ name: t.label, kind: "topic", color: t.color, topic_id: t.topic_id })),
 ];
-const nameIndex = new Map(nodeList.map((n, i) => [`${n.kind}:${n.name}`, i]));
+// Key topics by topic_id, not by label: KMeans fallback labels are TF-IDF
+// top-words, so two clusters can produce the same string and silently
+// overwrite each other's index — dropping their Sankey links without error.
+const nameIndex = new Map(
+  nodeList.map((n, i) => [n.kind === "topic" ? `topic:${n.topic_id}` : `org:${n.name}`, i]),
+);
 
 const linkList = [];
 for (const [k, v] of orgTopicCount) {
@@ -161,7 +166,7 @@ for (const [k, v] of orgTopicCount) {
   const topic = topicById.get(topic_id);
   if (!topic || topic.topic_id === -1) continue;
   const srcIdx = nameIndex.get(`org:${org}`);
-  const tgtIdx = nameIndex.get(`topic:${topic.label}`);
+  const tgtIdx = nameIndex.get(`topic:${topic.topic_id}`);
   if (srcIdx === undefined || tgtIdx === undefined) continue;
   linkList.push({ source: srcIdx, target: tgtIdx, value: v, color: topic.color });
 }

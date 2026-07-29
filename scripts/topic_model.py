@@ -1,8 +1,11 @@
 """BERTopic + UMAP topic modeling for commit messages.
 
-Reads:  data/raw/commits.json   (output of fetch_commits.py)
-Writes: data/topics.json        (cluster definitions + metadata)
-        data/embeddings.json    (per-commit 2D UMAP projection)
+Reads:  data/raw/commits.json       (output of fetch_commits.py; local-only)
+Writes: data/pub/topics.json        (cluster definitions + metadata)
+        data/pub/embeddings.json    (per-commit 2D UMAP projection)
+
+Runs LOCALLY, not in CI: it needs full commit message bodies, and those never
+enter the repo (see scripts/redact.py).
 
 Strategy
 --------
@@ -37,8 +40,9 @@ from umap import UMAP
 
 REPO = Path(__file__).resolve().parent.parent
 COMMITS_IN = REPO / "data" / "raw" / "commits.json"
-TOPICS_OUT = REPO / "data" / "topics.json"
-EMBEDDINGS_OUT = REPO / "data" / "embeddings.json"
+PUB_DIR = REPO / "data" / "pub"
+TOPICS_OUT = PUB_DIR / "topics.json"
+EMBEDDINGS_OUT = PUB_DIR / "embeddings.json"
 
 EMBED_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
 
@@ -254,6 +258,7 @@ def main() -> int:
             "generated_at": datetime.now(timezone.utc).isoformat(),
         },
     }
+    PUB_DIR.mkdir(parents=True, exist_ok=True)
     TOPICS_OUT.write_text(
         json.dumps(topics_doc, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",

@@ -31,9 +31,9 @@ subtitle: "Commit message embedding을 BERTopic + UMAP으로 투영"
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
 const [commits, embeddings, topicsDoc] = await Promise.all([
-  fetch("data/raw/commits.json").then(r => r.json()),
-  fetch("data/embeddings.json").then(r => r.json()),
-  fetch("data/topics.json").then(r => r.json()),
+  fetch("data/pub/commits_slim.json").then(r => r.json()),
+  fetch("data/pub/embeddings.json").then(r => r.json()),
+  fetch("data/pub/topics.json").then(r => r.json()),
 ]);
 
 const topics = topicsDoc.topics;
@@ -104,7 +104,7 @@ const dots = g.selectAll("circle")
   .on("mouseover", (event, d) => {
     const commit = commitBySha.get(d.sha);
     if (!commit) return;
-    const msg = (commit.message || "").split("\n")[0].slice(0, 80);
+    const msg = commit.subject ?? "";
     const url = `https://github.com/${commit.org}/${commit.repo}/commit/${commit.sha}`;
     tooltip
       .html(`

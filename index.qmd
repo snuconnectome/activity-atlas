@@ -48,7 +48,7 @@ Repo 카테고리(proposal · paper · education · tool · other)별 누적 흐
 import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.16/+esm";
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
-const commits = await fetch("data/raw/commits.json").then(r => r.json());
+const commits = await fetch("data/pub/commits_slim.json").then(r => r.json());
 
 // ─── KPI tiles ────────────────────────────────────────────
 const distinctRepos = new Set(commits.map(c => `${c.org}/${c.repo}`)).size;

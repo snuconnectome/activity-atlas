@@ -14,8 +14,8 @@ subtitle: "Rule-based delta · 매주 무엇이 바뀌었는가"
 
 <script type="module">
 const [pulse, topicsDoc] = await Promise.all([
-  fetch("data/weekly_pulse.json").then(r => r.json()),
-  fetch("data/topics.json").then(r => r.json()),
+  fetch("data/pub/weekly_pulse.json").then(r => r.json()),
+  fetch("data/pub/topics.json").then(r => r.json()),
 ]);
 
 const topicById = new Map(topicsDoc.topics.map(t => [t.topic_id, t]));

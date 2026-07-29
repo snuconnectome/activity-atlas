@@ -49,6 +49,15 @@ messages, projected into 2D with UMAP. Color palette is
 [Okabe-Ito color-blind safe](https://jfly.uni-koeln.de/color/) extended with
 SNU Blue (`#003380`).
 
+### Private working-memory companion
+
+`scripts/workmem.py` adds a local-only "이거 워킹 메모리로" workflow: park an
+important task outside biological working memory, then resurface it when git,
+calendar, time-of-day, and fuzzy urgency signals suggest a humane re-entry
+window. Private items live under
+`~/.local/share/activity-atlas/working-memory/` and are not published to GitHub
+Pages. See [`docs/working-memory.md`](./docs/working-memory.md).
+
 ## Stack
 
 - **Data**: Python (`gh` CLI + sentence-transformers + BERTopic + UMAP)
@@ -65,7 +74,8 @@ activity-atlas/
 ├── scripts/              # Python pipeline (Phase 1, 2, 7)
 │   ├── fetch_commits.py
 │   ├── topic_model.py
-│   └── weekly_pulse.py
+│   ├── weekly_pulse.py
+│   └── workmem.py       # Private local working-memory companion
 ├── data/                 # JSON outputs (versioned for diffability)
 │   ├── schema.json       # Locked data contracts
 │   ├── raw/commits.json
@@ -74,6 +84,8 @@ activity-atlas/
 │   └── weekly_pulse.json
 ├── assets/
 │   └── tokens.css        # SNU Blue / Okabe-Ito palette
+├── docs/
+│   └── working-memory.md # Local-only working-memory design
 ├── *.qmd                 # Quarto pages (Phase 3-7)
 ├── _quarto.yml
 └── .github/workflows/build.yml
@@ -93,19 +105,37 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 # 3. Compute weekly pulse delta
 .venv/bin/python scripts/weekly_pulse.py
 
-# 4. Preview site
+# 4. Redact raw → publishable projection
+.venv/bin/python scripts/redact.py
+
+# 5. Preview site
 ~/.local/quarto/bin/quarto preview
 ```
 
+### Two data tiers
+
+`data/raw/commits.json` holds full commit message bodies for repos that are
+overwhelmingly private. It is **gitignored and never published** — it stays on
+the machine that ran `fetch_commits.py`.
+
+What gets committed and deployed is `data/pub/`: `commits_slim.json` (subject
+line only, 80 chars, no message body) plus the derived `topics.json`,
+`embeddings.json`, and `weekly_pulse.json`. `_quarto.yml` publishes
+`data/pub/**` as an allowlist, and CI refuses to build if raw data or a
+`message` field ever appears in the repo.
+
 ### Refreshing data
 
-CI does **not** run `fetch_commits.py` (cross-org search would need an
-admin-scope token in a workflow secret — a security risk). To refresh data:
+The whole Python pipeline runs locally — CI only renders. `fetch_commits.py`
+needs an admin-scope token (unsafe as a workflow secret), and the topic scripts
+need message bodies that deliberately never enter the repo.
 
 ```bash
 .venv/bin/python scripts/fetch_commits.py
-git add data/raw/commits.json && git commit -m "chore(data): refresh"
-git push  # triggers CI rebuild of topics + viz
+.venv/bin/python scripts/topic_model.py
+.venv/bin/python scripts/weekly_pulse.py
+.venv/bin/python scripts/redact.py
+git add data/pub/ && git commit -m "chore(data): refresh" && git push
 ```
 
 ## Design decisions
