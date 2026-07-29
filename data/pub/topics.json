@@ -1,88 +1,160 @@
 {
   "topics": [
     {
+      "topic_id": -1,
+      "label": "outliers",
+      "top_words": [],
+      "size": 764,
+      "color": "#9E9E9E"
+    },
+    {
       "topic_id": 0,
-      "label": "readme / md / handoff",
+      "label": "session / revision / 세션",
       "top_words": [
-        "readme",
-        "md",
-        "handoff",
         "session",
-        "ids"
+        "revision",
+        "세션",
+        "rebuttal",
+        "summary"
       ],
-      "size": 5,
+      "size": 597,
       "color": "#0072B2"
     },
     {
       "topic_id": 1,
-      "label": "현재제안서 / initial / plan",
+      "label": "rag system / rag pipeline / for rag",
       "top_words": [
-        "현재제안서",
-        "initial",
-        "plan",
-        "iter",
-        "docs"
+        "rag system",
+        "rag pipeline",
+        "for rag",
+        "llm integration",
+        "rag"
       ],
-      "size": 22,
+      "size": 192,
       "color": "#E69F00"
     },
     {
       "topic_id": 2,
-      "label": "via / add files / files via",
+      "label": "com intro_v10 / co authored / intro_v10",
       "top_words": [
-        "via",
-        "add files",
-        "files via",
-        "files",
-        "via upload"
+        "com intro_v10",
+        "co authored",
+        "intro_v10",
+        "authored by",
+        "claude opus"
       ],
-      "size": 10,
+      "size": 159,
       "color": "#009E73"
     },
     {
       "topic_id": 3,
-      "label": "phase / add / pi",
+      "label": "3a4c update / changed files / update docs",
       "top_words": [
-        "phase",
-        "add",
-        "pi",
-        "2026",
-        "document"
+        "3a4c update",
+        "changed files",
+        "update docs",
+        "final_2026 student_exam_cha_jiook_v0",
+        "exam final_2026"
       ],
-      "size": 34,
+      "size": 115,
       "color": "#D55E00"
     },
     {
       "topic_id": 4,
-      "label": "initial commit / commit / initial",
+      "label": "update readme / readme md / comprehensive readme",
       "top_words": [
-        "initial commit",
-        "commit",
-        "initial",
-        "혐오 박스",
-        "lbm"
+        "update readme",
+        "readme md",
+        "comprehensive readme",
+        "readme add",
+        "in readme"
       ],
-      "size": 2,
+      "size": 85,
       "color": "#56B4E9"
     },
     {
       "topic_id": 5,
-      "label": "final / 혐오 박스 / lab",
+      "label": "new_s05 / new_s05 v4 / infographic variants",
       "top_words": [
-        "final",
-        "혐오 박스",
-        "lab",
-        "neurips",
-        "nature"
+        "new_s05",
+        "new_s05 v4",
+        "infographic variants",
+        "new_s07",
+        "variants update"
       ],
-      "size": 2,
+      "size": 83,
       "color": "#CC79A7"
+    },
+    {
+      "topic_id": 6,
+      "label": "parse_evidence_blocks / trinity 013 / 013 p1b",
+      "top_words": [
+        "parse_evidence_blocks",
+        "trinity 013",
+        "013 p1b",
+        "trinity 009",
+        "p1b red"
+      ],
+      "size": 53,
+      "color": "#F0E442"
+    },
+    {
+      "topic_id": 7,
+      "label": "wave 5a / wave 4a / wave 3a",
+      "top_words": [
+        "wave 5a",
+        "wave 4a",
+        "wave 3a",
+        "wave 4c",
+        "wave 5c"
+      ],
+      "size": 51,
+      "color": "#000000"
+    },
+    {
+      "topic_id": 8,
+      "label": "update gitignore / add github / github pages",
+      "top_words": [
+        "update gitignore",
+        "add github",
+        "github pages",
+        "update project",
+        "github"
+      ],
+      "size": 39,
+      "color": "#0072B2"
+    },
+    {
+      "topic_id": 9,
+      "label": "upload add / upload / via upload",
+      "top_words": [
+        "upload add",
+        "upload",
+        "via upload",
+        "add files",
+        "files via"
+      ],
+      "size": 23,
+      "color": "#E69F00"
+    },
+    {
+      "topic_id": 10,
+      "label": "initial commit / commit initial / commit",
+      "top_words": [
+        "initial commit",
+        "commit initial",
+        "commit",
+        "commit project",
+        "proposal initial"
+      ],
+      "size": 22,
+      "color": "#009E73"
     }
   ],
   "metadata": {
-    "clustering_method": "kmeans_fallback",
-    "n_commits": 75,
+    "clustering_method": "hdbscan",
+    "n_commits": 2183,
     "model": "paraphrase-multilingual-MiniLM-L12-v2",
-    "generated_at": "2026-07-29T15:52:08.873603+00:00"
+    "generated_at": "2026-07-29T16:09:31.865773+00:00"
   }
 }

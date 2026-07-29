@@ -17,20 +17,44 @@ import json
 import sys
 from collections import Counter, defaultdict
 from datetime import datetime
-from pathlib import Path
 
 
-# TODO(human): What commit count counts as a "notable" week for you?
-# Used in delta_bullets to flag bursts vs baseline. Defaults to top-quartile.
-WEEKLY_PULSE_NOTABLE_THRESHOLD = 4
+# A "notable" week is judged against recent weeks, not a fixed count. The old
+# constant 4 was set when the dataset held 82 commits (~2.7/week); at the real
+# volume (median 46/week) it fired in 38 of 40 weeks, so the flag carried no
+# information. Rolling median + 1.5·MAD keeps it rare and self-calibrating as
+# activity grows. Still rule-based — no model decides what is notable.
+BURST_WINDOW_WEEKS = 12
+BURST_MAD_MULTIPLIER = 1.5
+BURST_MIN_HISTORY = 4      # below this, don't claim to know the baseline
+BURST_FLOOR = 4            # tiny-dataset guard, matches the original constant
 
 
-REPO = Path(__file__).resolve().parent.parent
-PUB_DIR = REPO / "data" / "pub"
-COMMITS_IN = REPO / "data" / "raw" / "commits.json"
+from aa_paths import PUB_DIR, REPO, raw_commits_path
+
+COMMITS_IN = raw_commits_path()
 TOPICS_IN = PUB_DIR / "topics.json"
 EMBEDDINGS_IN = PUB_DIR / "embeddings.json"
 OUT = PUB_DIR / "weekly_pulse.json"
+
+
+def median(xs: list[float]) -> float:
+    s = sorted(xs)
+    n = len(s)
+    if not n:
+        return 0.0
+    mid = n // 2
+    return float(s[mid]) if n % 2 else (s[mid - 1] + s[mid]) / 2
+
+
+def burst_threshold(history: list[int]) -> float | None:
+    """Rolling median + 1.5·MAD over the trailing weeks, or None if too short."""
+    window = history[-BURST_WINDOW_WEEKS:]
+    if len(window) < BURST_MIN_HISTORY:
+        return None
+    med = median(window)
+    mad = median([abs(x - med) for x in window])
+    return max(med + BURST_MAD_MULTIPLIER * mad, med + 1, BURST_FLOOR)
 
 
 def iso_week(iso_dt: str) -> str:
@@ -65,6 +89,7 @@ def main() -> int:
 
     weeks = sorted(by_week.keys())
     pulse: list[dict] = []
+    burst_weeks = 0
 
     for i, week in enumerate(weeks):
         cs = by_week[week]
@@ -114,9 +139,11 @@ def main() -> int:
             if top_org_n >= commit_count * 0.6 and commit_count >= 2:
                 bullets.append(f"무게중심: `{top_org}` ({top_org_n}/{commit_count})")
 
-        # 5. Burst flag
-        if commit_count >= WEEKLY_PULSE_NOTABLE_THRESHOLD:
-            bullets.append(f"🔥 notable burst (≥ {WEEKLY_PULSE_NOTABLE_THRESHOLD})")
+        # 5. Burst flag, relative to the trailing baseline
+        threshold = burst_threshold([by_week[w].__len__() for w in weeks[:i]])
+        if threshold is not None and commit_count >= threshold:
+            bullets.append(f"🔥 notable burst (최근 {BURST_WINDOW_WEEKS}주 기준 ≥ {threshold:.0f})")
+            burst_weeks += 1
 
         # 6. Top repo this week (if there's a clear leader)
         if repo_counter:
@@ -139,7 +166,9 @@ def main() -> int:
         encoding="utf-8",
     )
     print(f"✅ Weekly pulse: {len(pulse)} weeks → {OUT.relative_to(REPO)}")
-    print(f"   Threshold for 'notable' burst: {WEEKLY_PULSE_NOTABLE_THRESHOLD} commits/week")
+    if pulse:
+        print(f"   🔥 burst flagged in {burst_weeks}/{len(pulse)} weeks "
+              f"({burst_weeks / len(pulse):.0%}) — rolling median + {BURST_MAD_MULTIPLIER}·MAD")
     return 0
 
 

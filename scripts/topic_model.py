@@ -22,7 +22,6 @@ import json
 import re
 import sys
 from datetime import datetime, timezone
-from pathlib import Path
 
 import numpy as np
 from bertopic import BERTopic
@@ -38,13 +37,16 @@ from umap import UMAP
 # Config
 # ---------------------------------------------------------------------------
 
-REPO = Path(__file__).resolve().parent.parent
-COMMITS_IN = REPO / "data" / "raw" / "commits.json"
-PUB_DIR = REPO / "data" / "pub"
+from aa_paths import PUB_DIR, REPO, raw_commits_path
+
+COMMITS_IN = raw_commits_path()
 TOPICS_OUT = PUB_DIR / "topics.json"
 EMBEDDINGS_OUT = PUB_DIR / "embeddings.json"
 
 EMBED_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
+
+# Upper bound on non-outlier topics after merging.
+MAX_TOPICS = 12
 
 # Okabe-Ito color-blind safe palette (excluding black/yellow which are reserved)
 OKABE_ITO = [
@@ -113,26 +115,48 @@ def is_degenerate(topic_labels: list[int]) -> bool:
     return False
 
 
-def cluster_primary(embeddings: np.ndarray, texts: list[str]) -> tuple[list[int], BERTopic]:
-    """HDBSCAN-backed BERTopic. Returns (topic_labels, model)."""
+def cluster_primary(
+    embeddings: np.ndarray,
+    texts: list[str],
+    embedding_model: SentenceTransformer,
+) -> tuple[list[int], BERTopic]:
+    """HDBSCAN-backed BERTopic. Returns (topic_labels, model).
+
+    embedding_model must be passed even though embeddings are precomputed:
+    KeyBERTInspired re-embeds candidate keywords, and without it BERTopic's
+    self.embedding_model is None, so every run raised
+    "'NoneType' object has no attribute 'embed_documents'" and silently fell
+    through to the KMeans branch — meaning HDBSCAN never actually ran.
+    """
+    n = len(texts)
+    # Measured at N=2183: the previous fixed min_cluster_size=5 with "eom"
+    # selection put 91% of commits in a single cluster, and raising it alone
+    # made that worse (84% at mcs=21). "leaf" selection plus a size floor that
+    # scales with N gives a usable spread (max cluster ~5%), and min_dist=0.0
+    # is what UMAP recommends when the projection feeds a clusterer — 0.3 was
+    # smearing the density structure HDBSCAN needs.
     umap_model = UMAP(
-        n_neighbors=10, min_dist=0.3, n_components=5,
+        n_neighbors=10, min_dist=0.0, n_components=5,
         random_state=42, low_memory=False,
     )
     hdbscan_model = HDBSCAN(
-        min_cluster_size=5, min_samples=2,
-        metric="euclidean", cluster_selection_method="eom",
+        min_cluster_size=max(5, int(0.01 * n)), min_samples=2,
+        metric="euclidean", cluster_selection_method="leaf",
         prediction_data=True,
     )
     vectorizer_model = CountVectorizer(
         ngram_range=(1, 2), min_df=1, stop_words=None,
     )
     topic_model = BERTopic(
+        embedding_model=embedding_model,
         umap_model=umap_model,
         hdbscan_model=hdbscan_model,
         vectorizer_model=vectorizer_model,
         representation_model=KeyBERTInspired(),
         min_topic_size=5,
+        # The colour palette holds 8 entries and a legend stops being readable
+        # well before 30 rows, so merge the long tail by c-TF-IDF similarity.
+        nr_topics=MAX_TOPICS,
         calculate_probabilities=False,
         verbose=False,
     )
@@ -225,7 +249,7 @@ def main() -> int:
 
     # Primary: BERTopic + HDBSCAN
     try:
-        topics_primary, topic_model = cluster_primary(embeddings, texts)
+        topics_primary, topic_model = cluster_primary(embeddings, texts, model)
         print(f"  HDBSCAN result: {len(set(topics_primary))} unique labels, {topics_primary.count(-1)} outliers")
     except Exception as exc:
         print(f"  HDBSCAN failed: {exc} — going straight to KMeans fallback")

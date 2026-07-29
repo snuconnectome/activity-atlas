@@ -23,11 +23,10 @@ from __future__ import annotations
 
 import json
 import sys
-from pathlib import Path
 
-REPO = Path(__file__).resolve().parent.parent
-COMMITS_IN = REPO / "data" / "raw" / "commits.json"
-PUB_DIR = REPO / "data" / "pub"
+from aa_paths import PUB_DIR, REPO, raw_commits_path
+
+COMMITS_IN = raw_commits_path()
 COMMITS_OUT = PUB_DIR / "commits_slim.json"
 
 SUBJECT_MAX = 80

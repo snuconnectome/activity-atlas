@@ -1,140 +1,599 @@
 [
   {
-    "week_iso": "2026-W20",
+    "week_iso": "2026-W31",
+    "commit_count": 48,
+    "top_topics": [
+      0,
+      2,
+      4
+    ],
+    "delta_bullets": [
+      "48 commits (-14 vs 전주)",
+      "신규 활동 repo: `snuconnectome/dept-notice-kb`, `Transconnectome/paper-review`",
+      "신규 토픽: update readme / readme md / comprehensive readme",
+      "무게중심: `snuconnectome` (45/48)"
+    ]
+  },
+  {
+    "week_iso": "2026-W30",
+    "commit_count": 62,
+    "top_topics": [
+      0,
+      6,
+      1
+    ],
+    "delta_bullets": [
+      "62 commits (+47 vs 전주)",
+      "신규 활동 repo: `snuconnectome/claude-paper-starter`, `snuconnectome/veritas2026`, `snuconnectome/snu-faculty-performance` + 7 more",
+      "신규 토픽: parse_evidence_blocks / trinity 013 / 013 p1b, initial commit / commit initial / commit"
+    ]
+  },
+  {
+    "week_iso": "2026-W28",
     "commit_count": 15,
     "top_topics": [
-      3,
+      0,
       2,
       1
     ],
     "delta_bullets": [
-      "15 commits (-9 vs 전주)",
-      "신규 활동 repo: `snuconnectome/activity-atlas`, `Transconnectome/nrf-neuro-ai`, `Transconnectome/intern-2026-summer` + 1 more",
-      "신규 토픽: initial commit / commit / initial",
-      "🔥 notable burst (≥ 4)"
+      "15 commits (-6 vs 전주)",
+      "신규 활동 repo: `Transconnectome/SwiFT_v2_paper`, `Transconnectome/trinity-2.0`, `neurox-org/.github-private`",
+      "신규 토픽: com intro_v10 / co authored / intro_v10, rag system / rag pipeline / for rag, update gitignore / add github / github pages",
+      "주요 repo: `snuconnectome/snu-psych-fund-plan` (8건)"
+    ]
+  },
+  {
+    "week_iso": "2026-W27",
+    "commit_count": 21,
+    "top_topics": [
+      0,
+      3,
+      4
+    ],
+    "delta_bullets": [
+      "21 commits (-44 vs 전주)",
+      "신규 활동 repo: `snuconnectome/snu-psych-fund-plan`, `neurox-org/nlm-strategic-query-learning`, `snuconnectome/cha-talks`",
+      "신규 토픽: update readme / readme md / comprehensive readme",
+      "무게중심: `snuconnectome` (13/21)"
+    ]
+  },
+  {
+    "week_iso": "2026-W26",
+    "commit_count": 65,
+    "top_topics": [
+      3,
+      0,
+      8
+    ],
+    "delta_bullets": [
+      "65 commits (+6 vs 전주)",
+      "신규 활동 repo: `snuconnectome/2026_BMB`",
+      "신규 토픽: 3a4c update / changed files / update docs, update gitignore / add github / github pages",
+      "무게중심: `snuconnectome` (51/65)",
+      "주요 repo: `snuconnectome/2026_BMB` (51건)"
+    ]
+  },
+  {
+    "week_iso": "2026-W25",
+    "commit_count": 59,
+    "top_topics": [
+      6,
+      0,
+      2
+    ],
+    "delta_bullets": [
+      "59 commits (-30 vs 전주)",
+      "신규 활동 repo: `Transconnectome/ai-coexistence-cognition`, `snuconnectome/cha-talks`, `Transconnectome/connectome-paper-submissions` + 3 more",
+      "무게중심: `Transconnectome` (58/59)",
+      "주요 repo: `Transconnectome/trinity-2.0` (36건)"
+    ]
+  },
+  {
+    "week_iso": "2026-W24",
+    "commit_count": 89,
+    "top_topics": [
+      3,
+      0,
+      6
+    ],
+    "delta_bullets": [
+      "89 commits (+31 vs 전주)",
+      "신규 활동 repo: `Transconnectome/lab-ai-usage`, `Transconnectome/conference`, `snuconnectome/kolab-outside-director` + 4 more",
+      "신규 토픽: initial commit / commit initial / commit, 3a4c update / changed files / update docs, new_s05 / new_s05 v4 / infographic variants"
+    ]
+  },
+  {
+    "week_iso": "2026-W23",
+    "commit_count": 58,
+    "top_topics": [
+      0,
+      2,
+      6
+    ],
+    "delta_bullets": [
+      "58 commits (+23 vs 전주)",
+      "신규 활동 repo: `snuconnectome/SNU-Connectome-Fellows-Program`, `Transconnectome/connectome-paper-workshop`, `Transconnectome/lukor-2-qml` + 5 more",
+      "신규 토픽: rag system / rag pipeline / for rag, update readme / readme md / comprehensive readme",
+      "무게중심: `Transconnectome` (35/58)"
+    ]
+  },
+  {
+    "week_iso": "2026-W22",
+    "commit_count": 35,
+    "top_topics": [
+      0,
+      7,
+      2
+    ],
+    "delta_bullets": [
+      "35 commits (-27 vs 전주)",
+      "신규 활동 repo: `Transconnectome/trinity-2.0`, `Transconnectome/ukb-climate-fmri-vlm`, `Transconnectome/SwiFT_v2_paper`",
+      "신규 토픽: parse_evidence_blocks / trinity 013 / 013 p1b, wave 5a / wave 4a / wave 3a, new_s05 / new_s05 v4 / infographic variants",
+      "무게중심: `Transconnectome` (30/35)"
+    ]
+  },
+  {
+    "week_iso": "2026-W21",
+    "commit_count": 62,
+    "top_topics": [
+      0,
+      2,
+      9
+    ],
+    "delta_bullets": [
+      "62 commits (-47 vs 전주)",
+      "신규 활동 repo: `Transconnectome/lbm-agent`, `snuconnectome/meeting-app`",
+      "무게중심: `Transconnectome` (42/62)"
+    ]
+  },
+  {
+    "week_iso": "2026-W20",
+    "commit_count": 109,
+    "top_topics": [
+      0,
+      1,
+      9
+    ],
+    "delta_bullets": [
+      "109 commits (-140 vs 전주)",
+      "신규 활동 repo: `Transconnectome/ai-cowriter`, `snuconnectome/ai-copresenter`, `snuconnectome/activity-atlas` + 7 more",
+      "신규 토픽: initial commit / commit initial / commit"
     ]
   },
   {
     "week_iso": "2026-W19",
-    "commit_count": 24,
+    "commit_count": 249,
     "top_topics": [
-      3,
+      0,
       2,
-      0
+      7
     ],
     "delta_bullets": [
-      "24 commits (+20 vs 전주)",
-      "신규 활동 repo: `neurox-org/ai4science-2026`, `Transconnectome/paper-review`, `Transconnectome/InnoEdu` + 3 more",
-      "신규 토픽: via / add files / files via, final / 혐오 박스 / lab, readme / md / handoff",
-      "무게중심: `Transconnectome` (23/24)",
-      "🔥 notable burst (≥ 4)"
+      "249 commits (+179 vs 전주)",
+      "신규 활동 repo: `Transconnectome/uleval`, `Transconnectome/youth-brain-watch`, `neurox-org/omicsFM-LLM` + 12 more",
+      "신규 토픽: upload add / upload / via upload",
+      "무게중심: `Transconnectome` (180/249)",
+      "🔥 notable burst (최근 12주 기준 ≥ 115)"
     ]
   },
   {
     "week_iso": "2026-W18",
-    "commit_count": 4,
+    "commit_count": 70,
     "top_topics": [
-      3,
-      4,
-      1
-    ],
-    "delta_bullets": [
-      "4 commits (-21 vs 전주)",
-      "신규 활동 repo: `Transconnectome/sci-method`, `Transconnectome/eurohpc-tvb-digital-twin`",
-      "신규 토픽: initial commit / commit / initial",
-      "무게중심: `Transconnectome` (4/4)",
-      "🔥 notable burst (≥ 4)",
-      "주요 repo: `Transconnectome/eurohpc-tvb-digital-twin` (3건)"
-    ]
-  },
-  {
-    "week_iso": "2026-W17",
-    "commit_count": 25,
-    "top_topics": [
-      3,
-      1
-    ],
-    "delta_bullets": [
-      "25 commits (+23 vs 전주)",
-      "신규 활동 repo: `Transconnectome/nrf-neuro-ai`, `snuconnectome/decoding-annual-report`, `snuconnectome/veritas2026`",
-      "신규 토픽: phase / add / pi",
-      "🔥 notable burst (≥ 4)"
-    ]
-  },
-  {
-    "week_iso": "2026-W15",
-    "commit_count": 2,
-    "top_topics": [
+      0,
       2,
       1
     ],
     "delta_bullets": [
-      "2 commits (+1 vs 전주)",
-      "신규 활동 repo: `snuconnectome/innoedu-innovation`",
-      "신규 토픽: via / add files / files via, 현재제안서 / initial / plan",
-      "무게중심: `snuconnectome` (2/2)",
-      "주요 repo: `snuconnectome/innoedu-innovation` (2건)"
+      "70 commits (-77 vs 전주)",
+      "신규 활동 repo: `snuconnectome/evaluator-ablation`, `snuconnectome/cha-talks`, `Transconnectome/math-racing-ue5` + 5 more",
+      "신규 토픽: initial commit / commit initial / commit, update gitignore / add github / github pages",
+      "무게중심: `Transconnectome` (48/70)"
+    ]
+  },
+  {
+    "week_iso": "2026-W17",
+    "commit_count": 147,
+    "top_topics": [
+      0,
+      7,
+      1
+    ],
+    "delta_bullets": [
+      "147 commits (+102 vs 전주)",
+      "신규 활동 repo: `Transconnectome/eurohpc-tvb-digital-twin`, `Transconnectome/spain-bfm`, `Transconnectome/bio-ai-scientist` + 6 more",
+      "신규 토픽: update readme / readme md / comprehensive readme, wave 5a / wave 4a / wave 3a, new_s05 / new_s05 v4 / infographic variants",
+      "무게중심: `Transconnectome` (107/147)",
+      "🔥 notable burst (최근 12주 기준 ≥ 78)"
+    ]
+  },
+  {
+    "week_iso": "2026-W16",
+    "commit_count": 45,
+    "top_topics": [
+      0,
+      3,
+      1
+    ],
+    "delta_bullets": [
+      "45 commits (-104 vs 전주)",
+      "신규 활동 repo: `snuconnectome/Fm-agent`, `Transconnectome/agentic-ai`, `Transconnectome/lukor-2-qml` + 4 more",
+      "신규 토픽: 3a4c update / changed files / update docs, initial commit / commit initial / commit"
+    ]
+  },
+  {
+    "week_iso": "2026-W15",
+    "commit_count": 149,
+    "top_topics": [
+      0,
+      2,
+      5
+    ],
+    "delta_bullets": [
+      "149 commits (+13 vs 전주)",
+      "신규 활동 repo: `snuconnectome/lecture-bcs`, `Transconnectome/nrf-neuro-ai`, `Transconnectome/paperorchestra-data` + 5 more",
+      "신규 토픽: wave 5a / wave 4a / wave 3a, update gitignore / add github / github pages, upload add / upload / via upload",
+      "🔥 notable burst (최근 12주 기준 ≥ 70)"
     ]
   },
   {
     "week_iso": "2026-W14",
-    "commit_count": 1,
+    "commit_count": 136,
     "top_topics": [
-      3
+      0,
+      2,
+      5
     ],
     "delta_bullets": [
-      "1 commits (±0 vs 전주)",
-      "신규 활동 repo: `snuconnectome/bk21-aix`",
-      "신규 토픽: phase / add / pi"
+      "136 commits (+75 vs 전주)",
+      "신규 활동 repo: `snuconnectome/diver-icml-rebuttal`, `Transconnectome/brain-lang-align`, `Transconnectome/paper-review` + 8 more",
+      "신규 토픽: new_s05 / new_s05 v4 / infographic variants",
+      "무게중심: `Transconnectome` (88/136)",
+      "🔥 notable burst (최근 12주 기준 ≥ 47)"
+    ]
+  },
+  {
+    "week_iso": "2026-W13",
+    "commit_count": 61,
+    "top_topics": [
+      0,
+      2,
+      1
+    ],
+    "delta_bullets": [
+      "61 commits (+29 vs 전주)",
+      "신규 활동 repo: `snuconnectome/mental-wellness-center`, `snuconnectome/hackathon-2026`, `Transconnectome/nesap-genomics-connectome` + 6 more",
+      "신규 토픽: initial commit / commit initial / commit, update readme / readme md / comprehensive readme",
+      "무게중심: `snuconnectome` (38/61)",
+      "🔥 notable burst (최근 12주 기준 ≥ 37)"
     ]
   },
   {
     "week_iso": "2026-W12",
-    "commit_count": 1,
+    "commit_count": 32,
     "top_topics": [
+      5,
+      0,
+      2
+    ],
+    "delta_bullets": [
+      "32 commits (-110 vs 전주)",
+      "신규 활동 repo: `Transconnectome/enigma_ocd_mbbn`, `Transconnectome/ssk-book-chapter`",
+      "신규 토픽: update gitignore / add github / github pages",
+      "무게중심: `neurox-org` (23/32)",
+      "주요 repo: `neurox-org/k-bfm-neurox` (23건)"
+    ]
+  },
+  {
+    "week_iso": "2026-W11",
+    "commit_count": 142,
+    "top_topics": [
+      5,
+      0,
       1
     ],
     "delta_bullets": [
-      "1 commits (-2 vs 전주)",
-      "신규 활동 repo: `Transconnectome/ssk-book-chapter`"
+      "142 commits (+101 vs 전주)",
+      "신규 활동 repo: `snuconnectome/grant-quest`, `Transconnectome/InnoEdu`",
+      "신규 토픽: new_s05 / new_s05 v4 / infographic variants, initial commit / commit initial / commit, 3a4c update / changed files / update docs",
+      "무게중심: `neurox-org` (121/142)",
+      "🔥 notable burst (최근 12주 기준 ≥ 25)",
+      "주요 repo: `neurox-org/k-bfm-neurox` (121건)"
+    ]
+  },
+  {
+    "week_iso": "2026-W10",
+    "commit_count": 41,
+    "top_topics": [
+      0,
+      1,
+      4
+    ],
+    "delta_bullets": [
+      "41 commits (+33 vs 전주)",
+      "신규 활동 repo: `Transconnectome/00IITP-AI`, `snuconnectome/2026_BMB`, `snuconnectome/review-icml-2026` + 2 more",
+      "신규 토픽: update readme / readme md / comprehensive readme, com intro_v10 / co authored / intro_v10, update gitignore / add github / github pages",
+      "무게중심: `snuconnectome` (30/41)",
+      "🔥 notable burst (최근 12주 기준 ≥ 24)",
+      "주요 repo: `snuconnectome/2026_BMB` (25건)"
+    ]
+  },
+  {
+    "week_iso": "2026-W09",
+    "commit_count": 8,
+    "top_topics": [
+      1,
+      0
+    ],
+    "delta_bullets": [
+      "8 commits (-7 vs 전주)",
+      "신규 활동 repo: `snuconnectome/cline-for-student`, `snuconnectome/connectomelab`",
+      "무게중심: `snuconnectome` (8/8)",
+      "주요 repo: `snuconnectome/cline-for-student` (5건)"
+    ]
+  },
+  {
+    "week_iso": "2026-W08",
+    "commit_count": 15,
+    "top_topics": [
+      4,
+      0,
+      2
+    ],
+    "delta_bullets": [
+      "15 commits (+12 vs 전주)",
+      "신규 활동 repo: `snuconnectome/MBBN-IC`, `snuconnectome/ssk-book-chapter`, `snuconnectome/project_janus`",
+      "신규 토픽: com intro_v10 / co authored / intro_v10, update gitignore / add github / github pages, rag system / rag pipeline / for rag",
+      "무게중심: `snuconnectome` (15/15)",
+      "주요 repo: `snuconnectome/ssk-book-chapter` (13건)"
+    ]
+  },
+  {
+    "week_iso": "2026-W07",
+    "commit_count": 3,
+    "top_topics": [
+      4,
+      0
+    ],
+    "delta_bullets": [
+      "3 commits (-53 vs 전주)",
+      "신규 활동 repo: `snuconnectome/neurox-nm-revision`",
+      "무게중심: `snuconnectome` (3/3)",
+      "주요 repo: `snuconnectome/neurox-nm-revision` (3건)"
     ]
   },
   {
     "week_iso": "2026-W06",
-    "commit_count": 3,
+    "commit_count": 56,
     "top_topics": [
-      1
+      3,
+      2,
+      0
     ],
     "delta_bullets": [
-      "3 commits (+2 vs 전주)",
-      "신규 활동 repo: `Transconnectome/k-bfm-neurox`, `neurox-org/k-bfm-neurox`, `snuconnectome/IITP-2026-Proposal`"
+      "56 commits (+17 vs 전주)",
+      "신규 활동 repo: `snuconnectome/IITP-2026-Proposal`, `snuconnectome/2026_SNUIPS_AI_Workshop`",
+      "신규 토픽: rag system / rag pipeline / for rag, 3a4c update / changed files / update docs",
+      "🔥 notable burst (최근 12주 기준 ≥ 30)",
+      "주요 repo: `Transconnectome/00IITP-AI` (31건)"
     ]
   },
   {
     "week_iso": "2026-W05",
+    "commit_count": 39,
+    "top_topics": [
+      0,
+      4,
+      2
+    ],
+    "delta_bullets": [
+      "39 commits (+27 vs 전주)",
+      "신규 활동 repo: `Transconnectome/00IITP-AI`, `snuconnectome/00IITP-AI`",
+      "신규 토픽: com intro_v10 / co authored / intro_v10",
+      "무게중심: `neurox-org` (25/39)",
+      "🔥 notable burst (최근 12주 기준 ≥ 30)",
+      "주요 repo: `neurox-org/k-bfm-neurox` (25건)"
+    ]
+  },
+  {
+    "week_iso": "2026-W04",
+    "commit_count": 12,
+    "top_topics": [
+      0,
+      4
+    ],
+    "delta_bullets": [
+      "12 commits (-1 vs 전주)",
+      "무게중심: `neurox-org` (12/12)",
+      "주요 repo: `neurox-org/k-bfm-neurox` (12건)"
+    ]
+  },
+  {
+    "week_iso": "2026-W03",
+    "commit_count": 13,
+    "top_topics": [
+      4,
+      0,
+      8
+    ],
+    "delta_bullets": [
+      "13 commits (-6 vs 전주)",
+      "신규 활동 repo: `snuconnectome/grant_veritas`, `neurox-org/k-bfm-neurox`, `snuconnectome/iitp-ai` + 2 more",
+      "신규 토픽: update readme / readme md / comprehensive readme, initial commit / commit initial / commit",
+      "주요 repo: `neurox-org/k-bfm-neurox` (7건)"
+    ]
+  },
+  {
+    "week_iso": "2026-W01",
+    "commit_count": 19,
+    "top_topics": [
+      8,
+      2,
+      0
+    ],
+    "delta_bullets": [
+      "19 commits (±0 vs 전주)",
+      "신규 활동 repo: `Transconnectome/infant-fmri`, `Transconnectome/SwiFT_v2_paper`",
+      "신규 토픽: com intro_v10 / co authored / intro_v10",
+      "무게중심: `snuconnectome` (14/19)",
+      "주요 repo: `snuconnectome/titan_fresh` (12건)"
+    ]
+  },
+  {
+    "week_iso": "2025-W52",
+    "commit_count": 19,
+    "top_topics": [
+      0,
+      8,
+      3
+    ],
+    "delta_bullets": [
+      "19 commits (-1 vs 전주)",
+      "신규 활동 repo: `snuconnectome/titan_fresh`, `snuconnectome/titans`, `Transconnectome/AI-CoScientist`",
+      "신규 토픽: update gitignore / add github / github pages, 3a4c update / changed files / update docs, initial commit / commit initial / commit",
+      "무게중심: `snuconnectome` (17/19)",
+      "주요 repo: `snuconnectome/titans` (11건)"
+    ]
+  },
+  {
+    "week_iso": "2025-W51",
+    "commit_count": 20,
+    "top_topics": [
+      0,
+      4
+    ],
+    "delta_bullets": [
+      "20 commits (+4 vs 전주)",
+      "신규 활동 repo: `snuconnectome/00IITP-AI`, `Transconnectome/00IITP-AI`, `snuconnectome/grant_veritas`",
+      "무게중심: `snuconnectome` (13/20)"
+    ]
+  },
+  {
+    "week_iso": "2025-W50",
+    "commit_count": 16,
+    "top_topics": [
+      0,
+      8,
+      4
+    ],
+    "delta_bullets": [
+      "16 commits (-5 vs 전주)",
+      "신규 활동 repo: `snuconnectome/veritas2026`",
+      "신규 토픽: update gitignore / add github / github pages, update readme / readme md / comprehensive readme, rag system / rag pipeline / for rag",
+      "주요 repo: `Transconnectome/AI-CoScientist` (9건)"
+    ]
+  },
+  {
+    "week_iso": "2025-W49",
+    "commit_count": 21,
+    "top_topics": [
+      0,
+      2
+    ],
+    "delta_bullets": [
+      "21 commits (+15 vs 전주)",
+      "신규 활동 repo: `Transconnectome/SNU-Connectome-Fellows-Program`, `snuconnectome/AI4Psych_writing`, `snuconnectome/Japan`",
+      "신규 토픽: com intro_v10 / co authored / intro_v10"
+    ]
+  },
+  {
+    "week_iso": "2025-W48",
+    "commit_count": 6,
+    "top_topics": [
+      0,
+      3
+    ],
+    "delta_bullets": [
+      "6 commits (-28 vs 전주)",
+      "신규 활동 repo: `Transconnectome/AI-CoScientist`, `snuconnectome/AgentReview-main`, `snuconnectome/ai-coscientist-qml`",
+      "신규 토픽: 3a4c update / changed files / update docs",
+      "무게중심: `Transconnectome` (4/6)",
+      "주요 repo: `Transconnectome/AI-CoScientist` (4건)"
+    ]
+  },
+  {
+    "week_iso": "2025-W46",
+    "commit_count": 34,
+    "top_topics": [
+      1,
+      4,
+      8
+    ],
+    "delta_bullets": [
+      "34 commits (-44 vs 전주)",
+      "신규 활동 repo: `snuconnectome/Japan`, `snuconnectome/ref_letter`",
+      "무게중심: `snuconnectome` (34/34)",
+      "주요 repo: `snuconnectome/BUSINESS` (20건)"
+    ]
+  },
+  {
+    "week_iso": "2025-W45",
+    "commit_count": 78,
+    "top_topics": [
+      1,
+      0,
+      4
+    ],
+    "delta_bullets": [
+      "78 commits (+27 vs 전주)",
+      "신규 활동 repo: `snuconnectome/BUSINESS`, `snuconnectome/google-forms-notion-sync`, `snuconnectome/viberank-connectomelab` + 3 more",
+      "무게중심: `snuconnectome` (71/78)",
+      "🔥 notable burst (최근 12주 기준 ≥ 70)"
+    ]
+  },
+  {
+    "week_iso": "2025-W44",
+    "commit_count": 51,
+    "top_topics": [
+      1,
+      0,
+      4
+    ],
+    "delta_bullets": [
+      "51 commits (-23 vs 전주)",
+      "신규 활동 repo: `snuconnectome/AI4Psych_writing`, `snuconnectome/teams-notion-daily-tracker`, `snuconnectome/ref_letter` + 4 more",
+      "무게중심: `snuconnectome` (51/51)"
+    ]
+  },
+  {
+    "week_iso": "2025-W43",
+    "commit_count": 74,
+    "top_topics": [
+      1,
+      0,
+      4
+    ],
+    "delta_bullets": [
+      "74 commits (+73 vs 전주)",
+      "신규 활동 repo: `snuconnectome/Reviews`, `snuconnectome/CENTaUR`, `Transconnectome/AI-CoScientist` + 4 more",
+      "신규 토픽: session / revision / 세션, initial commit / commit initial / commit, update gitignore / add github / github pages",
+      "무게중심: `snuconnectome` (57/74)"
+    ]
+  },
+  {
+    "week_iso": "2025-W42",
     "commit_count": 1,
     "top_topics": [
       1
     ],
     "delta_bullets": [
-      "1 commits (-5 vs 전주)",
-      "신규 활동 repo: `Transconnectome/00IITP-AI`",
-      "신규 토픽: 현재제안서 / initial / plan"
+      "1 commits (-45 vs 전주)"
     ]
   },
   {
-    "week_iso": "2025-W45",
-    "commit_count": 6,
+    "week_iso": "2025-W41",
+    "commit_count": 46,
     "top_topics": [
-      0
+      1,
+      0,
+      4
     ],
     "delta_bullets": [
-      "6 commits (+6 vs 전주)",
-      "신규 활동 repo: `snuconnectome/Setup_arpah`, `snuconnectome/AI4Psych_writing`",
-      "신규 토픽: readme / md / handoff",
-      "무게중심: `snuconnectome` (6/6)",
-      "🔥 notable burst (≥ 4)",
-      "주요 repo: `snuconnectome/AI4Psych_writing` (5건)"
+      "46 commits (+46 vs 전주)",
+      "신규 활동 repo: `snuconnectome/Connectome-Internship`, `snuconnectome/Connectome-KB`, `snuconnectome/Connectome1` + 1 more",
+      "신규 토픽: update readme / readme md / comprehensive readme, rag system / rag pipeline / for rag, session / revision / 세션",
+      "무게중심: `snuconnectome` (46/46)"
     ]
   }
 ]
