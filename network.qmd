@@ -1,15 +1,18 @@
 ---
-title: "Network — repo와 토픽의 그래프"
-subtitle: "Cytoscape force-directed + Org→Topic Sankey 흐름"
+title: "Network — 도메인과 repo의 그래프"
+subtitle: "도메인 그래프 (클릭하면 repo로 드릴다운) + Org→Topic Sankey"
 ---
 
-각 node는 repo, edge는 공유 토픽. 토픽 페이지([Latent](latent.qmd))에서 본 군집이 어느 repo들에 분산되는지 구조적으로 보여줍니다.
+노드는 학문 도메인, edge는 두 도메인의 토픽 분포 유사도(코사인)입니다. 도메인을 클릭하면 그 안의 repo 그래프로 내려갑니다.
 
-## Force-directed network
+repo 134개를 한 화면에 놓으면 거의 모든 쌍이 토픽을 공유해 그래프가 hairball이 되므로, 상위 계층을 도메인으로 두고 드릴다운합니다.
+
+## 도메인 그래프
 
 ```{=html}
 <div class="viz-container">
-  <div id="cy" style="height: 600px; border-radius: 6px; background: var(--aa-snu-ice);"></div>
+  <div id="cy" style="height: 620px; border-radius: 6px; background: var(--aa-snu-ice);"></div>
+  <p id="cy-status" style="margin-top:8px; font-size:0.9rem; color: var(--aa-snu-gray);"></p>
 </div>
 ```
 
@@ -25,10 +28,11 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 import { sankey as d3sankey, sankeyLinkHorizontal, sankeyJustify } from "https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/+esm";
 import cytoscape from "https://cdn.jsdelivr.net/npm/cytoscape@3.30.0/+esm";
 
-const [commits, embeddings, topicsDoc] = await Promise.all([
+const [commits, embeddings, topicsDoc, palette] = await Promise.all([
   fetch("data/pub/commits_slim.json").then(r => r.json()),
   fetch("data/pub/embeddings.json").then(r => r.json()),
   fetch("data/pub/topics.json").then(r => r.json()),
+  fetch("data/pub/palette.json").then(r => r.json()),
 ]);
 
 const topics = topicsDoc.topics;
@@ -40,54 +44,90 @@ const orgColors = {
   "neurox-org": "#E69F00",
 };
 
-// ─── Build repo nodes + shared-topic edges ────────────────
-const repoCommits = new Map();  // org/repo → list of {sha, topic_id}
-for (const c of commits) {
-  const key = `${c.org}/${c.repo}`;
-  if (!repoCommits.has(key)) repoCommits.set(key, []);
-  repoCommits.get(key).push({ sha: c.sha, topic_id: shaToTopic.get(c.sha) ?? -1 });
+// ─── Build the graph ──────────────────────────────────────
+// Nodes are scientific domains, not repos. With 134 repos and 12 topics almost
+// every pair shared a topic, so the repo graph was a near-complete hairball:
+// ~9,000 candidate edges and labels overlapping into illegible mush. Domains
+// give a readable top level; picking one expands its repos underneath.
+//
+// Edges are cosine similarity over topic-distribution vectors, keeping each
+// node's strongest few links, rather than "shares ≥1 topic" — at this scale the
+// latter is true of nearly everything and therefore says nothing.
+const TOP_K = 3;
+
+function groupBy(rows, keyFn) {
+  const m = new Map();
+  for (const r of rows) {
+    const k = keyFn(r);
+    if (!m.has(k)) m.set(k, []);
+    m.get(k).push(r);
+  }
+  return m;
 }
 
-const repoTopicSets = new Map();
-for (const [key, list] of repoCommits) {
-  repoTopicSets.set(key, new Set(list.map(x => x.topic_id).filter(t => t !== -1)));
+function topicVector(rows) {
+  const v = new Map();
+  for (const c of rows) {
+    const t = shaToTopic.get(c.sha) ?? -1;
+    if (t === -1) continue;
+    v.set(t, (v.get(t) ?? 0) + 1);
+  }
+  return v;
 }
 
-const repos = [...repoCommits.keys()].sort();
-const nodes = repos.map(key => {
-  const [org, repo] = key.split("/", 2);
-  const n = repoCommits.get(key).length;
-  return {
-    data: {
-      id: key,
-      label: repo,
-      org,
+function cosine(a, b) {
+  let dot = 0, na = 0, nb = 0;
+  for (const [, x] of a) na += x * x;
+  for (const [, y] of b) nb += y * y;
+  for (const [t, x] of a) dot += x * (b.get(t) ?? 0);
+  return na && nb ? dot / Math.sqrt(na * nb) : 0;
+}
+
+function buildElements(rows, keyFn, labelFn, colorFn) {
+  const groups = groupBy(rows, keyFn);
+  const keys = [...groups.keys()].sort();
+  const vectors = new Map(keys.map(k => [k, topicVector(groups.get(k))]));
+  const maxN = Math.max(...keys.map(k => groups.get(k).length), 1);
+
+  const nodes = keys.map(k => {
+    const n = groups.get(k).length;
+    return { data: {
+      id: k,
+      label: labelFn(k),
       n,
-      size: Math.max(20, Math.log(n + 1) * 18),
-      color: orgColors[org] ?? "#888",
-    },
-  };
-});
+      // Area, not radius, tracks commit count; capped so one dominant node
+      // cannot swallow the canvas.
+      size: 26 + 54 * Math.sqrt(n / maxN),
+      color: colorFn(k),
+    } };
+  });
 
-const edges = [];
-for (let i = 0; i < repos.length; i++) {
-  for (let j = i + 1; j < repos.length; j++) {
-    const a = repoTopicSets.get(repos[i]);
-    const b = repoTopicSets.get(repos[j]);
-    let shared = 0;
-    for (const t of a) if (b.has(t)) shared++;
-    if (shared > 0) {
-      edges.push({
-        data: {
-          id: `${repos[i]}--${repos[j]}`,
-          source: repos[i],
-          target: repos[j],
-          weight: shared,
-        },
-      });
+  const scored = [];
+  for (let i = 0; i < keys.length; i++) {
+    for (let j = i + 1; j < keys.length; j++) {
+      const w = cosine(vectors.get(keys[i]), vectors.get(keys[j]));
+      if (w > 0.05) scored.push({ a: keys[i], b: keys[j], w });
     }
   }
+  const keep = new Set();
+  for (const k of keys) {
+    scored.filter(e => e.a === k || e.b === k)
+      .sort((x, y) => y.w - x.w)
+      .slice(0, TOP_K)
+      .forEach(e => keep.add(e));
+  }
+  const edges = [...keep].map(e => ({ data: {
+    id: `${e.a}--${e.b}`, source: e.a, target: e.b, weight: e.w,
+  } }));
+
+  return { nodes, edges };
 }
+
+const domainOf = c => c.domain ?? "unclassified";
+const domainElements = buildElements(
+  commits, domainOf, k => k, k => palette.domain[k] ?? "#888");
+
+const { nodes, edges } = domainElements;
 
 // ─── Cytoscape ────────────────────────────────────────────
 const cy = cytoscape({
@@ -112,9 +152,11 @@ const cy = cytoscape({
     {
       selector: "edge",
       style: {
-        "width": "mapData(weight, 1, 6, 1, 5)",
+        // weight is a cosine similarity in (0,1], so the domain is fixed and
+        // no longer a hardcoded guess at the maximum shared-topic count.
+        "width": "mapData(weight, 0, 1, 1, 6)",
         "line-color": "#A0A0A0",
-        "opacity": 0.5,
+        "opacity": 0.45,
         "curve-style": "bezier",
       },
     },
@@ -128,14 +170,57 @@ const cy = cytoscape({
   ],
   layout: {
     name: "cose",
-    idealEdgeLength: 120,
-    nodeRepulsion: 8000,
+    idealEdgeLength: 140,
+    nodeRepulsion: 12000,
     animate: true,
     animationDuration: 600,
     fit: true,
-    padding: 30,
+    padding: 40,
   },
 });
+
+// ─── Drill-down: domain → its repos ───────────────────────
+const status = document.getElementById("cy-status");
+let currentDomain = null;
+
+function relayout() {
+  cy.layout({
+    name: "cose", idealEdgeLength: 140, nodeRepulsion: 12000,
+    animate: true, animationDuration: 500, fit: true, padding: 40,
+  }).run();
+}
+
+function showDomains() {
+  currentDomain = null;
+  cy.elements().remove();
+  cy.add([...domainElements.nodes, ...domainElements.edges]);
+  relayout();
+  status.textContent = `도메인 ${domainElements.nodes.length}개 · 노드를 클릭하면 그 안의 repo가 펼쳐집니다`;
+}
+
+function showRepos(domain) {
+  const rows = commits.filter(c => domainOf(c) === domain);
+  const el = buildElements(
+    rows, c => `${c.org}/${c.repo}`, k => k.split("/")[1],
+    () => palette.domain[domain] ?? "#888");
+  currentDomain = domain;
+  cy.elements().remove();
+  cy.add([...el.nodes, ...el.edges]);
+  relayout();
+  status.innerHTML =
+    `<strong>${domain}</strong> — repo ${el.nodes.length}개, commit ${rows.length}건 · ` +
+    `<a href="#" id="cy-back">← 도메인 전체로</a>`;
+  document.getElementById("cy-back").addEventListener("click", ev => {
+    ev.preventDefault();
+    showDomains();
+  });
+}
+
+cy.on("tap", "node", ev => {
+  if (currentDomain === null) showRepos(ev.target.id());
+});
+
+showDomains();
 
 // ─── Sankey: Org → Topic (d3-sankey, manual SVG) ──────────
 const orgTopicCount = new Map();

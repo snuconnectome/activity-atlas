@@ -154,6 +154,17 @@ code, pre { font-family: var(--aa-font-mono); font-size: 0.92em; }
   height: auto;
   max-width: 100%;
 }
+/* Observable Plot emits a continuous legend as its own small <svg> whose class
+   ends in "-ramp" (intrinsic 240×50). The rule above is meant for the chart and
+   was stretching that legend to the full container width — a 5× blow-up that
+   pushed the actual heatmap below the fold. !important is needed because
+   Quarto's own figure styling also claims this element and wins on
+   specificity. */
+.viz-container svg[class$="-ramp"] {
+  width: 240px !important;
+  height: 50px !important;
+  max-width: 100% !important;
+}
 
 /* Tooltip used by D3 scatter */
 .aa-tooltip {
