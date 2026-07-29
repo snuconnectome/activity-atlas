@@ -3,13 +3,15 @@
   "n_repos": 134,
   "by_source": {
     "repo_map": 60,
-    "rule": 51,
-    "none": 23
+    "manual": 33,
+    "rule": 23,
+    "none": 18
   },
-  "unclassified_repos": 23,
+  "unclassified_repos": 24,
   "repos": {
     "Transconnectome/00IITP-AI": {
-      "wp": "WP5",
+      "wp": "PROP",
+      "activity": "proposal",
       "wp_role": "P",
       "domain": "infra",
       "species": null,
@@ -21,6 +23,7 @@
     },
     "Transconnectome/AI-CoScientist": {
       "wp": "WP2",
+      "activity": null,
       "wp_role": "P",
       "domain": "agentic-ai",
       "species": null,
@@ -32,6 +35,7 @@
     },
     "Transconnectome/InnoEdu": {
       "wp": "WP4",
+      "activity": null,
       "wp_role": "P",
       "domain": "education",
       "species": null,
@@ -43,6 +47,7 @@
     },
     "Transconnectome/SNU-Connectome-Fellows-Program": {
       "wp": "WP4",
+      "activity": null,
       "wp_role": "P",
       "domain": "education",
       "species": null,
@@ -54,6 +59,7 @@
     },
     "Transconnectome/SwiFT_v2_paper": {
       "wp": "WP1",
+      "activity": null,
       "wp_role": "P",
       "domain": "brain-foundation-model",
       "species": null,
@@ -64,29 +70,32 @@
       "commits": 7
     },
     "Transconnectome/agent-mirror": {
-      "wp": "unbound",
-      "wp_role": null,
-      "domain": "agentic-ai",
+      "wp": "WP5",
+      "activity": null,
+      "wp_role": "S",
+      "domain": "infra",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "tool",
-      "source": "rule",
+      "source": "manual",
       "commits": 13
     },
     "Transconnectome/agentic-ai": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP2",
+      "activity": null,
+      "wp_role": "S",
       "domain": "agentic-ai",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "tool",
-      "source": "rule",
+      "source": "manual",
       "commits": 9
     },
     "Transconnectome/ai-coexistence-cognition": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "human-neuro",
       "species": null,
@@ -97,18 +106,20 @@
       "commits": 45
     },
     "Transconnectome/ai-cowriter": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP2",
+      "activity": null,
+      "wp_role": "S",
       "domain": "agentic-ai",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "tool",
-      "source": "rule",
+      "source": "manual",
       "commits": 8
     },
     "Transconnectome/aigpu": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "P",
       "domain": "infra",
       "species": null,
@@ -119,40 +130,44 @@
       "commits": 1
     },
     "Transconnectome/bio-ai-scientist": {
-      "wp": "unbound",
-      "wp_role": null,
-      "domain": "unclassified",
+      "wp": "WP2",
+      "activity": null,
+      "wp_role": "S",
+      "domain": "agentic-ai",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "core",
-      "source": "none",
+      "source": "manual",
       "commits": 13
     },
     "Transconnectome/brain-lang-align": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP1",
+      "activity": null,
+      "wp_role": "S",
       "domain": "brain-foundation-model",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "core",
-      "source": "rule",
+      "source": "manual",
       "commits": 30
     },
     "Transconnectome/brain-lang-align-latex": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP1",
+      "activity": null,
+      "wp_role": "S",
       "domain": "brain-foundation-model",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "paper",
-      "source": "rule",
+      "source": "manual",
       "commits": 8
     },
     "Transconnectome/chavis": {
       "wp": "WP2",
+      "activity": null,
       "wp_role": "P",
       "domain": "agentic-ai",
       "species": null,
@@ -164,6 +179,7 @@
     },
     "Transconnectome/claude-code-coord": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "agentic-ai",
       "species": null,
@@ -175,6 +191,7 @@
     },
     "Transconnectome/claude-code-migrate": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "agentic-ai",
       "species": null,
@@ -186,6 +203,7 @@
     },
     "Transconnectome/cognitive-ai-polarization-paper": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -197,6 +215,7 @@
     },
     "Transconnectome/conference": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "infra",
       "species": null,
@@ -208,6 +227,7 @@
     },
     "Transconnectome/connectome-intern": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "education",
       "species": null,
@@ -219,6 +239,7 @@
     },
     "Transconnectome/connectome-paper-submissions": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "infra",
       "species": null,
@@ -229,18 +250,20 @@
       "commits": 5
     },
     "Transconnectome/connectome-paper-workshop": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP4",
+      "activity": null,
+      "wp_role": "S",
       "domain": "education",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "paper",
-      "source": "rule",
+      "source": "manual",
       "commits": 16
     },
     "Transconnectome/cross-check-skill": {
       "wp": "WP2",
+      "activity": null,
       "wp_role": "S",
       "domain": "agentic-ai",
       "species": null,
@@ -252,6 +275,7 @@
     },
     "Transconnectome/digital-phenotyping-fm": {
       "wp": "WP3",
+      "activity": null,
       "wp_role": "P",
       "domain": "clinical-translation",
       "species": null,
@@ -263,6 +287,7 @@
     },
     "Transconnectome/enigma_ocd_mbbn": {
       "wp": "WP1",
+      "activity": null,
       "wp_role": "P",
       "domain": "brain-foundation-model",
       "species": "human",
@@ -273,18 +298,20 @@
       "commits": 14
     },
     "Transconnectome/eurohpc-tvb-digital-twin": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "PROP",
+      "activity": "proposal",
+      "wp_role": "P",
       "domain": "unclassified",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "proposal",
-      "source": "none",
+      "source": "manual",
       "commits": 10
     },
     "Transconnectome/infant-fmri": {
       "wp": "WP1",
+      "activity": null,
       "wp_role": "S",
       "domain": "brain-foundation-model",
       "species": "human",
@@ -296,6 +323,7 @@
     },
     "Transconnectome/lab-ai-usage": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -307,6 +335,7 @@
     },
     "Transconnectome/lbm-agent": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "agentic-ai",
       "species": null,
@@ -317,18 +346,20 @@
       "commits": 12
     },
     "Transconnectome/lukor-2-qml": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "PROP",
+      "activity": "proposal",
+      "wp_role": "P",
       "domain": "unclassified",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "proposal",
-      "source": "none",
+      "source": "manual",
       "commits": 8
     },
     "Transconnectome/math-racing-ue5": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -340,6 +371,7 @@
     },
     "Transconnectome/mri-obesity-psychiatric-paper": {
       "wp": "WP3",
+      "activity": null,
       "wp_role": "P",
       "domain": "clinical-translation",
       "species": null,
@@ -351,6 +383,7 @@
     },
     "Transconnectome/naturalistic_fmri": {
       "wp": "WP2",
+      "activity": null,
       "wp_role": "S",
       "domain": "agentic-ai",
       "species": null,
@@ -362,6 +395,7 @@
     },
     "Transconnectome/nesap-genomics-connectome": {
       "wp": "WP3",
+      "activity": null,
       "wp_role": "P",
       "domain": "clinical-translation",
       "species": null,
@@ -372,29 +406,32 @@
       "commits": 28
     },
     "Transconnectome/neurips-2026-diver": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP1",
+      "activity": null,
+      "wp_role": "S",
       "domain": "brain-foundation-model",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "paper",
-      "source": "rule",
+      "source": "manual",
       "commits": 20
     },
     "Transconnectome/neurips-2026-diver-paper": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP1",
+      "activity": null,
+      "wp_role": "S",
       "domain": "brain-foundation-model",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "paper",
-      "source": "rule",
+      "source": "manual",
       "commits": 18
     },
     "Transconnectome/neuro-ai-scientist": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -406,6 +443,7 @@
     },
     "Transconnectome/neuroprior": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "brain-foundation-model",
       "species": null,
@@ -417,6 +455,7 @@
     },
     "Transconnectome/neuroprior-mouse": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "brain-foundation-model",
       "species": "animal",
@@ -428,6 +467,7 @@
     },
     "Transconnectome/nrf-decoding": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "infra",
       "species": null,
@@ -438,7 +478,8 @@
       "commits": 5
     },
     "Transconnectome/nrf-neuro-ai": {
-      "wp": "WP5",
+      "wp": "PROP",
+      "activity": "proposal",
       "wp_role": "P",
       "domain": "infra",
       "species": null,
@@ -449,18 +490,20 @@
       "commits": 109
     },
     "Transconnectome/paper-review": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP2",
+      "activity": null,
+      "wp_role": "S",
       "domain": "agentic-ai",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "paper",
-      "source": "rule",
+      "source": "manual",
       "commits": 124
     },
     "Transconnectome/paperorchestra-data": {
       "wp": "WP2",
+      "activity": null,
       "wp_role": "P",
       "domain": "agentic-ai",
       "species": null,
@@ -471,18 +514,20 @@
       "commits": 10
     },
     "Transconnectome/proposals": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "PROP",
+      "activity": "proposal",
+      "wp_role": "S",
       "domain": "infra",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "proposal",
-      "source": "rule",
+      "source": "manual",
       "commits": 8
     },
     "Transconnectome/sci-method": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -493,29 +538,32 @@
       "commits": 3
     },
     "Transconnectome/simplicitas": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP2",
+      "activity": null,
+      "wp_role": "S",
       "domain": "agentic-ai",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "core",
-      "source": "rule",
+      "source": "manual",
       "commits": 18
     },
     "Transconnectome/spain-bfm": {
-      "wp": "unbound",
-      "wp_role": null,
-      "domain": "brain-foundation-model",
+      "wp": "PROP",
+      "activity": "proposal",
+      "wp_role": "P",
+      "domain": "unclassified",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "proposal",
-      "source": "rule",
+      "source": "manual",
       "commits": 22
     },
     "Transconnectome/ssk-book-chapter": {
       "wp": "WP4",
+      "activity": null,
       "wp_role": "S",
       "domain": "education",
       "species": null,
@@ -527,6 +575,7 @@
     },
     "Transconnectome/teams-to-slack": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "S",
       "domain": "infra",
       "species": null,
@@ -537,18 +586,20 @@
       "commits": 2
     },
     "Transconnectome/trinity-2.0": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP2",
+      "activity": null,
+      "wp_role": "S",
       "domain": "agentic-ai",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "tool",
-      "source": "rule",
+      "source": "manual",
       "commits": 92
     },
     "Transconnectome/ukb-climate-fmri-vlm": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "human-neuro",
       "species": "human",
@@ -559,40 +610,44 @@
       "commits": 4
     },
     "Transconnectome/uleval": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP2",
+      "activity": null,
+      "wp_role": "S",
       "domain": "agentic-ai",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "core",
-      "source": "rule",
+      "source": "manual",
       "commits": 32
     },
     "Transconnectome/write-loop": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP2",
+      "activity": null,
+      "wp_role": "S",
       "domain": "agentic-ai",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "tool",
-      "source": "rule",
+      "source": "manual",
       "commits": 13
     },
     "Transconnectome/youth-brain-watch": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP3",
+      "activity": null,
+      "wp_role": "S",
       "domain": "clinical-translation",
       "species": "human",
       "modality": null,
       "indication": null,
       "category": "core",
-      "source": "rule",
+      "source": "manual",
       "commits": 16
     },
     "neurox-org/.github-private": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -603,18 +658,20 @@
       "commits": 1
     },
     "neurox-org/ai4science-2026": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "PROP",
+      "activity": "proposal",
+      "wp_role": "P",
       "domain": "unclassified",
       "species": null,
       "modality": null,
       "indication": null,
-      "category": "core",
-      "source": "none",
+      "category": "proposal",
+      "source": "manual",
       "commits": 4
     },
     "neurox-org/gene-brain-vlm": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "human-neuro",
       "species": null,
@@ -625,18 +682,20 @@
       "commits": 2
     },
     "neurox-org/k-bfm-neurox": {
-      "wp": "unbound",
-      "wp_role": null,
-      "domain": "brain-foundation-model",
+      "wp": "PROP",
+      "activity": "proposal",
+      "wp_role": "P",
+      "domain": "unclassified",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "proposal",
-      "source": "rule",
+      "source": "manual",
       "commits": 214
     },
     "neurox-org/neural-field-fm-mouse": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "neural-field-modeling",
       "species": "animal",
@@ -647,18 +706,20 @@
       "commits": 7
     },
     "neurox-org/neurox-hackathon": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP4",
+      "activity": null,
+      "wp_role": "S",
       "domain": "education",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "education",
-      "source": "rule",
+      "source": "manual",
       "commits": 15
     },
     "neurox-org/nlm-strategic-query-learning": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -670,6 +731,7 @@
     },
     "neurox-org/omicsFM-LLM": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "brain-foundation-model",
       "species": null,
@@ -681,6 +743,7 @@
     },
     "snuconnectome/00IITP-AI": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "P",
       "domain": "infra",
       "species": null,
@@ -691,18 +754,20 @@
       "commits": 10
     },
     "snuconnectome/2026_BMB": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP4",
+      "activity": null,
+      "wp_role": "S",
       "domain": "education",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "education",
-      "source": "rule",
+      "source": "manual",
       "commits": 156
     },
     "snuconnectome/2026_SNUIPS_AI_Workshop": {
       "wp": "WP4",
+      "activity": null,
       "wp_role": "P",
       "domain": "education",
       "species": null,
@@ -714,6 +779,7 @@
     },
     "snuconnectome/AI4Psych_writing": {
       "wp": "WP4",
+      "activity": null,
       "wp_role": "P",
       "domain": "education",
       "species": null,
@@ -725,6 +791,7 @@
     },
     "snuconnectome/AgentReview-main": {
       "wp": "WP2",
+      "activity": null,
       "wp_role": "R",
       "domain": "agentic-ai",
       "species": null,
@@ -736,6 +803,7 @@
     },
     "snuconnectome/BUSINESS": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "R",
       "domain": "infra",
       "species": null,
@@ -747,6 +815,7 @@
     },
     "snuconnectome/CENTaUR": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "brain-foundation-model",
       "species": null,
@@ -758,6 +827,7 @@
     },
     "snuconnectome/Code-Monitor": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "S",
       "domain": "infra",
       "species": null,
@@ -769,6 +839,7 @@
     },
     "snuconnectome/Connectome-Internship": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "R",
       "domain": "infra",
       "species": null,
@@ -780,6 +851,7 @@
     },
     "snuconnectome/Connectome-KB": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -791,6 +863,7 @@
     },
     "snuconnectome/Connectome1": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "R",
       "domain": "infra",
       "species": null,
@@ -802,6 +875,7 @@
     },
     "snuconnectome/Connectome2": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "R",
       "domain": "infra",
       "species": null,
@@ -813,6 +887,7 @@
     },
     "snuconnectome/Emailer": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "S",
       "domain": "infra",
       "species": null,
@@ -824,6 +899,7 @@
     },
     "snuconnectome/Fm-agent": {
       "wp": "WP2",
+      "activity": null,
       "wp_role": "R",
       "domain": "agentic-ai",
       "species": null,
@@ -834,7 +910,8 @@
       "commits": 2
     },
     "snuconnectome/IITP-2026-Proposal": {
-      "wp": "WP5",
+      "wp": "PROP",
+      "activity": "proposal",
       "wp_role": "P",
       "domain": "infra",
       "species": null,
@@ -846,6 +923,7 @@
     },
     "snuconnectome/Japan": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "R",
       "domain": "infra",
       "species": null,
@@ -857,6 +935,7 @@
     },
     "snuconnectome/MBBN-IC": {
       "wp": "WP1",
+      "activity": null,
       "wp_role": "P",
       "domain": "brain-foundation-model",
       "species": null,
@@ -868,6 +947,7 @@
     },
     "snuconnectome/PD-Subtyping-Motion-Brain": {
       "wp": "WP3",
+      "activity": null,
       "wp_role": "P",
       "domain": "clinical-translation",
       "species": null,
@@ -879,6 +959,7 @@
     },
     "snuconnectome/Reviews": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "S",
       "domain": "infra",
       "species": null,
@@ -890,6 +971,7 @@
     },
     "snuconnectome/SNU-Connectome-Fellows-Program": {
       "wp": "WP4",
+      "activity": null,
       "wp_role": "P",
       "domain": "education",
       "species": null,
@@ -901,6 +983,7 @@
     },
     "snuconnectome/Setup_arpah": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "R",
       "domain": "infra",
       "species": null,
@@ -911,29 +994,32 @@
       "commits": 23
     },
     "snuconnectome/activity-atlas": {
-      "wp": "unbound",
-      "wp_role": null,
-      "domain": "unclassified",
+      "wp": "WP5",
+      "activity": null,
+      "wp_role": "S",
+      "domain": "infra",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "tool",
-      "source": "none",
+      "source": "manual",
       "commits": 9
     },
     "snuconnectome/ai-copresenter": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP2",
+      "activity": null,
+      "wp_role": "S",
       "domain": "agentic-ai",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "core",
-      "source": "rule",
+      "source": "manual",
       "commits": 21
     },
     "snuconnectome/ai-coscientist-qml": {
       "wp": "WP2",
+      "activity": null,
       "wp_role": "S",
       "domain": "agentic-ai",
       "species": null,
@@ -945,6 +1031,7 @@
     },
     "snuconnectome/asd": {
       "wp": "WP3",
+      "activity": null,
       "wp_role": "S",
       "domain": "clinical-translation",
       "species": null,
@@ -955,7 +1042,8 @@
       "commits": 9
     },
     "snuconnectome/bk21-aix": {
-      "wp": "WP4",
+      "wp": "PROP",
+      "activity": "proposal",
       "wp_role": "P",
       "domain": "education",
       "species": null,
@@ -966,18 +1054,20 @@
       "commits": 27
     },
     "snuconnectome/cha-talks": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP5",
+      "activity": null,
+      "wp_role": "S",
       "domain": "infra",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "other",
-      "source": "rule",
+      "source": "manual",
       "commits": 41
     },
     "snuconnectome/claude-agent-sdk": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "R",
       "domain": "infra",
       "species": null,
@@ -988,18 +1078,20 @@
       "commits": 4
     },
     "snuconnectome/claude-paper-starter": {
-      "wp": "unbound",
-      "wp_role": null,
-      "domain": "agentic-ai",
+      "wp": "WP4",
+      "activity": null,
+      "wp_role": "S",
+      "domain": "education",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "paper",
-      "source": "rule",
+      "source": "manual",
       "commits": 27
     },
     "snuconnectome/cline-for-student": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -1011,6 +1103,7 @@
     },
     "snuconnectome/coin-sota": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -1022,6 +1115,7 @@
     },
     "snuconnectome/connectome-lab-website": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -1033,6 +1127,7 @@
     },
     "snuconnectome/connectomelab": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "P",
       "domain": "infra",
       "species": null,
@@ -1043,18 +1138,20 @@
       "commits": 3
     },
     "snuconnectome/decoding-annual-report": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP5",
+      "activity": null,
+      "wp_role": "S",
       "domain": "infra",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "other",
-      "source": "rule",
+      "source": "manual",
       "commits": 42
     },
     "snuconnectome/dept-notice-kb": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "agentic-ai",
       "species": null,
@@ -1066,6 +1163,7 @@
     },
     "snuconnectome/diver-icml-rebuttal": {
       "wp": "WP1",
+      "activity": null,
       "wp_role": "S",
       "domain": "brain-foundation-model",
       "species": null,
@@ -1077,6 +1175,7 @@
     },
     "snuconnectome/essay-review": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -1087,29 +1186,32 @@
       "commits": 4
     },
     "snuconnectome/evaluator-ablation": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP2",
+      "activity": null,
+      "wp_role": "S",
       "domain": "agentic-ai",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "core",
-      "source": "rule",
+      "source": "manual",
       "commits": 11
     },
     "snuconnectome/genesis-mission-proposal": {
-      "wp": "unbound",
-      "wp_role": null,
-      "domain": "infra",
+      "wp": "PROP",
+      "activity": "proposal",
+      "wp_role": "P",
+      "domain": "unclassified",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "proposal",
-      "source": "rule",
+      "source": "manual",
       "commits": 3
     },
     "snuconnectome/gmail-agent": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "agentic-ai",
       "species": null,
@@ -1121,6 +1223,7 @@
     },
     "snuconnectome/google-forms-notion-sync": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "S",
       "domain": "infra",
       "species": null,
@@ -1131,7 +1234,8 @@
       "commits": 1
     },
     "snuconnectome/grant-quest": {
-      "wp": "WP5",
+      "wp": "PROP",
+      "activity": "proposal",
       "wp_role": "P",
       "domain": "infra",
       "species": null,
@@ -1143,6 +1247,7 @@
     },
     "snuconnectome/grant_veritas": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "P",
       "domain": "infra",
       "species": null,
@@ -1154,6 +1259,7 @@
     },
     "snuconnectome/hackathon-2026": {
       "wp": "WP4",
+      "activity": null,
       "wp_role": "S",
       "domain": "education",
       "species": null,
@@ -1165,6 +1271,7 @@
     },
     "snuconnectome/iitp-ai": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "P",
       "domain": "infra",
       "species": null,
@@ -1175,18 +1282,20 @@
       "commits": 1
     },
     "snuconnectome/innoedu-innovation": {
-      "wp": "WP4",
+      "wp": "PROP",
+      "activity": "proposal",
       "wp_role": "P",
       "domain": "education",
       "species": null,
       "modality": null,
       "indication": null,
-      "category": "education",
+      "category": "proposal",
       "source": "repo_map",
       "commits": 46
     },
     "snuconnectome/kim-jaecheol-ai-class-2026-2-eval": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "education",
       "species": null,
@@ -1198,6 +1307,7 @@
     },
     "snuconnectome/kolab-outside-director": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -1209,6 +1319,7 @@
     },
     "snuconnectome/lecture-bcs": {
       "wp": "WP4",
+      "activity": null,
       "wp_role": "P",
       "domain": "education",
       "species": null,
@@ -1220,6 +1331,7 @@
     },
     "snuconnectome/llm-allostasis": {
       "wp": "WP3",
+      "activity": null,
       "wp_role": "R",
       "domain": "clinical-translation",
       "species": null,
@@ -1231,6 +1343,7 @@
     },
     "snuconnectome/meeting-app": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -1242,6 +1355,7 @@
     },
     "snuconnectome/mental-wellness-center": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "P",
       "domain": "infra",
       "species": null,
@@ -1253,6 +1367,7 @@
     },
     "snuconnectome/mind-ai-class": {
       "wp": "WP4",
+      "activity": null,
       "wp_role": "P",
       "domain": "education",
       "species": null,
@@ -1264,6 +1379,7 @@
     },
     "snuconnectome/movie-mbbn": {
       "wp": "WP1",
+      "activity": null,
       "wp_role": "P",
       "domain": "brain-foundation-model",
       "species": null,
@@ -1275,6 +1391,7 @@
     },
     "snuconnectome/neurox-nm-revision": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -1286,6 +1403,7 @@
     },
     "snuconnectome/nrf-sinjin-report": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "S",
       "domain": "infra",
       "species": null,
@@ -1297,6 +1415,7 @@
     },
     "snuconnectome/openhands-free-model-lab": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -1308,6 +1427,7 @@
     },
     "snuconnectome/project_janus": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -1318,29 +1438,32 @@
       "commits": 1
     },
     "snuconnectome/psychology-faculty-review": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP5",
+      "activity": null,
+      "wp_role": "S",
       "domain": "infra",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "paper",
-      "source": "rule",
+      "source": "manual",
       "commits": 15
     },
     "snuconnectome/ref_letter": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP5",
+      "activity": null,
+      "wp_role": "S",
       "domain": "infra",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "other",
-      "source": "rule",
+      "source": "manual",
       "commits": 11
     },
     "snuconnectome/review-icml-2026": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "S",
       "domain": "infra",
       "species": null,
@@ -1352,6 +1475,7 @@
     },
     "snuconnectome/review-network": {
       "wp": "WP3",
+      "activity": null,
       "wp_role": "S",
       "domain": "clinical-translation",
       "species": null,
@@ -1363,6 +1487,7 @@
     },
     "snuconnectome/screentime": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "clinical-translation",
       "species": null,
@@ -1374,6 +1499,7 @@
     },
     "snuconnectome/snu-faculty-performance": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "infra",
       "species": null,
@@ -1384,18 +1510,20 @@
       "commits": 4
     },
     "snuconnectome/snu-psych-fund-plan": {
-      "wp": "unbound",
-      "wp_role": null,
+      "wp": "WP5",
+      "activity": null,
+      "wp_role": "S",
       "domain": "infra",
       "species": null,
       "modality": null,
       "indication": null,
       "category": "proposal",
-      "source": "rule",
+      "source": "manual",
       "commits": 12
     },
     "snuconnectome/snuconnectome": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "R",
       "domain": "infra",
       "species": null,
@@ -1407,6 +1535,7 @@
     },
     "snuconnectome/ssk-book-chapter": {
       "wp": "WP4",
+      "activity": null,
       "wp_role": "S",
       "domain": "education",
       "species": null,
@@ -1418,6 +1547,7 @@
     },
     "snuconnectome/suicide-ideation-dca": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "clinical-translation",
       "species": null,
@@ -1429,6 +1559,7 @@
     },
     "snuconnectome/teams-notion-daily-tracker": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "unclassified",
       "species": null,
@@ -1440,6 +1571,7 @@
     },
     "snuconnectome/titan_fresh": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "brain-foundation-model",
       "species": null,
@@ -1451,6 +1583,7 @@
     },
     "snuconnectome/titans": {
       "wp": "unbound",
+      "activity": null,
       "wp_role": null,
       "domain": "brain-foundation-model",
       "species": null,
@@ -1462,6 +1595,7 @@
     },
     "snuconnectome/veritas2026": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "P",
       "domain": "infra",
       "species": null,
@@ -1473,6 +1607,7 @@
     },
     "snuconnectome/viberank-connectomelab": {
       "wp": "WP5",
+      "activity": null,
       "wp_role": "S",
       "domain": "infra",
       "species": null,

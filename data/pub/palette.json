@@ -16,6 +16,7 @@
     "WP3": "#D55E00",
     "WP4": "#E69F00",
     "WP5": "#5A5A6E",
+    "PROP": "#CC79A7",
     "unbound": "#9E9E9E"
   },
   "category": {
@@ -37,6 +38,7 @@
     "WP3": "Clinical Translation",
     "WP4": "Education",
     "WP5": "Infra & Governance",
+    "PROP": "제안서 (수주 활동)",
     "unbound": "미분류"
   },
   "wp_budget_pct": {
@@ -46,5 +48,14 @@
     "WP4": 10,
     "WP5": 10
   },
+  "wp_order": [
+    "WP1",
+    "WP2",
+    "WP3",
+    "WP4",
+    "WP5",
+    "PROP",
+    "unbound"
+  ],
   "_source": "MASTER_PLAN_6YR.md:109-215 for wp_budget_pct; assets/tokens.css for hues"
 }

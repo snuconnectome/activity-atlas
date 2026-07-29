@@ -9,7 +9,9 @@
       "modality": null,
       "indication": null,
       "note": null,
-      "source": "repo_map"
+      "source": "repo_map",
+      "activity": "proposal",
+      "activity_evidence": "구 REPO_CATEGORIES(user-confirmed)"
     },
     "Transconnectome/2026_KISTI_hackathon_NeuroX": {
       "wp": "WP4",
@@ -382,6 +384,36 @@
       "note": "developmental",
       "source": "repo_map"
     },
+    "Transconnectome/agent-mirror": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "infra",
+      "modality": null,
+      "indication": null,
+      "note": "README: DGX 작업 상황 확인용 로컬 MkDocs 미러 → ops",
+      "source": "manual"
+    },
+    "Transconnectome/agentic-ai": {
+      "wp": "WP2",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "agentic-ai",
+      "modality": null,
+      "indication": null,
+      "note": "desc가 'NAIC WP2 Agentic Science spine'이라고 WP를 직접 명시",
+      "source": "manual"
+    },
+    "Transconnectome/ai-cowriter": {
+      "wp": "WP2",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "agentic-ai",
+      "modality": null,
+      "indication": null,
+      "note": "desc: 학술 저자용 계층적 목표 추천 CLI (VISAR 기반)",
+      "source": "manual"
+    },
     "Transconnectome/aigpu": {
       "wp": "WP5",
       "wp_role": "P",
@@ -400,6 +432,16 @@
       "note": null,
       "source": "repo_map"
     },
+    "Transconnectome/bio-ai-scientist": {
+      "wp": "WP2",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "agentic-ai",
+      "modality": null,
+      "indication": null,
+      "note": "desc: Bioinformatics MCP-based AI Scientist, agentic-ai의 sister repo라고 명시",
+      "source": "manual"
+    },
     "Transconnectome/bootcamp_SwiFT": {
       "wp": "WP1",
       "wp_role": "R",
@@ -409,6 +451,26 @@
       "note": "fMRI",
       "source": "repo_map"
     },
+    "Transconnectome/brain-lang-align": {
+      "wp": "WP1",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "brain-foundation-model",
+      "modality": null,
+      "indication": null,
+      "note": "REPO_MAP이 brain-lang-align을 WP1 P (fMRI+speech)로 지정. snu 사본만 매칭됐고 trans 사본이 누락",
+      "source": "manual"
+    },
+    "Transconnectome/brain-lang-align-latex": {
+      "wp": "WP1",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "brain-foundation-model",
+      "modality": null,
+      "indication": null,
+      "note": "REPO_MAP이 brain-lang-align-latex를 WP1 P로 지정",
+      "source": "manual"
+    },
     "Transconnectome/chavis": {
       "wp": "WP2",
       "wp_role": "P",
@@ -417,6 +479,16 @@
       "indication": null,
       "note": null,
       "source": "repo_map"
+    },
+    "Transconnectome/connectome-paper-workshop": {
+      "wp": "WP4",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "education",
+      "modality": null,
+      "indication": null,
+      "note": "desc: 연구실 학기말 페이퍼 워크샵 운영",
+      "source": "manual"
     },
     "Transconnectome/connectomelab_website": {
       "wp": "WP5",
@@ -472,6 +544,16 @@
       "note": "fMRI",
       "source": "repo_map"
     },
+    "Transconnectome/eurohpc-tvb-digital-twin": {
+      "wp": null,
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "source": "manual",
+      "activity": "proposal",
+      "activity_evidence": "desc: EuroHPC proposal and benchmark workspace"
+    },
     "Transconnectome/fMRI-reconstruction-NSD-SwiFT": {
       "wp": "WP1",
       "wp_role": "R",
@@ -526,6 +608,26 @@
       "note": null,
       "source": "repo_map"
     },
+    "Transconnectome/k-bfm-neurox": {
+      "wp": null,
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "source": "manual",
+      "activity": "proposal",
+      "activity_evidence": "구 REPO_CATEGORIES(user-confirmed)"
+    },
+    "Transconnectome/lukor-2-qml": {
+      "wp": null,
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "source": "manual",
+      "activity": "proposal",
+      "activity_evidence": "desc: LUKOR-2 Multi-Chip Quantum ML proposal workspace"
+    },
     "Transconnectome/mri-obesity-psychiatric-paper": {
       "wp": "WP3",
       "wp_role": "P",
@@ -571,6 +673,26 @@
       "note": "MDD",
       "source": "repo_map"
     },
+    "Transconnectome/neurips-2026-diver": {
+      "wp": "WP1",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "brain-foundation-model",
+      "modality": null,
+      "indication": null,
+      "note": "desc: DIVER-1 LBM 1.82B params, 17.7k subjects. REPO_MAP이 DIVER를 WP1 P로 지정",
+      "source": "manual"
+    },
+    "Transconnectome/neurips-2026-diver-paper": {
+      "wp": "WP1",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "brain-foundation-model",
+      "modality": null,
+      "indication": null,
+      "note": "desc: NeurIPS 2026 paper LaTeX (DIVER backbone)",
+      "source": "manual"
+    },
     "Transconnectome/nrf-neuro-ai": {
       "wp": "WP5",
       "wp_role": "P",
@@ -578,7 +700,19 @@
       "modality": null,
       "indication": null,
       "note": null,
-      "source": "repo_map"
+      "source": "repo_map",
+      "activity": "proposal",
+      "activity_evidence": "구 REPO_CATEGORIES(user-confirmed) — NRF 우수신진"
+    },
+    "Transconnectome/paper-review": {
+      "wp": "WP2",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "agentic-ai",
+      "modality": null,
+      "indication": null,
+      "note": "desc: AI-assisted manuscript review pipeline. REPO_MAP이 snuconnectome/paper-review를 WP2 P로 이미 지정",
+      "source": "manual"
     },
     "Transconnectome/paperorchestra-data": {
       "wp": "WP2",
@@ -589,6 +723,18 @@
       "note": null,
       "source": "repo_map"
     },
+    "Transconnectome/proposals": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "infra",
+      "modality": null,
+      "indication": null,
+      "note": "desc: R&D proposals monorepo",
+      "source": "manual",
+      "activity": "proposal",
+      "activity_evidence": "desc: Connectome Lab R&D proposals monorepo"
+    },
     "Transconnectome/simMIM_tfMRI": {
       "wp": "WP1",
       "wp_role": "R",
@@ -598,6 +744,16 @@
       "note": "fMRI",
       "source": "repo_map"
     },
+    "Transconnectome/simplicitas": {
+      "wp": "WP2",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "agentic-ai",
+      "modality": null,
+      "indication": null,
+      "note": "desc: AI 코딩 세션 overengineering 실시간 검출",
+      "source": "manual"
+    },
     "Transconnectome/snu-connectome-fellows": {
       "wp": "WP4",
       "wp_role": "P",
@@ -606,6 +762,16 @@
       "indication": null,
       "note": null,
       "source": "repo_map"
+    },
+    "Transconnectome/spain-bfm": {
+      "wp": null,
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "source": "manual",
+      "activity": "proposal",
+      "activity_evidence": "README: Korea-Spain AEI×NRF 2026 proposal repository"
     },
     "Transconnectome/ssk-book-chapter": {
       "wp": "WP4",
@@ -625,6 +791,76 @@
       "note": null,
       "source": "repo_map"
     },
+    "Transconnectome/trinity-2.0": {
+      "wp": "WP2",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "agentic-ai",
+      "modality": null,
+      "indication": null,
+      "note": "desc: multi-agent triangulation runtime",
+      "source": "manual"
+    },
+    "Transconnectome/uleval": {
+      "wp": "WP2",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "agentic-ai",
+      "modality": null,
+      "indication": null,
+      "note": "desc: Ultimate Scientific Document Evaluator, LLM 생성 논문·제안서 평가 7-layer",
+      "source": "manual"
+    },
+    "Transconnectome/write-loop": {
+      "wp": "WP2",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "agentic-ai",
+      "modality": null,
+      "indication": null,
+      "note": "desc: Planner-Generator-Evaluator feedback loop CLI",
+      "source": "manual"
+    },
+    "Transconnectome/youth-brain-watch": {
+      "wp": "WP3",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "clinical-translation",
+      "modality": null,
+      "indication": null,
+      "note": "desc: Galaxy Watch + 종단 뇌영상 + 청소년 코호트, allostatic load",
+      "source": "manual"
+    },
+    "neurox-org/ai4science-2026": {
+      "wp": null,
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "source": "manual",
+      "activity": "proposal",
+      "activity_evidence": "구 REPO_CATEGORIES(user-confirmed)"
+    },
+    "neurox-org/k-bfm-neurox": {
+      "wp": null,
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "source": "manual",
+      "activity": "proposal",
+      "activity_evidence": "구 REPO_CATEGORIES(user-confirmed) + desc 'NRF 2026 5년 50.68억'"
+    },
+    "neurox-org/neurox-hackathon": {
+      "wp": "WP4",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "education",
+      "modality": null,
+      "indication": null,
+      "note": "desc: 2026 KISTI Hackathon. REPO_MAP이 2026_KISTI_hackathon_NeuroX를 WP4 P로 지정",
+      "source": "manual"
+    },
     "snuconnectome/00IITP-AI": {
       "wp": "WP5",
       "wp_role": "P",
@@ -633,6 +869,16 @@
       "indication": null,
       "note": null,
       "source": "repo_map"
+    },
+    "snuconnectome/2026_BMB": {
+      "wp": "WP4",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "education",
+      "modality": null,
+      "indication": null,
+      "note": "README: '2026 서울대 뇌-마음-행동 코스 ... 에이전트 기반 AI 코스 시스템'",
+      "source": "manual"
     },
     "snuconnectome/2026_SNUIPS_AI_Workshop": {
       "wp": "WP4",
@@ -731,7 +977,9 @@
       "modality": null,
       "indication": null,
       "note": null,
-      "source": "repo_map"
+      "source": "repo_map",
+      "activity": "proposal",
+      "activity_evidence": "구 REPO_CATEGORIES(user-confirmed) + desc 'Overleaf Sync for IITP 2026'"
     },
     "snuconnectome/Japan": {
       "wp": "WP5",
@@ -787,6 +1035,26 @@
       "note": null,
       "source": "repo_map"
     },
+    "snuconnectome/activity-atlas": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "infra",
+      "modality": null,
+      "indication": null,
+      "note": "이 도구 자체 — 랩 활동 시각화 ops",
+      "source": "manual"
+    },
+    "snuconnectome/ai-copresenter": {
+      "wp": "WP2",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "agentic-ai",
+      "modality": null,
+      "indication": null,
+      "note": "desc: 발표/Q&A 트랜스크립트 다층 피드백 5-layer 파이프라인",
+      "source": "manual"
+    },
     "snuconnectome/ai-coscientist-qml": {
       "wp": "WP2",
       "wp_role": "S",
@@ -812,7 +1080,9 @@
       "modality": null,
       "indication": null,
       "note": null,
-      "source": "repo_map"
+      "source": "repo_map",
+      "activity": "proposal",
+      "activity_evidence": "구 REPO_CATEGORIES(user-confirmed)"
     },
     "snuconnectome/brain-lang-align": {
       "wp": "WP1",
@@ -832,6 +1102,16 @@
       "note": "fMRI+speech",
       "source": "repo_map"
     },
+    "snuconnectome/cha-talks": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "infra",
+      "modality": null,
+      "indication": null,
+      "note": "desc: 차지욱 교수 한국어 연구 발표 마스터 repo → dissemination",
+      "source": "manual"
+    },
     "snuconnectome/claude-agent-sdk": {
       "wp": "WP5",
       "wp_role": "R",
@@ -840,6 +1120,16 @@
       "indication": null,
       "note": null,
       "source": "repo_map"
+    },
+    "snuconnectome/claude-paper-starter": {
+      "wp": "WP4",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "education",
+      "modality": null,
+      "indication": null,
+      "note": "README: 비뇨기종양 연구·논문쓰기 3시간 워크샵(2026-08-01) 실습 자료",
+      "source": "manual"
     },
     "snuconnectome/connectomelab": {
       "wp": "WP5",
@@ -859,6 +1149,16 @@
       "note": null,
       "source": "repo_map"
     },
+    "snuconnectome/decoding-annual-report": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "infra",
+      "modality": null,
+      "indication": null,
+      "note": "desc: 디코딩과제 3년차 연차보고서 (RS-2023-00265406)",
+      "source": "manual"
+    },
     "snuconnectome/diver-icml-rebuttal": {
       "wp": "WP1",
       "wp_role": "S",
@@ -867,6 +1167,26 @@
       "indication": null,
       "note": "EEG/iEEG",
       "source": "repo_map"
+    },
+    "snuconnectome/evaluator-ablation": {
+      "wp": "WP2",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "agentic-ai",
+      "modality": null,
+      "indication": null,
+      "note": "README: 7개 evaluator 구성 통제비교, Planner-Generator-Evaluator loop",
+      "source": "manual"
+    },
+    "snuconnectome/genesis-mission-proposal": {
+      "wp": null,
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "source": "manual",
+      "activity": "proposal",
+      "activity_evidence": "desc: 2026 국제공동연구 신속지원사업 연구개발계획서"
     },
     "snuconnectome/google-forms-notion-sync": {
       "wp": "WP5",
@@ -884,7 +1204,9 @@
       "modality": null,
       "indication": null,
       "note": null,
-      "source": "repo_map"
+      "source": "repo_map",
+      "activity": "proposal",
+      "activity_evidence": "desc: 서울대 그랜드 퀘스트 제안서 및 지식베이스"
     },
     "snuconnectome/grant_veritas": {
       "wp": "WP5",
@@ -922,7 +1244,9 @@
       "modality": null,
       "indication": null,
       "note": null,
-      "source": "repo_map"
+      "source": "repo_map",
+      "activity": "proposal",
+      "activity_evidence": "구 REPO_CATEGORIES(user-confirmed) — 대학혁신지원사업 신청"
     },
     "snuconnectome/k-bfm": {
       "wp": "WP1",
@@ -1005,6 +1329,26 @@
       "note": null,
       "source": "repo_map"
     },
+    "snuconnectome/psychology-faculty-review": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "infra",
+      "modality": null,
+      "indication": null,
+      "note": "desc: SNU Psychology faculty hiring review → governance",
+      "source": "manual"
+    },
+    "snuconnectome/ref_letter": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "infra",
+      "modality": null,
+      "indication": null,
+      "note": "추천서 관리 → governance",
+      "source": "manual"
+    },
     "snuconnectome/review-icml-2026": {
       "wp": "WP5",
       "wp_role": "S",
@@ -1022,6 +1366,16 @@
       "indication": null,
       "note": null,
       "source": "repo_map"
+    },
+    "snuconnectome/snu-psych-fund-plan": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "domain": "infra",
+      "modality": null,
+      "indication": null,
+      "note": "desc: 서울대 심리학과 10억 발전기금 활용계획",
+      "source": "manual"
     },
     "snuconnectome/snuconnectome": {
       "wp": "WP5",

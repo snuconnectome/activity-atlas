@@ -68,7 +68,7 @@ DOMAIN_COLORS = {
 }
 WP_COLORS = {
     "WP1": "#003380", "WP2": "#009E73", "WP3": "#D55E00",
-    "WP4": "#E69F00", "WP5": "#5A5A6E", "unbound": "#9E9E9E",
+    "WP4": "#E69F00", "WP5": "#5A5A6E", "PROP": "#CC79A7", "unbound": "#9E9E9E",
 }
 CATEGORY_COLORS = {
     "proposal": "#003380", "paper": "#0072B2", "education": "#E69F00",
@@ -83,8 +83,18 @@ ORG_COLORS = {
 WP_BUDGET_PCT = {"WP1": 40, "WP2": 15, "WP3": 25, "WP4": 10, "WP5": 10}
 WP_LABELS = {
     "WP1": "NFM Core", "WP2": "Agentic Science", "WP3": "Clinical Translation",
-    "WP4": "Education", "WP5": "Infra & Governance", "unbound": "미분류",
+    "WP4": "Education", "WP5": "Infra & Governance",
+    "PROP": "제안서 (수주 활동)", "unbound": "미분류",
 }
+
+# Proposal work gets its own bucket on the WP axis rather than being folded into
+# the programme it would fund. Two reasons it cannot sit inside a WP: REPO_MAP
+# is itself inconsistent about it (k-bfm under WP1, nrf-neuro-ai and IITP under
+# WP5), and more importantly, writing a proposal is not the same activity as
+# doing the work it proposes — merging them makes the budget comparison claim
+# effort that has not happened yet. It carries no planned percentage: the
+# 40/15/25/10/10 split covers funded work, not the pursuit of funding.
+PROPOSAL_WP = "PROP"
 
 
 def first_match(rules: list[dict], key: str, text: str) -> tuple[str | None, str | None]:
@@ -130,8 +140,17 @@ def classify(full_name: str, curated: dict, rules: dict) -> dict:
     species, _ = first_match(rules["species_rules"], "species", haystack)
     category, _ = first_match(rules["category_rules"], "category", haystack)
 
+    # Proposal work overrides the programme axis but leaves `domain` alone, so a
+    # brain-foundation-model proposal still reads as that science in the domain
+    # views while staying out of WP1's effort total.
+    activity = (entry or {}).get("activity")
+    if activity == "proposal":
+        wp = PROPOSAL_WP
+        category = "proposal"
+
     return {
         "wp": wp,
+        "activity": activity,
         "wp_role": role,
         "domain": domain,
         "species": species,
@@ -185,7 +204,10 @@ def main() -> int:
         print(f"    {dom:26s} {n:4d} repos  {commits_n:5d} commits")
     print()
     print("  WP (budget axis):")
-    for wp, n in sorted(Counter(t["wp"] for t in taxonomy.values()).items()):
+    wp_order = ["WP1", "WP2", "WP3", "WP4", "WP5", PROPOSAL_WP, "unbound"]
+    counts = Counter(t["wp"] for t in taxonomy.values())
+    for wp in [w for w in wp_order if w in counts] + [w for w in counts if w not in wp_order]:
+        n = counts[wp]
         commits_n = sum(commits_per_repo[r] for r, t in taxonomy.items() if t["wp"] == wp)
         planned = WP_BUDGET_PCT.get(wp)
         plan_str = f"  plan {planned:2d}%" if planned else "  plan  — "
@@ -235,6 +257,7 @@ def main() -> int:
         "org": ORG_COLORS,
         "wp_labels": WP_LABELS,
         "wp_budget_pct": WP_BUDGET_PCT,
+        "wp_order": ["WP1", "WP2", "WP3", "WP4", "WP5", "PROP", "unbound"],
         "_source": "MASTER_PLAN_6YR.md:109-215 for wp_budget_pct; assets/tokens.css for hues",
     }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 

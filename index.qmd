@@ -34,10 +34,16 @@ Single-color teal heatmap. Org 필터로 단일 조직 활동 패턴 분리 가�
 ```
 
 MASTER_PLAN의 WP별 예산 배분(WP1 40% · WP2 15% · WP3 25% · WP4 10% · WP5 10%)과
-같은 기간 실제 commit 비중을 나란히 놓았습니다. **미분류 막대가 크면 이 비교 자체를
-아직 신뢰하면 안 됩니다** — 어느 WP에도 매핑되지 않은 활동이 그만큼이라는 뜻입니다.
-격차에 판정색을 쓰지 않은 이유는, 초기에 인프라(WP5)가 몰리는 것처럼 계획된 궤적이
-있는 WP에서는 격차가 곧 실패를 의미하지 않기 때문입니다.
+같은 기간 실제 commit 비중을 나란히 놓았습니다.
+
+**제안서는 독립 버킷입니다.** 제안서를 쓰는 일은 그 제안서가 하겠다고 한 연구를
+하는 일과 다른 활동이라, 어느 WP 안에 넣으면 아직 일어나지 않은 성과를 그 WP의
+실적으로 계상하게 됩니다. 계획 %가 없는 이유도 같습니다 — 40/15/25/10/10은
+수주한 연구에 대한 배분이지 수주 활동에 대한 배분이 아닙니다.
+
+격차에 판정색을 쓰지 않았습니다. 초기에 인프라(WP5)가 몰리는 것처럼 계획된 궤적이
+있는 WP에서는 격차가 곧 실패를 의미하지 않기 때문입니다. **미분류 막대가 큰 동안에는
+이 비교 전체를 잠정으로 읽으셔야 합니다.**
 
 ## 🌊 스트림 — 학문 도메인별 활동 흐름
 
@@ -260,14 +266,15 @@ document.getElementById("category-bars").appendChild(barChart);
 const wpTotal = commits.length;
 const wpActual = d3.rollup(commits, v => v.length, c => c.wp ?? "unbound");
 const wpRows = [];
-for (const [wp, planned] of Object.entries(palette.wp_budget_pct)) {
+for (const wp of palette.wp_order) {
+  const planned = palette.wp_budget_pct[wp];   // undefined for PROP and unbound
   const actual = 100 * (wpActual.get(wp) ?? 0) / wpTotal;
-  wpRows.push({ wp, label: `${wp} ${palette.wp_labels[wp]}`, kind: "계획", pct: planned });
-  wpRows.push({ wp, label: `${wp} ${palette.wp_labels[wp]}`, kind: "실제", pct: actual });
+  if (planned === undefined && actual === 0) continue;
+  const label = `${wp === "unbound" ? "" : wp + " "}${palette.wp_labels[wp]}`;
+  if (planned !== undefined) wpRows.push({ wp, label, kind: "계획", pct: planned });
+  wpRows.push({ wp, label, kind: "실제", pct: actual });
 }
-const unbound = 100 * (wpActual.get("unbound") ?? 0) / wpTotal;
-wpRows.push({ wp: "unbound", label: "미분류 (WP 미배정)", kind: "계획", pct: 0 });
-wpRows.push({ wp: "unbound", label: "미분류 (WP 미배정)", kind: "실제", pct: unbound });
+const maxPct = Math.max(...wpRows.map(r => r.pct), 40);
 
 // Grouped bars via fy faceting. Two rows share a WP, so plain y would let
 // Plot's implicit stack lay the actual bar on top of the planned one — making
@@ -279,7 +286,7 @@ const wpChart = Plot.plot({
   height: 340,
   marginLeft: 200,
   marginRight: 60,
-  x: { label: "% of commits", grid: true, domain: [0, Math.max(45, unbound + 5)] },
+  x: { label: "% of commits", grid: true, domain: [0, maxPct + 6] },
   y: { axis: null, domain: ["계획", "실제"], padding: 0.25 },
   fy: { label: null, domain: wpLabels },
   color: { domain: ["계획", "실제"], range: ["#A0A0A0", "#003380"], legend: true },
