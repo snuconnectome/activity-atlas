@@ -1,0 +1,50 @@
+{
+  "domain": {
+    "brain-foundation-model": "#0072B2",
+    "neural-field-modeling": "#56B4E9",
+    "agentic-ai": "#009E73",
+    "clinical-translation": "#D55E00",
+    "human-neuro": "#E69F00",
+    "animal-neuro": "#CC79A7",
+    "education": "#F0E442",
+    "infra": "#5A5A6E",
+    "unclassified": "#9E9E9E"
+  },
+  "wp": {
+    "WP1": "#003380",
+    "WP2": "#009E73",
+    "WP3": "#D55E00",
+    "WP4": "#E69F00",
+    "WP5": "#5A5A6E",
+    "unbound": "#9E9E9E"
+  },
+  "category": {
+    "proposal": "#003380",
+    "paper": "#0072B2",
+    "education": "#E69F00",
+    "tool": "#009E73",
+    "other": "#9E9E9E",
+    "core": "#5A5A6E"
+  },
+  "org": {
+    "snuconnectome": "#003380",
+    "Transconnectome": "#0072B2",
+    "neurox-org": "#E69F00"
+  },
+  "wp_labels": {
+    "WP1": "NFM Core",
+    "WP2": "Agentic Science",
+    "WP3": "Clinical Translation",
+    "WP4": "Education",
+    "WP5": "Infra & Governance",
+    "unbound": "미분류"
+  },
+  "wp_budget_pct": {
+    "WP1": 40,
+    "WP2": 15,
+    "WP3": 25,
+    "WP4": 10,
+    "WP5": 10
+  },
+  "_source": "MASTER_PLAN_6YR.md:109-215 for wp_budget_pct; assets/tokens.css for hues"
+}

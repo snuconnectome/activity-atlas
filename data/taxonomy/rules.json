@@ -1,0 +1,98 @@
+{
+  "version": "1.0.0",
+  "_note": "Fallback classification for repos absent from repos.json. Rules are tried top to bottom; the first match on a field wins, and repos.json always overrides. join.py records which rule fired via the `source` field so a rule-derived label is never mistaken for a curated one.",
+  "wp_to_domain": {
+    "WP1": "brain-foundation-model",
+    "WP2": "agentic-ai",
+    "WP3": "clinical-translation",
+    "WP4": "education",
+    "WP5": "infra"
+  },
+  "_domain_enum": [
+    "brain-foundation-model",
+    "neural-field-modeling",
+    "agentic-ai",
+    "clinical-translation",
+    "human-neuro",
+    "animal-neuro",
+    "education",
+    "infra",
+    "unclassified"
+  ],
+  "domain_rules": [
+    {
+      "pattern": "neural[-_]?field|ginr|\\bnerd\\b|signerd",
+      "domain": "neural-field-modeling",
+      "why": "neural-field / implicit-representation line, distinct from the transformer FM line",
+      "override_wp": true
+    },
+    {
+      "pattern": "agent|trinity|write-loop|cowriter|copresenter|paper-review|uleval|aegis|orchestrat|coscientist|mcp\\b|claude|gmail|simplicitas|mirror|evaluator|chavis|dept-notice",
+      "domain": "agentic-ai",
+      "why": "LLM/agent tooling and evaluation harnesses"
+    },
+    {
+      "pattern": "-bfm$|\\bbfm\\b|k-bfm|foundation|swift|mbbn|diver|neuroprior|brainvlm|neuromamba|neurohymba|titan|lbm|omicsfm|centaur|brain-lang-align",
+      "domain": "brain-foundation-model",
+      "why": "brain foundation-model backbones and their papers"
+    },
+    {
+      "pattern": "suicide|psychiatr|depress|\\bmdd\\b|\\bocd\\b|\\basd\\b|parkinson|obesity|clinic|phenotyp|youth-brain|screentime|ema\\b",
+      "domain": "clinical-translation",
+      "why": "indication-bearing or cohort-outcome work"
+    },
+    {
+      "pattern": "mouse|mice|rodent|animal",
+      "domain": "animal-neuro",
+      "why": "non-human model systems",
+      "override_wp": true
+    },
+    {
+      "pattern": "class|lecture|bmb|workshop|hackathon|intern|fellow|curricul|education|innoedu|veritas|davinci",
+      "domain": "education",
+      "why": "teaching and training"
+    },
+    {
+      "pattern": "proposal|grant|nrf|iitp|arpa|genesis|bk21|fund|report|annual|faculty|ref_letter|performance|talks|infographic|submissions|conference",
+      "domain": "infra",
+      "why": "grants, reporting, and lab administration"
+    },
+    {
+      "pattern": "\\beeg\\b|ieeg|fmri|\\bmri\\b|brain|connectome\\d|cognition|allostasis|memory|psych(?!iatr)",
+      "domain": "human-neuro",
+      "why": "human neuroscience not covered by a more specific rule; deliberately narrow so it does not act as a catch-all"
+    }
+  ],
+  "species_rules": [
+    {
+      "pattern": "mouse|mice|rodent|animal",
+      "species": "animal"
+    },
+    {
+      "pattern": "abcd|ukb|adni|gard|enigma|infant|youth|human|patient|cohort",
+      "species": "human"
+    }
+  ],
+  "category_rules": [
+    {
+      "pattern": "proposal|grant|nrf|iitp|arpa|genesis|bk21|fund|k-bfm|spain-bfm|eurohpc|lukor",
+      "category": "proposal"
+    },
+    {
+      "pattern": "paper|manuscript|latex|overleaf|rebuttal|neurips|icml|iclr|ccn|submissions|review",
+      "category": "paper"
+    },
+    {
+      "pattern": "class|lecture|bmb|workshop|hackathon|intern|fellow|curricul|innoedu|veritas|davinci",
+      "category": "education"
+    },
+    {
+      "pattern": "agent|trinity|write-loop|cowriter|mcp\\b|claude|atlas|monitor|mirror|kb$|-kb\\b|toolkit|loop|starter",
+      "category": "tool"
+    },
+    {
+      "pattern": "report|annual|faculty|performance|talks|infographic|conference|ref_letter",
+      "category": "other"
+    }
+  ]
+}

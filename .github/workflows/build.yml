@@ -1,17 +1,17 @@
 name: Build Activity Atlas
 
-# Strategy: CI renders the site from the redacted JSON in data/pub/ that is
+# Strategy: CI renders the site from the published JSON in data/pub/ that is
 # already committed. It never touches raw commit data.
 #
 # The whole Python pipeline runs LOCALLY:
 #  - fetch_commits.py needs a broad-scope token (admin:org+repo), unsafe as a
 #    workflow secret
 #  - topic_model.py + weekly_pulse.py need full commit message bodies, and
-#    those deliberately never enter the repo (scripts/redact.py)
+#    those deliberately never enter the repo (scripts/join.py)
 #
 # Refresh with:
 #   python scripts/fetch_commits.py && python scripts/topic_model.py \
-#     && python scripts/weekly_pulse.py && python scripts/redact.py
+#     && python scripts/weekly_pulse.py && python scripts/join.py
 #   git add data/pub/ && git commit && git push
 #
 # What CI DOES do: guard against raw data leaking in, then Quarto render →
@@ -56,11 +56,11 @@ jobs:
       - name: Guard — no raw commit data in repo
         run: |
           if [ -e data/raw ]; then
-            echo "::error::data/raw/ is present in the repo. Raw commit bodies must stay local (see scripts/redact.py)."
+            echo "::error::data/raw/ is present in the repo. Raw commit bodies must stay local (see scripts/join.py)."
             exit 1
           fi
           if grep -rlq '"message"' data/pub/ 2>/dev/null; then
-            echo "::error::data/pub/ contains a 'message' field. Run scripts/redact.py."
+            echo "::error::data/pub/ contains a 'message' field. Run scripts/join.py."
             exit 1
           fi
           test -f data/pub/commits_slim.json || { echo "::error::data/pub/commits_slim.json missing."; exit 1; }

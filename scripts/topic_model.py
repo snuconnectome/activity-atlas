@@ -5,13 +5,13 @@ Writes: data/pub/topics.json        (cluster definitions + metadata)
         data/pub/embeddings.json    (per-commit 2D UMAP projection)
 
 Runs LOCALLY, not in CI: it needs full commit message bodies, and those never
-enter the repo (see scripts/redact.py).
+enter the repo (see scripts/join.py).
 
 Strategy
 --------
 1. Preprocess: strip conventional-commit prefixes, drop merges, keep Korean
 2. Embed with paraphrase-multilingual-MiniLM-L12-v2 (440MB, supports ko/en)
-3. Cluster with BERTopic + HDBSCAN (min_cluster_size=5, min_samples=2)
+3. Cluster with BERTopic + HDBSCAN (leaf selection, min_cluster_size = 1% of N)
 4. If degenerate (unique_topics < 3 OR > 70% in -1), fall back to KMeans(k=6)
 5. UMAP 2D projection (n_neighbors=10, min_dist=0.3) for the scatter page
 6. Assign Okabe-Ito colors to non-outlier topics

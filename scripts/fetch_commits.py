@@ -5,8 +5,11 @@ Writes: $ACTIVITY_ATLAS_DATA_DIR/raw/commits.json  (default ~/.local/share/activ
         $ACTIVITY_ATLAS_DATA_DIR/raw/state.json    (per-repo incremental cursor)
 
 Never writes into the repo. Raw rows carry full commit message bodies for repos
-that are overwhelmingly private; scripts/redact.py produces the publishable
-projection.
+that are overwhelmingly private; scripts/join.py produces the publishable
+projection and attaches the taxonomy.
+
+This script assigns no categories. Classification is a join against local
+tables (data/taxonomy/), so relabelling costs zero API calls.
 
 Why per-repo REST instead of /search/commits
 --------------------------------------------
@@ -66,45 +69,6 @@ BOT_LOGINS = {
 }
 
 LOOKBACK_DAYS = 365
-
-# Repo→category mapping (filled 2026-05-12; user-confirmed).
-# Categories defined in data/schema.json commit.repo_category enum:
-#   proposal | paper | education | core | tool | other
-REPO_CATEGORIES: dict[str, str] = {
-    # === proposals (grant/program applications) ===
-    "snuconnectome/IITP-2026-Proposal": "proposal",
-    "snuconnectome/bk21-aix": "proposal",
-    "snuconnectome/innoedu-innovation": "proposal",
-    "snuconnectome/Setup_arpah": "proposal",                # ? ARPA-H setup vs generic setup
-    "Transconnectome/00IITP-AI": "proposal",
-    "Transconnectome/InnoEdu": "proposal",
-    "Transconnectome/eurohpc-tvb-digital-twin": "proposal",
-    "Transconnectome/k-bfm-neurox": "proposal",
-    "Transconnectome/nrf-neuro-ai": "proposal",
-    "neurox-org/ai4science-2026": "proposal",
-    "neurox-org/k-bfm-neurox": "proposal",
-
-    # === papers (manuscripts / publications) ===
-    "Transconnectome/neurips-2026-diver": "paper",
-    "Transconnectome/neurips-2026-diver-paper": "paper",
-    "Transconnectome/neurips-2026-lbm-qualia": "paper",
-    "Transconnectome/ssk-book-chapter": "paper",
-    "neurox-org/neural-field-fm-mouse": "paper",
-
-    # === education (teaching, curriculum, mentoring) ===
-    "snuconnectome/veritas2026": "education",
-    "snuconnectome/AI4Psych_writing": "education",          # ? writing class vs paper-writing tool
-    "Transconnectome/intern-2026-summer": "education",
-
-    # === tools (infrastructure, frameworks) ===
-    "Transconnectome/paper-review": "tool",
-    "Transconnectome/sci-method": "tool",
-    "snuconnectome/activity-atlas": "tool",
-
-    # === other ===
-    "snuconnectome/decoding-annual-report": "other",        # ? slide deck — other vs tool
-}
-
 
 # ---------------------------------------------------------------------------
 # gh plumbing
@@ -189,7 +153,6 @@ def normalize(raw: dict, org: str, repo: str, visibility: str) -> dict:
         "additions": None,
         "deletions": None,
         "files_count": None,
-        "repo_category": REPO_CATEGORIES.get(f"{org}/{repo}", "core"),
     }
 
 

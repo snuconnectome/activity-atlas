@@ -1,0 +1,1072 @@
+{
+  "version": "1.0.0",
+  "_note": "Seeded once from agentic-ai/docs/REPO_MAP.md, then maintained here. REPO_MAP is not read at runtime. `source` records how each entry was assigned: repo_map | rule | manual.",
+  "repos": {
+    "Transconnectome/00IITP-AI": {
+      "wp": "WP5",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/2026_KISTI_hackathon_NeuroX": {
+      "wp": "WP4",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/4D_fMRI_Transformer": {
+      "wp": "WP1",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/ABCD-3DCNN": {
+      "wp": "WP3",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "developmental",
+      "note": "developmental",
+      "source": "repo_map"
+    },
+    "Transconnectome/ABCD_3DCNN_Obesity": {
+      "wp": "WP3",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "obesity",
+      "note": "obesity",
+      "source": "repo_map"
+    },
+    "Transconnectome/AI-CoScientist": {
+      "wp": "WP2",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/BrainVLM": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "fMRI+text",
+      "indication": null,
+      "note": "fMRI+text",
+      "source": "repo_map"
+    },
+    "Transconnectome/CausalMamba": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "multi",
+      "indication": null,
+      "note": "multi",
+      "source": "repo_map"
+    },
+    "Transconnectome/CausalMamba-EEG": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "multi",
+      "indication": null,
+      "note": "multi",
+      "source": "repo_map"
+    },
+    "Transconnectome/CausalMamba-Rx": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "multi",
+      "indication": null,
+      "note": "multi",
+      "source": "repo_map"
+    },
+    "Transconnectome/CausalMamba-fMRI": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "multi",
+      "indication": null,
+      "note": "multi",
+      "source": "repo_map"
+    },
+    "Transconnectome/ConnectomeLab": {
+      "wp": "WP5",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/DIVER": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "EEG/iEEG",
+      "indication": null,
+      "note": "EEG/iEEG",
+      "source": "repo_map"
+    },
+    "Transconnectome/DIVER-Clinical": {
+      "wp": "WP3",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "multi",
+      "note": "multi",
+      "source": "repo_map"
+    },
+    "Transconnectome/DIVER-Psychiatry": {
+      "wp": "WP3",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "MDD, anxiety",
+      "note": "MDD, anxiety",
+      "source": "repo_map"
+    },
+    "Transconnectome/DIVER1.1-EEG": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [
+        "WP3"
+      ],
+      "modality": "EEG/iEEG",
+      "indication": "MDD",
+      "note": "EEG/iEEG",
+      "source": "repo_map"
+    },
+    "Transconnectome/ENIGMA-OCD": {
+      "wp": "WP3",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "OCD",
+      "note": "OCD",
+      "source": "repo_map"
+    },
+    "Transconnectome/EmoDe": {
+      "wp": "WP3",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "MDD",
+      "note": "MDD",
+      "source": "repo_map"
+    },
+    "Transconnectome/Hackathon_2026Winter": {
+      "wp": "WP4",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/InnoEdu": {
+      "wp": "WP4",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/Kidney_Radiomics": {
+      "wp": "WP3",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "non-psych",
+      "note": "non-psych",
+      "source": "repo_map"
+    },
+    "Transconnectome/MBBN": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/MBBN_baselines": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/NeuroCentaur": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "multi",
+      "indication": null,
+      "note": "multi",
+      "source": "repo_map"
+    },
+    "Transconnectome/NeuroHymba": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "multi",
+      "indication": null,
+      "note": "multi",
+      "source": "repo_map"
+    },
+    "Transconnectome/NeuroMamba": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "multi",
+      "indication": null,
+      "note": "multi",
+      "source": "repo_map"
+    },
+    "Transconnectome/PIMSM": {
+      "wp": "WP1",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/POYO-CAP": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "spikes",
+      "indication": null,
+      "note": "spikes",
+      "source": "repo_map"
+    },
+    "Transconnectome/POYO-SSL": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "spikes",
+      "indication": null,
+      "note": "spikes",
+      "source": "repo_map"
+    },
+    "Transconnectome/PaperOrchestrator": {
+      "wp": "WP2",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/PixNerd-EEG": {
+      "wp": "WP1",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": "iEEG",
+      "indication": null,
+      "note": "iEEG",
+      "source": "repo_map"
+    },
+    "Transconnectome/SNU-Connectome-Fellows-Program": {
+      "wp": "WP4",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/SwiFT": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/SwiFTEye": {
+      "wp": "WP1",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/SwiFT_movie": {
+      "wp": "WP1",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/SwiFT_v2": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/SwiFT_v2_paper": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/SwiFUN": {
+      "wp": "WP1",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/SwiFUN_v2": {
+      "wp": "WP1",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/SwinTransformer4D": {
+      "wp": "WP1",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/SwinTransformer4D_old": {
+      "wp": "WP1",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/abcd-gps": {
+      "wp": "WP3",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "developmental",
+      "note": "developmental",
+      "source": "repo_map"
+    },
+    "Transconnectome/aigpu": {
+      "wp": "WP5",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/arpa-h_webdemo": {
+      "wp": "WP5",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/bootcamp_SwiFT": {
+      "wp": "WP1",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/chavis": {
+      "wp": "WP2",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/connectomelab_website": {
+      "wp": "WP5",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/cross-check-skill": {
+      "wp": "WP2",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/digital-phenotyping-fm": {
+      "wp": "WP3",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "cross",
+      "note": "cross",
+      "source": "repo_map"
+    },
+    "Transconnectome/divfreqBERT": {
+      "wp": "WP1",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/divfreqBERT_archive": {
+      "wp": "WP1",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/enigma_ocd_mbbn": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/fMRI-reconstruction-NSD-SwiFT": {
+      "wp": "WP1",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/fMRI-temporal-superresolution": {
+      "wp": "WP1",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/ginr-ieeg": {
+      "wp": "WP1",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": "iEEG",
+      "indication": null,
+      "note": "iEEG",
+      "source": "repo_map"
+    },
+    "Transconnectome/ilsan": {
+      "wp": "WP3",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "pilot",
+      "note": "pilot",
+      "source": "repo_map"
+    },
+    "Transconnectome/infant-fmri": {
+      "wp": "WP1",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/intelligent-paper-review-orchestrator-v3": {
+      "wp": "WP2",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/mri-obesity-psychiatric-paper": {
+      "wp": "WP3",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "obesity",
+      "note": "obesity",
+      "source": "repo_map"
+    },
+    "Transconnectome/multimodal_MRI_ASDGDD": {
+      "wp": "WP3",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "ASD/GDD",
+      "note": "ASD/GDD",
+      "source": "repo_map"
+    },
+    "Transconnectome/multimodal_MRI_ASDGDD_PSM": {
+      "wp": "WP3",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "ASD/GDD",
+      "note": "ASD/GDD",
+      "source": "repo_map"
+    },
+    "Transconnectome/naturalistic_fmri": {
+      "wp": "WP2",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/nesap-genomics-connectome": {
+      "wp": "WP3",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "MDD",
+      "note": "MDD",
+      "source": "repo_map"
+    },
+    "Transconnectome/nrf-neuro-ai": {
+      "wp": "WP5",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/paperorchestra-data": {
+      "wp": "WP2",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/simMIM_tfMRI": {
+      "wp": "WP1",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "Transconnectome/snu-connectome-fellows": {
+      "wp": "WP4",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/ssk-book-chapter": {
+      "wp": "WP4",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "Transconnectome/teams-to-slack": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/00IITP-AI": {
+      "wp": "WP5",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/2026_SNUIPS_AI_Workshop": {
+      "wp": "WP4",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/AI4Psych_writing": {
+      "wp": "WP4",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/AgentReview-main": {
+      "wp": "WP2",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/BUSINESS": {
+      "wp": "WP5",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/Code-Monitor": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/Connectome-Internship": {
+      "wp": "WP5",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/Connectome1": {
+      "wp": "WP5",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/Connectome2": {
+      "wp": "WP5",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/Emailer": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/Fm-agent": {
+      "wp": "WP2",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/IITP-2026-Proposal": {
+      "wp": "WP5",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/Japan": {
+      "wp": "WP5",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/MBBN-IC": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "snuconnectome/PD-Subtyping-Motion-Brain": {
+      "wp": "WP3",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "PD",
+      "note": "PD",
+      "source": "repo_map"
+    },
+    "snuconnectome/Reviews": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/SNU-Connectome-Fellows-Program": {
+      "wp": "WP4",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/Setup_arpah": {
+      "wp": "WP5",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/ai-coscientist-qml": {
+      "wp": "WP2",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/asd": {
+      "wp": "WP3",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "ASD",
+      "note": "ASD",
+      "source": "repo_map"
+    },
+    "snuconnectome/bk21-aix": {
+      "wp": "WP4",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/brain-lang-align": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "fMRI+speech",
+      "indication": null,
+      "note": "fMRI+speech",
+      "source": "repo_map"
+    },
+    "snuconnectome/brain-lang-align-latex": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "fMRI+speech",
+      "indication": null,
+      "note": "fMRI+speech",
+      "source": "repo_map"
+    },
+    "snuconnectome/claude-agent-sdk": {
+      "wp": "WP5",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/connectomelab": {
+      "wp": "WP5",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/cross-check-skill": {
+      "wp": "WP2",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/diver-icml-rebuttal": {
+      "wp": "WP1",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": "EEG/iEEG",
+      "indication": null,
+      "note": "EEG/iEEG",
+      "source": "repo_map"
+    },
+    "snuconnectome/google-forms-notion-sync": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/grant-quest": {
+      "wp": "WP5",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/grant_veritas": {
+      "wp": "WP5",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/hackathon-2026": {
+      "wp": "WP4",
+      "wp_role": "S",
+      "wp_secondary": [
+        "WP5"
+      ],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/iitp-ai": {
+      "wp": "WP5",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/innoedu-innovation": {
+      "wp": "WP4",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/k-bfm": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "multi",
+      "indication": null,
+      "note": "multi",
+      "source": "repo_map"
+    },
+    "snuconnectome/lecture-bcs": {
+      "wp": "WP4",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/llm-allostasis": {
+      "wp": "WP3",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "conceptual",
+      "note": "conceptual",
+      "source": "repo_map"
+    },
+    "snuconnectome/mental-wellness-center": {
+      "wp": "WP5",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/mind-ai-class": {
+      "wp": "WP4",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/movie-mbbn": {
+      "wp": "WP1",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": "fMRI",
+      "indication": null,
+      "note": "fMRI",
+      "source": "repo_map"
+    },
+    "snuconnectome/mri-obesity-psychiatric-paper": {
+      "wp": "WP3",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": "obesity",
+      "note": "obesity",
+      "source": "repo_map"
+    },
+    "snuconnectome/nrf-sinjin-report": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/paper-review": {
+      "wp": "WP2",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/review-icml-2026": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/review-network": {
+      "wp": "WP3",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/snuconnectome": {
+      "wp": "WP5",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/ssk-book-chapter": {
+      "wp": "WP4",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/veritas2026": {
+      "wp": "WP5",
+      "wp_role": "P",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/viberank-connectomelab": {
+      "wp": "WP5",
+      "wp_role": "S",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    },
+    "snuconnectome/voice-diary-service": {
+      "wp": "WP5",
+      "wp_role": "R",
+      "wp_secondary": [],
+      "modality": null,
+      "indication": null,
+      "note": null,
+      "source": "repo_map"
+    }
+  }
+}

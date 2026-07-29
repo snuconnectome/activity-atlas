@@ -35,7 +35,7 @@ exploration, and rule-based weekly storytelling.
 
 ## What it shows
 
-Four pages, each a different lens on the same 82-commit dataset:
+Four pages, each a different lens on the same dataset (2,226 commits across 134 repos as of 2026-07):
 
 | Page | Lens | Key visualization |
 |------|------|-------------------|
@@ -71,17 +71,19 @@ Pages. See [`docs/working-memory.md`](./docs/working-memory.md).
 
 ```
 activity-atlas/
-├── scripts/              # Python pipeline (Phase 1, 2, 7)
-│   ├── fetch_commits.py
-│   ├── topic_model.py
-│   ├── weekly_pulse.py
-│   └── workmem.py       # Private local working-memory companion
-├── data/                 # JSON outputs (versioned for diffability)
+├── scripts/
+│   ├── aa_paths.py       # Shared path resolution (raw store lives outside the repo)
+│   ├── fetch_commits.py  # gh repo walk → local raw store
+│   ├── topic_model.py    # BERTopic + UMAP
+│   ├── weekly_pulse.py   # Rule-based weekly delta
+│   ├── join.py           # Taxonomy join → publishable projection
+│   ├── seed_taxonomy.py  # One-shot REPO_MAP.md seeder (not a pipeline stage)
+│   └── workmem.py        # Private local working-memory companion
+├── data/
 │   ├── schema.json       # Locked data contracts
-│   ├── raw/commits.json
-│   ├── topics.json
-│   ├── embeddings.json
-│   └── weekly_pulse.json
+│   ├── taxonomy/         # repos.json (curated) + rules.json (fallback patterns)
+│   └── pub/              # Published: commits_slim, topics, embeddings,
+│                         #            weekly_pulse, palette, taxonomy_coverage
 ├── assets/
 │   └── tokens.css        # SNU Blue / Okabe-Ito palette
 ├── docs/
@@ -105,8 +107,8 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 # 3. Compute weekly pulse delta
 .venv/bin/python scripts/weekly_pulse.py
 
-# 4. Redact raw → publishable projection
-.venv/bin/python scripts/redact.py
+# 4. Join taxonomy + emit publishable projection
+.venv/bin/python scripts/join.py
 
 # 5. Preview site
 ~/.local/quarto/bin/quarto preview
@@ -134,7 +136,7 @@ need message bodies that deliberately never enter the repo.
 .venv/bin/python scripts/fetch_commits.py
 .venv/bin/python scripts/topic_model.py
 .venv/bin/python scripts/weekly_pulse.py
-.venv/bin/python scripts/redact.py
+.venv/bin/python scripts/join.py
 git add data/pub/ && git commit -m "chore(data): refresh" && git push
 ```
 
@@ -143,10 +145,12 @@ git add data/pub/ && git commit -m "chore(data): refresh" && git push
 See [`CLAUDE.md`](./CLAUDE.md) for the project onboarding guide aimed at Claude
 Code sessions. Key explicit out-of-scope decisions:
 
-- Why **not** Observable Framework (overkill at N=82)
+- Why **not** Observable Framework (pre-aggregated JSON keeps Quarto + Plot viable)
 - Why **not** Neo4j (static publish mismatch; Cytoscape.js gives same viz)
 - Why Sankey is 2 layers (`Org → Topic`), not 3
-- Why Weekly Pulse is rule-based, not LLM-generated (hallucination risk at ~2.7 commits/week)
+- Why Weekly Pulse is rule-based, not LLM-generated
+- Why classification is a join step, not a dict inside the fetcher (relabelling
+  must not cost 262 API calls)
 - Why CI does **not** run `fetch_commits.py` (cross-org admin-scope token as workflow secret is unsafe)
 
 ## Verification
