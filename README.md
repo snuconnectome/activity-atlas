@@ -39,10 +39,20 @@ Four pages, each a different lens on the same dataset (2,226 commits across 134 
 
 | Page | Lens | Key visualization |
 |------|------|-------------------|
-| **Overview** | Temporal | Multi-org calendar heatmap + topic stream graph |
-| **Network** | Structural | Cytoscape force-directed graph + Org→Topic Sankey |
+| **Overview** | Portfolio | Planned WP budget vs actual effort · calendar heatmap · domain stream |
 | **Latent** | Semantic | UMAP scatter of commit messages, zoomable, hover→GitHub link |
+| **Lifecycle** | Structural | Idle-days × contributors quadrant · succession risk · archive queue |
+| **Network** | Structural | Domain graph with repo drill-down + Org→Topic Sankey |
 | **Pulse** | Narrative | Rule-based weekly delta — what changed, what's new |
+| **Drift** | Governance | Unclassified repos by activity, with paste-ready taxonomy rows |
+| **1:1** | People | Per-person cards, lab profile only (see below) |
+
+The 1:1 page sorts by *how long since the PI last looked at that person's work*,
+never by output. It shows no commit counts, no cross-person axis, and no ranking;
+its sparkline counts repos touched per week rather than commits. GitHub silence
+means only GitHub silence — it cannot distinguish waiting on an experiment from
+reading, from working in Overleaf, from being unwell — so the card offers
+questions to ask, not a verdict.
 
 Topics come from BERTopic on multilingual (Korean + English) commit
 messages, projected into 2D with UMAP. Color palette is

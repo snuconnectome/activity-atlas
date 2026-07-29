@@ -1,0 +1,89 @@
+---
+title: "Drift — 분류되지 않은 활동"
+subtitle: "어느 WP에도 매핑되지 않은 repo, 활동량 순"
+---
+
+예산 대비 실제 투입 그래프의 신뢰도는 이 페이지의 숫자가 얼마나 작은지에 달려 있습니다.
+미분류가 크면 그 비교는 아직 결론이 아닙니다.
+
+분류를 여기서 자동으로 확정하지 않습니다. 아래 제안은 `data/taxonomy/rules.json`의
+패턴이 repo 이름에 걸린 결과일 뿐이고, 이름은 자주 틀립니다 — `AI4Psych_writing`이
+`connectome` 패턴에 걸려 human-neuro로 분류된 적이 있습니다. **`agentic-ai/docs/REPO_MAP.md`를
+이 페이지가 고쳐 쓰지도 않습니다.** 붙여넣을 수 있는 텍스트만 제공하고, 커밋은 사람이 합니다.
+
+```{=html}
+<div id="drift-summary" style="margin: 16px 0;"></div>
+<div class="viz-container">
+  <div id="drift-chart"></div>
+</div>
+<div id="drift-table"></div>
+
+<script type="module">
+import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.16/+esm";
+
+// Rendered twice from the same source: the public profile reads the redacted
+// data/pub, the lab profile (QUARTO_PROFILE=lab) reads data/lab.
+const ROOT = window.AA_DATA_ROOT ?? "data/pub";
+
+const [drift, commits, palette] = await Promise.all([
+  fetch(`${ROOT}/drift.json`).then(r => r.json()),
+  fetch(`${ROOT}/commits_slim.json`).then(r => r.json()),
+  fetch(`${ROOT}/palette.json`).then(r => r.json()),
+]);
+
+const unboundCommits = drift.reduce((s, d) => s + d.commits, 0);
+document.getElementById("drift-summary").innerHTML = `
+  <div class="kpi-row">
+    <div class="kpi-tile"><div class="label">미분류 repo</div><div class="value">${drift.length}</div></div>
+    <div class="kpi-tile"><div class="label">해당 commit</div><div class="value">${unboundCommits}</div></div>
+    <div class="kpi-tile"><div class="label">전체 대비</div><div class="value">${(100 * unboundCommits / commits.length).toFixed(0)}%</div></div>
+  </div>`;
+
+// ─── Top unclassified by activity ─────────────────────────
+const top = drift.filter(d => d.commits > 0).slice(0, 25);
+if (top.length) {
+  const chart = Plot.plot({
+    width: 980,
+    height: Math.max(240, 22 * top.length),
+    marginLeft: 300,
+    marginRight: 60,
+    x: { label: "commits" },
+    y: { label: null, domain: top.map(d => d.repo) },
+    color: {
+      domain: [...new Set(top.map(d => d.suggested_domain ?? "제안 없음"))],
+      range: [...new Set(top.map(d => d.suggested_domain ?? "제안 없음"))]
+        .map(d => palette.domain[d] ?? "#9E9E9E"),
+      legend: true,
+    },
+    marks: [
+      Plot.barX(top, {
+        x: "commits", y: "repo",
+        fill: d => d.suggested_domain ?? "제안 없음",
+        title: d => `${d.repo}\n제안: ${d.suggested_domain ?? "없음"}`,
+        tip: true,
+      }),
+      Plot.text(top, { x: "commits", y: "repo", text: d => d.commits,
+                       dx: 6, textAnchor: "start", fontSize: 11 }),
+      Plot.ruleX([0]),
+    ],
+    style: { background: "transparent", fontFamily: "var(--aa-font-en)" },
+  });
+  document.getElementById("drift-chart").appendChild(chart);
+}
+
+// ─── Paste-ready rows ─────────────────────────────────────
+const el = document.getElementById("drift-table");
+el.innerHTML = `
+  <h2>붙여넣기용 — <code>data/taxonomy/repos.json</code></h2>
+  <p style="color:var(--aa-snu-gray); font-size:0.9rem;">
+    제안은 이름 패턴이 걸린 결과입니다. repo를 열어 확인한 뒤 <code>wp</code>를 채우세요.
+    근거를 못 찾으면 <strong>비워 두는 편이 낫습니다</strong> — 잘못된 분류는 미분류보다 나쁩니다.
+  </p>
+  <pre style="background:var(--aa-snu-ice); padding:12px; border-radius:6px; overflow-x:auto; font-size:0.82rem;">${
+    top.map(d =>
+      `"${d.repo}": {"wp": "WP?", "domain": "${d.suggested_domain ?? "?"}", "source": "manual", "note": "근거를 여기에"},` +
+      `   // ${d.commits} commits`
+    ).join("\n") || "// 미분류 없음"
+  }</pre>`;
+</script>
+```

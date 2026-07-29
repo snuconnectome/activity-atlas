@@ -21,6 +21,7 @@ DATA_DIR = Path(
 RAW_DIR = DATA_DIR / "raw"
 RAW_COMMITS = RAW_DIR / "commits.json"
 RAW_STATE = RAW_DIR / "state.json"
+RAW_INVENTORY = RAW_DIR / "repos.json"
 
 # [B] LOCAL DERIVED — topic model and weekly pulse output. Also outside the repo:
 # topic labels are n-grams lifted from commit messages, so they inherit whatever

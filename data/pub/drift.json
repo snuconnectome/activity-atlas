@@ -1,0 +1,346 @@
+[
+  {
+    "repo": "Transconnectome/ai-coexistence-cognition",
+    "commits": 45,
+    "domain": "human-neuro",
+    "wp": "unbound",
+    "suggested_domain": "human-neuro",
+    "matched_pattern": "\\beeg\\b|ieeg|fmri|\\bmri\\b|brain|connectome\\d|cognition|allostasis|memory|psych(?!iatr)"
+  },
+  {
+    "repo": "snuconnectome/Connectome-KB",
+    "commits": 42,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "neurox-org/omicsFM-LLM",
+    "commits": 26,
+    "domain": "brain-foundation-model",
+    "wp": "unbound",
+    "suggested_domain": "brain-foundation-model",
+    "matched_pattern": "-bfm$|\\bbfm\\b|k-bfm|foundation|swift|mbbn|diver|neuroprior|brainvlm|neuromamba|neurohymba|titan|lbm|omicsfm|centaur|brain-lang-align"
+  },
+  {
+    "repo": "snuconnectome/titan_fresh",
+    "commits": 17,
+    "domain": "brain-foundation-model",
+    "wp": "unbound",
+    "suggested_domain": "brain-foundation-model",
+    "matched_pattern": "-bfm$|\\bbfm\\b|k-bfm|foundation|swift|mbbn|diver|neuroprior|brainvlm|neuromamba|neurohymba|titan|lbm|omicsfm|centaur|brain-lang-align"
+  },
+  {
+    "repo": "snuconnectome/CENTaUR",
+    "commits": 16,
+    "domain": "brain-foundation-model",
+    "wp": "unbound",
+    "suggested_domain": "brain-foundation-model",
+    "matched_pattern": "-bfm$|\\bbfm\\b|k-bfm|foundation|swift|mbbn|diver|neuroprior|brainvlm|neuromamba|neurohymba|titan|lbm|omicsfm|centaur|brain-lang-align"
+  },
+  {
+    "repo": "snuconnectome/titans",
+    "commits": 13,
+    "domain": "brain-foundation-model",
+    "wp": "unbound",
+    "suggested_domain": "brain-foundation-model",
+    "matched_pattern": "-bfm$|\\bbfm\\b|k-bfm|foundation|swift|mbbn|diver|neuroprior|brainvlm|neuromamba|neurohymba|titan|lbm|omicsfm|centaur|brain-lang-align"
+  },
+  {
+    "repo": "Transconnectome/lbm-agent",
+    "commits": 12,
+    "domain": "agentic-ai",
+    "wp": "unbound",
+    "suggested_domain": "agentic-ai",
+    "matched_pattern": "agent|trinity|write-loop|cowriter|copresenter|paper-review|uleval|aegis|orchestrat|coscientist|mcp\\b|claude|gmail|simplicitas|mirror|evaluator|chavis|dept-notice"
+  },
+  {
+    "repo": "snuconnectome/gmail-agent",
+    "commits": 12,
+    "domain": "agentic-ai",
+    "wp": "unbound",
+    "suggested_domain": "agentic-ai",
+    "matched_pattern": "agent|trinity|write-loop|cowriter|copresenter|paper-review|uleval|aegis|orchestrat|coscientist|mcp\\b|claude|gmail|simplicitas|mirror|evaluator|chavis|dept-notice"
+  },
+  {
+    "repo": "snuconnectome/suicide-ideation-dca",
+    "commits": 11,
+    "domain": "clinical-translation",
+    "wp": "unbound",
+    "suggested_domain": "clinical-translation",
+    "matched_pattern": "suicide|psychiatr|depress|\\bmdd\\b|\\bocd\\b|\\basd\\b|parkinson|obesity|clinic|phenotyp|youth-brain|screentime|ema\\b"
+  },
+  {
+    "repo": "Transconnectome/eurohpc-tvb-digital-twin",
+    "commits": 10,
+    "domain": "unclassified",
+    "wp": "PROP",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "neurox-org/neural-field-fm-mouse",
+    "commits": 7,
+    "domain": "neural-field-modeling",
+    "wp": "unbound",
+    "suggested_domain": "neural-field-modeling",
+    "matched_pattern": "neural[-_]?field|ginr|\\bnerd\\b|signerd"
+  },
+  {
+    "repo": "snuconnectome/dept-notice-kb",
+    "commits": 7,
+    "domain": "agentic-ai",
+    "wp": "unbound",
+    "suggested_domain": "agentic-ai",
+    "matched_pattern": "agent|trinity|write-loop|cowriter|copresenter|paper-review|uleval|aegis|orchestrat|coscientist|mcp\\b|claude|gmail|simplicitas|mirror|evaluator|chavis|dept-notice"
+  },
+  {
+    "repo": "snuconnectome/screentime",
+    "commits": 7,
+    "domain": "clinical-translation",
+    "wp": "unbound",
+    "suggested_domain": "clinical-translation",
+    "matched_pattern": "suicide|psychiatr|depress|\\bmdd\\b|\\bocd\\b|\\basd\\b|parkinson|obesity|clinic|phenotyp|youth-brain|screentime|ema\\b"
+  },
+  {
+    "repo": "Transconnectome/neuroprior-mouse",
+    "commits": 6,
+    "domain": "brain-foundation-model",
+    "wp": "unbound",
+    "suggested_domain": "brain-foundation-model",
+    "matched_pattern": "-bfm$|\\bbfm\\b|k-bfm|foundation|swift|mbbn|diver|neuroprior|brainvlm|neuromamba|neurohymba|titan|lbm|omicsfm|centaur|brain-lang-align"
+  },
+  {
+    "repo": "Transconnectome/connectome-paper-submissions",
+    "commits": 5,
+    "domain": "infra",
+    "wp": "unbound",
+    "suggested_domain": "infra",
+    "matched_pattern": "proposal|grant|nrf|iitp|arpa|genesis|bk21|fund|report|annual|faculty|ref_letter|performance|talks|infographic|submissions|conference"
+  },
+  {
+    "repo": "Transconnectome/lab-ai-usage",
+    "commits": 5,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "Transconnectome/math-racing-ue5",
+    "commits": 5,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "Transconnectome/nrf-decoding",
+    "commits": 5,
+    "domain": "infra",
+    "wp": "unbound",
+    "suggested_domain": "infra",
+    "matched_pattern": "proposal|grant|nrf|iitp|arpa|genesis|bk21|fund|report|annual|faculty|ref_letter|performance|talks|infographic|submissions|conference"
+  },
+  {
+    "repo": "snuconnectome/cline-for-student",
+    "commits": 5,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "snuconnectome/connectome-lab-website",
+    "commits": 5,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "Transconnectome/ukb-climate-fmri-vlm",
+    "commits": 4,
+    "domain": "human-neuro",
+    "wp": "unbound",
+    "suggested_domain": "human-neuro",
+    "matched_pattern": "\\beeg\\b|ieeg|fmri|\\bmri\\b|brain|connectome\\d|cognition|allostasis|memory|psych(?!iatr)"
+  },
+  {
+    "repo": "neurox-org/ai4science-2026",
+    "commits": 4,
+    "domain": "unclassified",
+    "wp": "PROP",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "snuconnectome/essay-review",
+    "commits": 4,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "snuconnectome/kim-jaecheol-ai-class-2026-2-eval",
+    "commits": 4,
+    "domain": "education",
+    "wp": "unbound",
+    "suggested_domain": "education",
+    "matched_pattern": "class|lecture|bmb|workshop|hackathon|intern|fellow|curricul|education|innoedu|veritas|davinci"
+  },
+  {
+    "repo": "snuconnectome/snu-faculty-performance",
+    "commits": 4,
+    "domain": "infra",
+    "wp": "unbound",
+    "suggested_domain": "infra",
+    "matched_pattern": "proposal|grant|nrf|iitp|arpa|genesis|bk21|fund|report|annual|faculty|ref_letter|performance|talks|infographic|submissions|conference"
+  },
+  {
+    "repo": "snuconnectome/teams-notion-daily-tracker",
+    "commits": 4,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "Transconnectome/connectome-intern",
+    "commits": 3,
+    "domain": "education",
+    "wp": "unbound",
+    "suggested_domain": "education",
+    "matched_pattern": "class|lecture|bmb|workshop|hackathon|intern|fellow|curricul|education|innoedu|veritas|davinci"
+  },
+  {
+    "repo": "Transconnectome/sci-method",
+    "commits": 3,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "snuconnectome/neurox-nm-revision",
+    "commits": 3,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "Transconnectome/claude-code-coord",
+    "commits": 2,
+    "domain": "agentic-ai",
+    "wp": "unbound",
+    "suggested_domain": "agentic-ai",
+    "matched_pattern": "agent|trinity|write-loop|cowriter|copresenter|paper-review|uleval|aegis|orchestrat|coscientist|mcp\\b|claude|gmail|simplicitas|mirror|evaluator|chavis|dept-notice"
+  },
+  {
+    "repo": "Transconnectome/cognitive-ai-polarization-paper",
+    "commits": 2,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "Transconnectome/conference",
+    "commits": 2,
+    "domain": "infra",
+    "wp": "unbound",
+    "suggested_domain": "infra",
+    "matched_pattern": "proposal|grant|nrf|iitp|arpa|genesis|bk21|fund|report|annual|faculty|ref_letter|performance|talks|infographic|submissions|conference"
+  },
+  {
+    "repo": "neurox-org/gene-brain-vlm",
+    "commits": 2,
+    "domain": "human-neuro",
+    "wp": "unbound",
+    "suggested_domain": "human-neuro",
+    "matched_pattern": "\\beeg\\b|ieeg|fmri|\\bmri\\b|brain|connectome\\d|cognition|allostasis|memory|psych(?!iatr)"
+  },
+  {
+    "repo": "snuconnectome/coin-sota",
+    "commits": 2,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "snuconnectome/kolab-outside-director",
+    "commits": 2,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "snuconnectome/meeting-app",
+    "commits": 2,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "Transconnectome/claude-code-migrate",
+    "commits": 1,
+    "domain": "agentic-ai",
+    "wp": "unbound",
+    "suggested_domain": "agentic-ai",
+    "matched_pattern": "agent|trinity|write-loop|cowriter|copresenter|paper-review|uleval|aegis|orchestrat|coscientist|mcp\\b|claude|gmail|simplicitas|mirror|evaluator|chavis|dept-notice"
+  },
+  {
+    "repo": "Transconnectome/neuro-ai-scientist",
+    "commits": 1,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "Transconnectome/neuroprior",
+    "commits": 1,
+    "domain": "brain-foundation-model",
+    "wp": "unbound",
+    "suggested_domain": "brain-foundation-model",
+    "matched_pattern": "-bfm$|\\bbfm\\b|k-bfm|foundation|swift|mbbn|diver|neuroprior|brainvlm|neuromamba|neurohymba|titan|lbm|omicsfm|centaur|brain-lang-align"
+  },
+  {
+    "repo": "neurox-org/.github-private",
+    "commits": 1,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "neurox-org/nlm-strategic-query-learning",
+    "commits": 1,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "snuconnectome/openhands-free-model-lab",
+    "commits": 1,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  },
+  {
+    "repo": "snuconnectome/project_janus",
+    "commits": 1,
+    "domain": "unclassified",
+    "wp": "unbound",
+    "suggested_domain": null,
+    "matched_pattern": null
+  }
+]

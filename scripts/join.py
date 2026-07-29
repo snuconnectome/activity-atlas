@@ -40,9 +40,11 @@ from collections import Counter
 from pathlib import Path
 
 from aa_paths import (
-    DERIVED_EMBEDDINGS, DERIVED_PULSE, DERIVED_TOPICS,
+    DERIVED_EMBEDDINGS, DERIVED_PULSE, DERIVED_TOPICS, RAW_INVENTORY,
     PROFILE_DIRS, PUB_DIR, REPO, raw_commits_path,
 )
+
+ROSTER = Path("/home/juke/git/lab-ai-usage/roster.json")
 
 TAXONOMY_DIR = REPO / "data" / "taxonomy"
 REPOS_IN = TAXONOMY_DIR / "repos.json"
@@ -160,12 +162,180 @@ def downsample_embeddings(embeddings: list[dict]) -> tuple[list[dict], int]:
     return kept, len(embeddings) - len(kept)
 
 
+# Effort is measured in person-repo-weeks, not commits: one person touching one
+# repo in one ISO week counts once. Commit counts are dominated by commit style
+# — one repo here has 164 commits from a single contributor while another has
+# 725 from five — and lab-ai-usage/aggregator.py:132 already retired commit
+# totals as a Goodhart-prone measure. A person-week has a ceiling of 1, so it
+# cannot be inflated, and it shares its unit with the thing a budget actually
+# buys: someone's time.
+def iso_week(iso_dt: str) -> str:
+    from datetime import datetime
+    y, w, _ = datetime.fromisoformat(iso_dt.replace("Z", "+00:00")).isocalendar()
+    return f"{y}-W{w:02d}"
+
+
+def person_weeks(commits: list[dict]) -> set[tuple[str, str, str]]:
+    """(author, org/repo, ISO week) triples."""
+    return {
+        ((c.get("author_canonical") or c.get("author_login") or ""),
+         f"{c['org']}/{c['repo']}",
+         iso_week(c["author_date"]))
+        for c in commits if c.get("author_date")
+    }
+
+
+# A repo with one contributor is not automatically a problem — a personal
+# research log or a solo first-author draft is meant to be solo. Succession risk
+# only means something for work others must be able to pick up.
+SOLO_RISK_DOMAINS = {"brain-foundation-model", "quantum-ml", "neural-field-modeling",
+                     "clinical-translation", "agentic-ai", "human-neuro", "animal-neuro"}
+LOG_REPO_RE = re.compile(r"log|journal|weekly|diary|notes?$|report", re.IGNORECASE)
+
+
 def read_derived(path):
     if not path.exists():
         print(f"  ⚠️  {path.name} not found — skipping (run topic_model.py / weekly_pulse.py)",
               file=sys.stderr)
         return None
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def build_lifecycle(commits, taxonomy, inventory, pw):
+    """Per-repo state for the lifecycle / succession view."""
+    from datetime import datetime, timezone
+    now = datetime.now(timezone.utc)
+
+    last_commit, by_repo = {}, {}
+    for c in commits:
+        k = f"{c['org']}/{c['repo']}"
+        by_repo.setdefault(k, []).append(c)
+        d = c.get("author_date", "")
+        if d > last_commit.get(k, ""):
+            last_commit[k] = d
+
+    weeks_by_repo: dict[str, Counter] = {}
+    for author, repo, _wk in pw:
+        weeks_by_repo.setdefault(repo, Counter())[author] += 1
+
+    rows = []
+    seen = set()
+    for inv in inventory:
+        k = f"{inv['org']}/{inv['repo']}"
+        seen.add(k)
+        t = taxonomy.get(k) or classify_fallback(k)
+        weeks = weeks_by_repo.get(k, Counter())
+        # One-off drive-by commits should not read as shared ownership, so a
+        # contributor must have touched the repo in at least two distinct weeks.
+        committed = [a for a, n in weeks.items() if n >= 2]
+        stamp = last_commit.get(k) or inv.get("pushed_at") or ""
+        days = None
+        if stamp:
+            try:
+                days = (now - datetime.fromisoformat(stamp.replace("Z", "+00:00"))).days
+            except ValueError:
+                days = None
+        is_log = bool(LOG_REPO_RE.search(inv["repo"]))
+        rows.append({
+            "repo": k,
+            "org": inv["org"],
+            "domain": t["domain"],
+            "wp": t["wp"],
+            "archived": inv["archived"],
+            "idle_days": days,
+            "contributors": len(committed),
+            "person_weeks": sum(weeks.values()),
+            "commits": len(by_repo.get(k, [])),
+            # Succession risk is only asserted where solo ownership is a real
+            # hazard: research code and tooling, not logs or personal drafts.
+            "succession_risk": (
+                len(committed) == 1 and not is_log and not inv["archived"]
+                and t["domain"] in SOLO_RISK_DOMAINS
+                and days is not None and days < 180
+            ),
+        })
+    return sorted(rows, key=lambda r: -(r["person_weeks"] or 0))
+
+
+def classify_fallback(_key):
+    return {"domain": "unclassified", "wp": "unbound"}
+
+
+def build_people(commits, taxonomy, pw, roster):
+    """Per-person cards. Lab profile only — never emitted publicly."""
+    from datetime import datetime, timezone
+    now = datetime.now(timezone.utc)
+
+    pi = {"jcha9928"}
+    by_author: dict[str, list[dict]] = {}
+    for c in commits:
+        by_author.setdefault(c.get("author_canonical") or c.get("author_login") or "", []).append(c)
+
+    # When the PI last touched a repo — the basis for "how long since I looked
+    # at this person's work". The sort key is deliberately about the PI's
+    # attention, not the person's output, so the card cannot be read as a
+    # productivity ranking.
+    pi_last: dict[str, str] = {}
+    for c in by_author.get("jcha9928", []):
+        k = f"{c['org']}/{c['repo']}"
+        if c["author_date"] > pi_last.get(k, ""):
+            pi_last[k] = c["author_date"]
+
+    weeks_by_author: dict[str, set] = {}
+    for author, repo, wk in pw:
+        weeks_by_author.setdefault(author, set()).add((repo, wk))
+
+    rows = []
+    for author, rows_ in by_author.items():
+        if author in pi or not author:
+            continue
+        repos = sorted({f"{c['org']}/{c['repo']}" for c in rows_})
+        contact = max((pi_last.get(r, "") for r in repos), default="")
+        since = None
+        if contact:
+            since = (now - datetime.fromisoformat(contact.replace("Z", "+00:00"))).days
+
+        # Sparkline is weekly *repo count*, not commit count: a commit-count
+        # sparkline reads as a productivity chart no matter how it is labelled.
+        weeks = weeks_by_author.get(author, set())
+        recent = Counter(wk for _r, wk in weeks)
+        last8 = [recent.get(w, 0) for w in sorted({wk for _r, wk in weeks})[-8:]]
+
+        doms = Counter(taxonomy.get(f"{c['org']}/{c['repo']}", {}).get("domain", "")
+                       for c in rows_)
+        rows.append({
+            "login": author,
+            "display": roster.get(author) or author,
+            "in_roster": author in roster,
+            "repos": repos[:12],
+            "n_repos": len(repos),
+            "active_weeks": len({wk for _r, wk in weeks}),
+            "recent_repo_counts": last8,
+            "domains": [d for d, _ in doms.most_common(3) if d],
+            "days_since_pi_contact": since,
+            "last_activity": max(c["author_date"] for c in rows_)[:10],
+        })
+    # Sorted by PI attention debt, longest first. Never by volume.
+    return sorted(rows, key=lambda r: -(r["days_since_pi_contact"] or 9999))
+
+
+def build_drift(taxonomy, commits_per_repo, rules):
+    """Unclassified repos, most active first, with the rule that would fire."""
+    rows = []
+    for repo, t in taxonomy.items():
+        if t["wp"] != "unbound" and t["domain"] != "unclassified":
+            continue
+        name = repo.split("/", 1)[1]
+        suggestion, pattern = first_match(rules["domain_rules"], "domain", name)
+        rows.append({
+            "repo": repo,
+            "commits": commits_per_repo.get(repo, 0),
+            "domain": t["domain"],
+            "wp": t["wp"],
+            "suggested_domain": suggestion,
+            "matched_pattern": pattern,
+        })
+    return sorted(rows, key=lambda r: -r["commits"])
 
 
 def mask_topic_labels(topics_doc, embeddings, commits, consent):
@@ -438,6 +608,40 @@ def main() -> int:
         "wp_order": ["WP1", "WP2", "WP3", "WP4", "WP5", "PROP", "QML", "unbound"],
         "_source": "MASTER_PLAN_6YR.md:109-215 for wp_budget_pct; assets/tokens.css for hues",
     }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    # ── Views: lifecycle, people, drift ──────────────────────────────────
+    pw = person_weeks(commits)
+    inventory = []
+    if RAW_INVENTORY.exists():
+        inventory = json.loads(RAW_INVENTORY.read_text(encoding="utf-8"))
+    else:
+        print("  ⚠️  raw/repos.json not found — dormant repos will be missing "
+              "from the lifecycle view. Re-run fetch_commits.py.", file=sys.stderr)
+        inventory = [{"org": r.split("/")[0], "repo": r.split("/", 1)[1],
+                      "pushed_at": None, "archived": False,
+                      "visibility": "UNKNOWN", "active": True} for r in repos]
+
+    (out_dir / "lifecycle.json").write_text(json.dumps(
+        build_lifecycle(commits, taxonomy, inventory, pw),
+        ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+
+    (out_dir / "drift.json").write_text(json.dumps(
+        build_drift(taxonomy, commits_per_repo, rules),
+        indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    # People cards carry names, so they exist in the lab profile only. A stale
+    # copy must not survive a switch from lab to pub.
+    people_path = out_dir / "people.json"
+    if public:
+        people_path.unlink(missing_ok=True)
+    else:
+        roster = {}
+        if ROSTER.exists():
+            roster = {k: v for k, v in json.loads(ROSTER.read_text(encoding="utf-8")).items()
+                      if not k.startswith("__")}
+        people_path.write_text(json.dumps(
+            build_people(commits, taxonomy, pw, roster),
+            indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     (out_dir / "taxonomy_coverage.json").write_text(json.dumps({
         "n_commits": len(commits),

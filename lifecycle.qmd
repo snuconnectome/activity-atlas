@@ -1,0 +1,155 @@
+---
+title: "Lifecycle — repo 생애주기와 승계 리스크"
+subtitle: "무엇을 아카이브하고, 누가 나가면 무엇이 멈추는가"
+---
+
+가로축은 마지막 활동 이후 경과일(로그 스케일), 세로축은 최근 1년간 **두 주 이상** 손댄
+기여자 수입니다. 점 크기는 person-week(한 사람이 한 주에 한 repo를 건드리면 1),
+색은 학문 도메인입니다.
+
+기여자가 한 명이라는 것 자체는 문제가 아닙니다 — 개인 연구노트나 단독 저자 초고는
+원래 혼자 씁니다. 그래서 **승계 리스크는 연구코드·도구 도메인에만**, 그것도 최근
+6개월 안에 움직인 repo에만 표시합니다.
+
+```{=html}
+<div class="viz-container">
+  <div id="lifecycle-scatter"></div>
+  <p id="lifecycle-legend" style="font-size:0.85rem; color:var(--aa-snu-gray);"></p>
+</div>
+```
+
+## ⚠️ 승계 리스크 — 한 사람만 붙어 있는 활성 연구코드
+
+```{=html}
+<div id="succession"></div>
+```
+
+## 🗄️ 아카이브 후보 — 1년 이상 멈춘 repo
+
+아래 명령은 **복사만 됩니다.** 이 페이지는 아무것도 실행하지 않습니다.
+
+```{=html}
+<div id="archive-queue"></div>
+
+<script type="module">
+import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.16/+esm";
+
+// Rendered twice from the same source: the public profile reads the redacted
+// data/pub, the lab profile (QUARTO_PROFILE=lab) reads data/lab.
+const ROOT = window.AA_DATA_ROOT ?? "data/pub";
+
+const [rows, palette] = await Promise.all([
+  fetch(`${ROOT}/lifecycle.json`).then(r => r.json()),
+  fetch(`${ROOT}/palette.json`).then(r => r.json()),
+]);
+
+const live = rows.filter(r => !r.archived && r.idle_days !== null);
+const withWork = live.filter(r => r.person_weeks > 0);
+
+// ─── Quadrant scatter ─────────────────────────────────────
+const domains = [...new Set(withWork.map(r => r.domain))]
+  .sort((a, b) => (palette.domain[a] ? -1 : 1));
+
+const scatter = Plot.plot({
+  width: 980,
+  height: 460,
+  marginLeft: 60,
+  marginRight: 140,
+  x: {
+    type: "log",
+    label: "마지막 활동 이후 경과일 →",
+    domain: [1, Math.max(400, ...withWork.map(r => r.idle_days || 1))],
+    grid: true,
+  },
+  y: {
+    label: "↑ 기여자 수 (2주 이상 참여)",
+    domain: [-0.4, Math.max(3, ...withWork.map(r => r.contributors)) + 0.4],
+    grid: true,
+  },
+  color: {
+    domain: domains,
+    range: domains.map(d => palette.domain[d] ?? "#9E9E9E"),
+    legend: true,
+  },
+  r: { range: [3, 22] },
+  marks: [
+    // Quadrant guides at 90 days and 2 contributors — drawn, not asserted:
+    // they are reading aids, not thresholds the data was tested against.
+    Plot.ruleX([90], { stroke: "#A0A0A0", strokeDasharray: "3,3" }),
+    Plot.ruleY([1.5], { stroke: "#A0A0A0", strokeDasharray: "3,3" }),
+    Plot.dot(withWork, {
+      x: d => Math.max(1, d.idle_days),
+      y: "contributors",
+      r: "person_weeks",
+      fill: "domain",
+      fillOpacity: 0.75,
+      stroke: "white",
+      strokeWidth: 0.8,
+      title: d => `${d.repo}\n${d.domain} · ${d.wp}\n` +
+                  `기여자 ${d.contributors}명 · ${d.person_weeks} person-week\n` +
+                  `마지막 활동 ${d.idle_days}일 전`,
+    }),
+    // Only the handful of repos that carry real weight get a label, and Plot
+    // pushes overlapping ones apart. At 260 points every label collided into an
+    // unreadable band.
+    Plot.text(
+      withWork.filter(d => d.person_weeks >= 15),
+      { x: d => Math.max(1, d.idle_days), y: "contributors",
+        text: d => d.repo.split("/")[1], dy: -13, fontSize: 10, fill: "#282945",
+        stroke: "white", strokeWidth: 3, paintOrder: "stroke" },
+    ),
+  ],
+  style: { background: "transparent", fontFamily: "var(--aa-font-en)" },
+});
+document.getElementById("lifecycle-scatter").appendChild(scatter);
+
+const q = (fx, fy) => withWork.filter(r =>
+  (fx ? r.idle_days > 90 : r.idle_days <= 90) &&
+  (fy ? r.contributors >= 2 : r.contributors < 2)).length;
+document.getElementById("lifecycle-legend").textContent =
+  `왼쪽 아래 단독·활발 ${q(false, false)} · 왼쪽 위 공유·활발 ${q(false, true)} · ` +
+  `오른쪽 아래 정체 ${q(true, false)} · 오른쪽 위 방치된 공유자산 ${q(true, true)}`;
+
+// ─── Succession risk table ────────────────────────────────
+const risk = rows.filter(r => r.succession_risk)
+  .sort((a, b) => b.person_weeks - a.person_weeks);
+
+function table(target, rows_, cols, empty) {
+  const el = document.getElementById(target);
+  if (!rows_.length) { el.innerHTML = `<p style="color:var(--aa-snu-gray)">${empty}</p>`; return; }
+  el.innerHTML = `
+    <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+      <thead><tr style="border-bottom:2px solid var(--aa-snu-blue); text-align:left;">
+        ${cols.map(c => `<th style="padding:6px 10px;">${c.h}</th>`).join("")}
+      </tr></thead>
+      <tbody>${rows_.map(r => `<tr style="border-bottom:1px solid var(--aa-snu-border);">
+        ${cols.map(c => `<td style="padding:6px 10px;">${c.f(r)}</td>`).join("")}
+      </tr>`).join("")}</tbody>
+    </table>`;
+}
+
+table("succession", risk, [
+  { h: "repo", f: r => `<code>${r.repo}</code>` },
+  { h: "도메인", f: r => `<span style="color:${palette.domain[r.domain] ?? "#666"}">●</span> ${r.domain}` },
+  { h: "WP", f: r => r.wp },
+  { h: "person-week", f: r => r.person_weeks },
+  { h: "마지막 활동", f: r => `${r.idle_days}일 전` },
+], "해당 없음");
+
+// ─── Archive queue ────────────────────────────────────────
+const dormant = rows.filter(r => !r.archived && r.idle_days !== null && r.idle_days > 365)
+  .sort((a, b) => b.idle_days - a.idle_days);
+
+table("archive-queue", dormant.slice(0, 40), [
+  { h: "repo", f: r => `<code>${r.repo}</code>` },
+  { h: "마지막 활동", f: r => `${r.idle_days}일 전` },
+  { h: "아카이브 명령", f: r =>
+      `<code style="font-size:0.8rem;">gh repo archive ${r.repo} --yes</code>` },
+], "해당 없음");
+
+if (dormant.length > 40) {
+  document.getElementById("archive-queue").insertAdjacentHTML("beforeend",
+    `<p style="color:var(--aa-snu-gray); font-size:0.85rem;">… 그리고 ${dormant.length - 40}개 더 (총 ${dormant.length}개)</p>`);
+}
+</script>
+```

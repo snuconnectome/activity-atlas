@@ -40,8 +40,9 @@ import json
 import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
-from aa_paths import RAW_COMMITS, RAW_DIR, RAW_STATE, raw_commits_path
+from aa_paths import RAW_COMMITS, RAW_DIR, RAW_INVENTORY, RAW_STATE, raw_commits_path
 
 # ---------------------------------------------------------------------------
 # Config
@@ -57,10 +58,18 @@ ORGS = ["snuconnectome", "Transconnectome", "neurox-org"]
 # only one of them hid more than half of his own activity.
 PI_LOGINS = ["jcha9928", "snuconnectome"]
 
-# login → canonical login. Mirrors roster.json's __aliases__ convention in
-# lab-ai-usage. The original login is preserved on every row so the merge stays
-# auditable and reversible without refetching.
+# login → canonical login. The PI's own pair is hardcoded because it predates
+# the roster; the rest come from lab-ai-usage/roster.json's __aliases__ so a
+# second account belonging to one student does not read as two people. The
+# original login stays on every row, so the merge is auditable and reversible
+# without refetching.
+ROSTER = Path("/home/juke/git/lab-ai-usage/roster.json")
 ALIASES = {"snuconnectome": "jcha9928"}
+if ROSTER.exists():
+    try:
+        ALIASES.update(json.loads(ROSTER.read_text(encoding="utf-8")).get("__aliases__", {}))
+    except json.JSONDecodeError:
+        print("⚠️  roster.json unreadable — alias merge limited to the PI", file=sys.stderr)
 
 # Ported verbatim from lab-ai-usage/scripts/github_collector.py:65-66
 BOT_LOGINS = {
@@ -85,19 +94,24 @@ def gh(args: list[str], jq: str | None = None) -> tuple[str | None, str | None]:
     return proc.stdout, None
 
 
-def active_repos(org: str, since_iso: str) -> tuple[list[dict], str | None]:
-    """Non-archived repos pushed since `since_iso`, with visibility."""
+def list_repos(org: str) -> tuple[list[dict], str | None]:
+    """Every repo in the org, active or not.
+
+    The dormant ones matter: a repo with no commits in a year is exactly what
+    the lifecycle view needs to surface, and filtering them out here would make
+    them invisible rather than obviously idle.
+    """
     out, err = gh([
         "repo", "list", org, "--limit", "500",
         "--json", "name,pushedAt,isArchived,visibility",
     ])
     if err:
         return [], err
-    repos = json.loads(out) if out and out.strip() else []
-    return [
-        r for r in repos
-        if not r.get("isArchived") and (r.get("pushedAt") or "") >= since_iso
-    ], None
+    return (json.loads(out) if out and out.strip() else []), None
+
+
+def is_active(repo: dict, since_iso: str) -> bool:
+    return not repo.get("isArchived") and (repo.get("pushedAt") or "") >= since_iso
 
 
 def repo_commits(org: str, repo: str, since_iso: str) -> tuple[list[dict], str | None]:
@@ -209,19 +223,31 @@ def main() -> int:
     print(f"  Store:   {RAW_COMMITS}")
     print()
 
-    # ── Discover active repos ────────────────────────────────────────────
+    # ── Discover repos ───────────────────────────────────────────────────
     targets: list[tuple[str, str, str]] = []   # (org, repo, visibility)
+    inventory: list[dict] = []                 # every repo, dormant included
     failed_orgs: list[str] = []
     for org in ORGS:
-        repos, err = active_repos(org, window_start)
+        repos, err = list_repos(org)
         if err:
             print(f"  ❌ {org:20s} repo list failed: {err}", file=sys.stderr)
             failed_orgs.append(org)
             continue
+        active = [r for r in repos if is_active(r, window_start)]
         for r in repos:
+            inventory.append({
+                "org": org,
+                "repo": r["name"],
+                "pushed_at": r.get("pushedAt"),
+                "archived": bool(r.get("isArchived")),
+                "visibility": r.get("visibility", "UNKNOWN"),
+                "active": is_active(r, window_start),
+            })
+        for r in active:
             targets.append((org, r["name"], r.get("visibility", "UNKNOWN")))
-        private_n = sum(1 for r in repos if r.get("visibility") == "PRIVATE")
-        print(f"  → {org:20s} {len(repos):4d} active repos ({private_n} private)")
+        private_n = sum(1 for r in active if r.get("visibility") == "PRIVATE")
+        print(f"  → {org:20s} {len(active):4d} active / {len(repos)} total "
+              f"({private_n} private)")
 
     if failed_orgs:
         print(f"\n❌ repo discovery failed for: {', '.join(failed_orgs)}", file=sys.stderr)
@@ -277,6 +303,9 @@ def main() -> int:
         json.dumps(commits, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     RAW_STATE.write_text(
         json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    RAW_INVENTORY.write_text(
+        json.dumps(sorted(inventory, key=lambda r: (r["org"], r["repo"])),
+                   indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     # ── Report ───────────────────────────────────────────────────────────
     by_author: dict[str, int] = {}

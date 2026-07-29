@@ -9,9 +9,12 @@ project:
     - "assets/**"
   render:
     - index.qmd
+    - lifecycle.qmd
+    - drift.qmd
     - latent.qmd
     - network.qmd
     - pulse.qmd
+    - people.qmd
     - about.qmd
 
 website:
@@ -28,10 +31,16 @@ website:
         href: index.qmd
       - text: "Latent"
         href: latent.qmd
+      - text: "Lifecycle"
+        href: lifecycle.qmd
       - text: "Network"
         href: network.qmd
       - text: "Pulse"
         href: pulse.qmd
+      - text: "Drift"
+        href: drift.qmd
+      - text: "1:1"
+        href: people.qmd
     right:
       - text: "About"
         href: about.qmd

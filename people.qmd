@@ -1,0 +1,115 @@
+---
+title: "1:1 — 누구를 먼저 볼 것인가"
+subtitle: "랩 내부 전용 · 정렬 기준은 활동량이 아니라 내가 마지막으로 본 시점"
+---
+
+::: {.callout-important title="이 페이지가 하지 않는 것"}
+정렬 기준은 **"내가 이 사람 작업을 마지막으로 본 지 며칠"**입니다. 활동량 순 정렬은
+제공하지 않고, 절대 commit 수도 표시하지 않으며, 사람 사이를 비교하는 공통 축이나
+순위 번호도 그리지 않습니다. 이 뷰의 주어는 학생이 아니라 PI입니다.
+
+스파크라인의 세로축은 **그 주에 손댄 repo 수**이지 commit 수가 아닙니다.
+
+**왜 조용한지는 이 데이터로 알 수 없습니다.** GitHub 무활동은 실험 대기, 논문 읽기,
+Overleaf 작업, 병가, 그리고 실제 이탈을 구분하지 못합니다. 이 카드는 판정이 아니라
+물어볼 거리입니다.
+:::
+
+```{=html}
+<div id="people-gate"></div>
+<div id="people-cards" class="people-grid"></div>
+
+<style>
+.people-grid { display: grid; gap: 14px; margin-top: 20px; }
+.person-card {
+  border: 1px solid var(--aa-snu-border);
+  border-left: 4px solid var(--aa-snu-blue);
+  border-radius: 6px; padding: 14px 16px; background: white;
+}
+.person-card h3 { margin: 0 0 4px; font-size: 1.05rem; }
+.person-card .meta { color: var(--aa-snu-gray); font-size: 0.85rem; }
+.person-card .ask { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--aa-snu-border); }
+.person-card .ask li { font-size: 0.9rem; margin: 3px 0; }
+.spark { display: inline-block; vertical-align: middle; margin-left: 6px; }
+</style>
+
+<script type="module">
+// Rendered twice from the same source: the public profile reads the redacted
+// data/pub, the lab profile (QUARTO_PROFILE=lab) reads data/lab.
+const ROOT = window.AA_DATA_ROOT ?? "data/pub";
+
+// people.json exists only in the lab profile. The public build has no such file
+// by construction — join.py deletes it there — so this page degrades to a notice
+// rather than leaking anything.
+let people = null;
+try {
+  const res = await fetch(`${ROOT}/people.json`);
+  if (res.ok) people = await res.json();
+} catch (e) { /* fall through to the gate */ }
+
+const gate = document.getElementById("people-gate");
+if (!people) {
+  gate.innerHTML = `
+    <div style="border:1px solid var(--aa-snu-border); border-radius:6px; padding:16px; background:var(--aa-snu-ice);">
+      <strong>이 페이지는 랩 내부 빌드에서만 데이터를 표시합니다.</strong>
+      <p style="margin:8px 0 0; font-size:0.9rem; color:var(--aa-snu-gray);">
+        개인별 활동은 공개 사이트에 배포하지 않습니다. 보려면:<br>
+        <code>python scripts/join.py --profile lab &amp;&amp; QUARTO_PROFILE=lab quarto preview</code>
+      </p>
+    </div>`;
+} else {
+  const container = document.getElementById("people-cards");
+
+  function sparkline(values) {
+    if (!values.length) return "";
+    const w = 8, h = 22, max = Math.max(...values, 1);
+    const bars = values.map((v, i) =>
+      `<rect x="${i * (w + 2)}" y="${h - (v / max) * h}" width="${w}" ` +
+      `height="${Math.max(1, (v / max) * h)}" fill="#0072B2" opacity="0.75"/>`).join("");
+    // No shared y-scale across people: each sparkline is scaled to its own max,
+    // so the cards cannot be read against each other.
+    return `<svg class="spark" width="${values.length * (w + 2)}" height="${h}">${bars}</svg>`;
+  }
+
+  function asks(p) {
+    // Rule-based only. An LLM writing sentences about a named person, from
+    // commit metadata, would invent characterisations the data cannot support.
+    const out = [];
+    if (p.days_since_pi_contact === null) {
+      out.push("이 사람 repo에 내가 커밋한 기록이 없다 — 작업을 한 번도 직접 본 적 없을 수 있다.");
+    } else if (p.days_since_pi_contact > 30) {
+      out.push(`내가 마지막으로 이 사람 repo를 건드린 지 ${p.days_since_pi_contact}일 지났다.`);
+    }
+    if (p.n_repos === 1) {
+      out.push(`활동이 <code>${p.repos[0]}</code> 하나에 몰려 있다 — 막힌 지점이 있는지 물어볼 것.`);
+    }
+    if (p.domains.includes("unclassified")) {
+      out.push("주력 repo가 아직 어느 WP에도 매핑되지 않았다 — 무슨 과제인지 확인 필요.");
+    }
+    if (!p.in_roster) {
+      out.push("roster.json에 없는 계정 — 랩 구성원인지, 외부 협력자인지 확인 필요.");
+    }
+    return out;
+  }
+
+  container.innerHTML = people.map(p => `
+    <div class="person-card">
+      <h3>${p.display}${p.display !== p.login ? ` <span class="meta">(${p.login})</span>` : ""}</h3>
+      <div class="meta">
+        마지막 접촉: ${p.days_since_pi_contact === null ? "기록 없음" : p.days_since_pi_contact + "일 전"}
+        · 활동 repo ${p.n_repos}개 · 활동한 주 ${p.active_weeks}주
+        · 최근 활동 ${p.last_activity}
+        ${sparkline(p.recent_repo_counts)}
+        <span style="font-size:0.75rem;">주별 활동 repo 수</span>
+      </div>
+      <div class="meta" style="margin-top:6px;">
+        도메인: ${p.domains.length ? p.domains.join(" · ") : "—"}<br>
+        repo: ${p.repos.slice(0, 5).map(r => `<code>${r.split("/")[1]}</code>`).join(", ")}${p.n_repos > 5 ? ` 외 ${p.n_repos - 5}개` : ""}
+      </div>
+      ${asks(p).length ? `<div class="ask"><strong style="font-size:0.85rem;">물어볼 것</strong><ul>${asks(p).map(a => `<li>${a}</li>`).join("")}</ul></div>` : ""}
+    </div>`).join("");
+
+  gate.innerHTML = `<p class="meta">${people.length}명 · PI 접촉이 오래된 순</p>`;
+}
+</script>
+```
