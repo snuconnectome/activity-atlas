@@ -114,17 +114,37 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 ~/.local/quarto/bin/quarto preview
 ```
 
-### Two data tiers
+### Data tiers
 
-`data/raw/commits.json` holds full commit message bodies for repos that are
-overwhelmingly private. It is **gitignored and never published** — it stays on
-the machine that ran `fetch_commits.py`.
+Everything derived from commit message bodies stays outside the repo, under
+`$ACTIVITY_ATLAS_DATA_DIR` (default `~/.local/share/activity-atlas`):
+`raw/commits.json` and the topic model's `derived/` output. Commit messages
+belong to mostly-private repos, and topic labels are n-grams lifted straight
+out of them.
 
-What gets committed and deployed is `data/pub/`: `commits_slim.json` (subject
-line only, 80 chars, no message body) plus the derived `topics.json`,
-`embeddings.json`, and `weekly_pulse.json`. `_quarto.yml` publishes
-`data/pub/**` as an allowlist, and CI refuses to build if raw data or a
-`message` field ever appears in the repo.
+`scripts/join.py` is the only path from there into the repo, and it emits two
+profiles:
+
+| | `data/pub/` | `data/lab/` |
+|---|---|---|
+| committed | yes | **gitignored** |
+| deployed | GitHub Pages | never |
+| author identity | absent | present |
+| commit subjects | consenting authors only | all |
+| topic labels | masked when a non-consenting author dominates a cluster | verbatim |
+
+Consent comes from `lab-ai-usage/participants.json`; absence means no consent,
+so a new lab member is never published by default.
+
+Render the lab profile locally with:
+
+```bash
+.venv/bin/python scripts/join.py --profile lab
+QUARTO_PROFILE=lab ~/.local/quarto/bin/quarto preview
+```
+
+CI refuses to build if raw data, a `message` field, an `author` field, or any
+lab artefact ever appears in the repo.
 
 ### Refreshing data
 

@@ -22,8 +22,22 @@ RAW_DIR = DATA_DIR / "raw"
 RAW_COMMITS = RAW_DIR / "commits.json"
 RAW_STATE = RAW_DIR / "state.json"
 
-# [D] PUBLIC DERIVED — committed and deployed to GitHub Pages
+# [B] LOCAL DERIVED — topic model and weekly pulse output. Also outside the repo:
+# topic labels are n-grams lifted from commit messages, so they inherit whatever
+# the messages were. Everything here passes through join.py, which is the only
+# place that decides what may be published.
+DERIVED_DIR = DATA_DIR / "derived"
+DERIVED_TOPICS = DERIVED_DIR / "topics.json"
+DERIVED_EMBEDDINGS = DERIVED_DIR / "embeddings.json"
+DERIVED_PULSE = DERIVED_DIR / "weekly_pulse.json"
+
+# [C] LAB-INTERNAL — gitignored, rendered locally, never deployed
+LAB_DIR = REPO / "data" / "lab"
+
+# [D] PUBLIC — committed and deployed to GitHub Pages
 PUB_DIR = REPO / "data" / "pub"
+
+PROFILE_DIRS = {"pub": PUB_DIR, "lab": LAB_DIR}
 
 # Pre-Phase-1 location. Read-only fallback so an existing checkout keeps working
 # until the next fetch; nothing ever writes here again.

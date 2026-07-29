@@ -13,9 +13,13 @@ subtitle: "Rule-based delta · 매주 무엇이 바뀌었는가"
 <div id="pulse-list" style="margin-top: 24px;"></div>
 
 <script type="module">
+// Rendered twice from the same source: the public profile reads the redacted
+// data/pub, the lab profile (QUARTO_PROFILE=lab) reads data/lab.
+const ROOT = window.AA_DATA_ROOT ?? "data/pub";
+
 const [pulse, topicsDoc] = await Promise.all([
-  fetch("data/pub/weekly_pulse.json").then(r => r.json()),
-  fetch("data/pub/topics.json").then(r => r.json()),
+  fetch(`${ROOT}/weekly_pulse.json`).then(r => r.json()),
+  fetch(`${ROOT}/topics.json`).then(r => r.json()),
 ]);
 
 const topicById = new Map(topicsDoc.topics.map(t => [t.topic_id, t]));

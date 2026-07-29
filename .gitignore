@@ -22,8 +22,13 @@ _freeze/
 
 # Raw commits carry full message bodies for mostly-PRIVATE repos. They stay on
 # the local machine; only the redacted projection in data/pub/ is committed.
-# See scripts/redact.py.
+# See scripts/join.py.
 data/raw/
+
+# Lab-internal profile: author names and commit subjects for everyone, not just
+# consenting authors. Rendered locally, never deployed.
+data/lab/
+_site-lab/
 data/cache/
 data/tmp/
 

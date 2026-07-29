@@ -4,9 +4,11 @@
 Reads:  $ACTIVITY_ATLAS_DATA_DIR/raw/commits.json   (local only)
         data/taxonomy/repos.json                     (curated, committed)
         data/taxonomy/rules.json                     (fallback patterns)
-Writes: data/pub/commits_slim.json
-        data/pub/palette.json
-        data/pub/taxonomy_coverage.json
+Writes: data/<profile>/*.json   (profile = pub | lab)
+
+`pub` is what gets committed and deployed. `lab` carries author names and commit
+subjects and is gitignored — it exists so the same pages can be rendered locally
+against the full picture.
 
 Why classification lives here and not in fetch_commits.py
 ---------------------------------------------------------
@@ -35,16 +37,16 @@ import json
 import re
 import sys
 from collections import Counter
+from pathlib import Path
 
-from aa_paths import PUB_DIR, REPO, raw_commits_path
+from aa_paths import (
+    DERIVED_EMBEDDINGS, DERIVED_PULSE, DERIVED_TOPICS,
+    PROFILE_DIRS, PUB_DIR, REPO, raw_commits_path,
+)
 
 TAXONOMY_DIR = REPO / "data" / "taxonomy"
 REPOS_IN = TAXONOMY_DIR / "repos.json"
 RULES_IN = TAXONOMY_DIR / "rules.json"
-
-COMMITS_OUT = PUB_DIR / "commits_slim.json"
-PALETTE_OUT = PUB_DIR / "palette.json"
-COVERAGE_OUT = PUB_DIR / "taxonomy_coverage.json"
 
 SUBJECT_MAX = 80
 
@@ -105,6 +107,65 @@ PROPOSAL_WP = "PROP"
 # it is visible on the scientific axis too.
 QUANTUM_WP = "QML"
 QUANTUM_DOMAIN = "quantum-ml"
+
+
+# Consent roster. lab-ai-usage/participants.json is the lab's existing gate;
+# absence from it means no consent, which is the safe default rather than an
+# error — a new lab member must never be published by virtue of not being listed.
+PARTICIPANTS = Path("/home/juke/git/lab-ai-usage/participants.json")
+
+# A cluster label is n-grams lifted from commit messages. If one non-consenting
+# person wrote most of a cluster, publishing its label republishes their words
+# under a thin disguise, so the label is replaced with a neutral id.
+TOPIC_MIN_SIZE = 8
+TOPIC_MAX_SINGLE_SHARE = 0.60
+
+
+def load_consent() -> set[str]:
+    """GitHub logins that have consented to having their text published."""
+    if not PARTICIPANTS.exists():
+        print(f"  ⚠️  {PARTICIPANTS} not found — treating every author as non-consenting",
+              file=sys.stderr)
+        return set()
+    doc = json.loads(PARTICIPANTS.read_text(encoding="utf-8"))
+    return {k for k, v in doc.items()
+            if not k.startswith("_") and isinstance(v, dict) and v.get("consent_version")}
+
+
+def may_publish_text(author: str, consent: set[str]) -> bool:
+    return author in consent
+
+
+def read_derived(path):
+    if not path.exists():
+        print(f"  ⚠️  {path.name} not found — skipping (run topic_model.py / weekly_pulse.py)",
+              file=sys.stderr)
+        return None
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def mask_topic_labels(topics_doc, embeddings, commits, consent):
+    """Replace labels that a single non-consenting author dominates."""
+    sha_author = {c["sha"]: (c.get("author_canonical") or c.get("author_login") or "")
+                  for c in commits}
+    per_topic: dict[int, Counter] = {}
+    for e in embeddings:
+        per_topic.setdefault(e["topic_id"], Counter())[sha_author.get(e["sha"], "")] += 1
+
+    masked = 0
+    for t in topics_doc.get("topics", []):
+        tid = t["topic_id"]
+        authors = per_topic.get(tid, Counter())
+        total = sum(authors.values())
+        if not total:
+            continue
+        risky = [(a, n) for a, n in authors.items()
+                 if a not in consent and n / total > TOPIC_MAX_SINGLE_SHARE]
+        if risky or (total < TOPIC_MIN_SIZE and any(a not in consent for a in authors)):
+            t["label"] = f"topic-{tid}" if tid != -1 else "outliers"
+            t["top_words"] = []
+            masked += 1
+    return topics_doc, masked
 
 
 def first_match(rules: list[dict], key: str, text: str) -> tuple[str | None, str | None]:
@@ -188,6 +249,9 @@ def classify(full_name: str, curated: dict, rules: dict) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Join raw commits with the taxonomy.")
+    ap.add_argument("--profile", choices=["pub", "lab"], default="pub",
+                    help="pub = publishable projection (default); "
+                         "lab = lab-internal, carries author names and subjects")
     ap.add_argument("--report", action="store_true", help="print coverage, write nothing")
     args = ap.parse_args()
 
@@ -254,28 +318,66 @@ def main() -> int:
         print("\n(report only — nothing written)")
         return 0
 
-    # ── Emit published projection ────────────────────────────────────────
+    consent = load_consent()
+    out_dir = PROFILE_DIRS[args.profile]
+    public = args.profile == "pub"
+
+    # ── Commit rows ──────────────────────────────────────────────────────
     slim = []
+    suppressed_subjects = 0
     for c in commits:
         full = f"{c['org']}/{c['repo']}"
         t = taxonomy[full]
         row = {k: c[k] for k in KEEP_FIELDS if k in c}
-        row["subject"] = (c.get("message") or "").split("\n")[0][:SUBJECT_MAX]
+        author = c.get("author_canonical") or c.get("author_login") or ""
+
+        if public and not may_publish_text(author, consent):
+            # The person's activity still counts; their words do not.
+            row["subject"] = ""
+            suppressed_subjects += 1
+        else:
+            row["subject"] = (c.get("message") or "").split("\n")[0][:SUBJECT_MAX]
+
+        if not public:
+            row["author"] = author
+
         row["repo_category"] = t["category"]     # legacy axis, kept for index.qmd
         row["domain"] = t["domain"]
         row["wp"] = t["wp"]
         slim.append(row)
 
-    leaked = {k for row in slim for k in row} - set(KEEP_FIELDS) - {
-        "subject", "repo_category", "domain", "wp"}
+    allowed = set(KEEP_FIELDS) | {"subject", "repo_category", "domain", "wp"}
+    if not public:
+        allowed.add("author")
+    leaked = {k for row in slim for k in row} - allowed
     if leaked:
         print(f"\n❌ unexpected fields in output: {sorted(leaked)}", file=sys.stderr)
         return 1
+    if public and any("author" in row for row in slim):
+        print("\n❌ author identity present in the public projection", file=sys.stderr)
+        return 1
 
-    PUB_DIR.mkdir(parents=True, exist_ok=True)
-    COMMITS_OUT.write_text(json.dumps(slim, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    # ── Topic / pulse projections ────────────────────────────────────────
+    topics_doc = read_derived(DERIVED_TOPICS)
+    embeddings = read_derived(DERIVED_EMBEDDINGS)
+    pulse = read_derived(DERIVED_PULSE)
 
-    PALETTE_OUT.write_text(json.dumps({
+    masked_topics = 0
+    if topics_doc and public:
+        topics_doc, masked_topics = mask_topic_labels(topics_doc, embeddings or [], commits, consent)
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "commits_slim.json").write_text(
+        json.dumps(slim, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    for name, payload in (("topics.json", topics_doc),
+                          ("embeddings.json", embeddings),
+                          ("weekly_pulse.json", pulse)):
+        if payload is not None:
+            (out_dir / name).write_text(
+                json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    (out_dir / "palette.json").write_text(json.dumps({
         "domain": DOMAIN_COLORS,
         "wp": WP_COLORS,
         "category": CATEGORY_COLORS,
@@ -286,7 +388,7 @@ def main() -> int:
         "_source": "MASTER_PLAN_6YR.md:109-215 for wp_budget_pct; assets/tokens.css for hues",
     }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
-    COVERAGE_OUT.write_text(json.dumps({
+    (out_dir / "taxonomy_coverage.json").write_text(json.dumps({
         "n_commits": len(commits),
         "n_repos": len(repos),
         "by_source": dict(by_source),
@@ -295,9 +397,12 @@ def main() -> int:
     }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     print()
-    print(f"✅ {len(slim)} commits → {COMMITS_OUT.relative_to(REPO)}")
-    print(f"   palette   → {PALETTE_OUT.relative_to(REPO)}")
-    print(f"   coverage  → {COVERAGE_OUT.relative_to(REPO)}")
+    print(f"✅ profile={args.profile}: {len(slim)} commits → {out_dir.relative_to(REPO)}/")
+    if public:
+        print(f"   비동의 저자 subject 비공개: {suppressed_subjects}건")
+        print(f"   비동의 저자 우세 토픽 라벨 마스킹: {masked_topics}개")
+    else:
+        print("   ⚠️ lab 프로파일 — 저자 실명과 커밋 제목이 들어 있습니다. 커밋 금지.")
     return 0
 
 

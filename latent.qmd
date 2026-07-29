@@ -30,10 +30,14 @@ subtitle: "Commit message embedding을 BERTopic + UMAP으로 투영"
 <script type="module">
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
+// Rendered twice from the same source: the public profile reads the redacted
+// data/pub, the lab profile (QUARTO_PROFILE=lab) reads data/lab.
+const ROOT = window.AA_DATA_ROOT ?? "data/pub";
+
 const [commits, embeddings, topicsDoc] = await Promise.all([
-  fetch("data/pub/commits_slim.json").then(r => r.json()),
-  fetch("data/pub/embeddings.json").then(r => r.json()),
-  fetch("data/pub/topics.json").then(r => r.json()),
+  fetch(`${ROOT}/commits_slim.json`).then(r => r.json()),
+  fetch(`${ROOT}/embeddings.json`).then(r => r.json()),
+  fetch(`${ROOT}/topics.json`).then(r => r.json()),
 ]);
 
 const topics = topicsDoc.topics;

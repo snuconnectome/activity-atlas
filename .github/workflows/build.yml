@@ -63,6 +63,14 @@ jobs:
             echo "::error::data/pub/ contains a 'message' field. Run scripts/join.py."
             exit 1
           fi
+          if [ -e data/lab ] || [ -e _site-lab ]; then
+            echo "::error::lab-internal build artefacts are in the repo. They carry author names and must stay local."
+            exit 1
+          fi
+          if grep -rlq '"author"' data/pub/*.json 2>/dev/null; then
+            echo "::error::data/pub/ carries author identity. Re-run scripts/join.py --profile pub."
+            exit 1
+          fi
           test -f data/pub/commits_slim.json || { echo "::error::data/pub/commits_slim.json missing."; exit 1; }
 
       - name: Setup Quarto

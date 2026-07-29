@@ -1,8 +1,8 @@
 """BERTopic + UMAP topic modeling for commit messages.
 
 Reads:  data/raw/commits.json       (output of fetch_commits.py; local-only)
-Writes: data/pub/topics.json        (cluster definitions + metadata)
-        data/pub/embeddings.json    (per-commit 2D UMAP projection)
+Writes: $ACTIVITY_ATLAS_DATA_DIR/derived/topics.json      (cluster definitions)
+        $ACTIVITY_ATLAS_DATA_DIR/derived/embeddings.json  (2D UMAP projection)
 
 Runs LOCALLY, not in CI: it needs full commit message bodies, and those never
 enter the repo (see scripts/join.py).
@@ -37,11 +37,11 @@ from umap import UMAP
 # Config
 # ---------------------------------------------------------------------------
 
-from aa_paths import PUB_DIR, REPO, raw_commits_path
+from aa_paths import DERIVED_DIR, DERIVED_EMBEDDINGS, DERIVED_TOPICS, raw_commits_path
 
 COMMITS_IN = raw_commits_path()
-TOPICS_OUT = PUB_DIR / "topics.json"
-EMBEDDINGS_OUT = PUB_DIR / "embeddings.json"
+TOPICS_OUT = DERIVED_TOPICS
+EMBEDDINGS_OUT = DERIVED_EMBEDDINGS
 
 EMBED_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
 
@@ -282,7 +282,7 @@ def main() -> int:
             "generated_at": datetime.now(timezone.utc).isoformat(),
         },
     }
-    PUB_DIR.mkdir(parents=True, exist_ok=True)
+    DERIVED_DIR.mkdir(parents=True, exist_ok=True)
     TOPICS_OUT.write_text(
         json.dumps(topics_doc, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
@@ -307,8 +307,8 @@ def main() -> int:
     for r in topic_records:
         print(f"    [{r['topic_id']:>2}] n={r['size']:>2}  {r['color']}  {r['label']}")
     print()
-    print(f"   topics       → {TOPICS_OUT.relative_to(REPO)}")
-    print(f"   embeddings   → {EMBEDDINGS_OUT.relative_to(REPO)}")
+    print(f"   topics       → {TOPICS_OUT}")
+    print(f"   embeddings   → {EMBEDDINGS_OUT}")
 
     return 0
 

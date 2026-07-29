@@ -1,7 +1,7 @@
 """Weekly Pulse — rule-based delta narrative for each ISO week.
 
-Reads:  data/raw/commits.json + data/pub/topics.json + data/pub/embeddings.json
-Writes: data/pub/weekly_pulse.json
+Reads:  local raw commits + derived topics/embeddings
+Writes: $ACTIVITY_ATLAS_DATA_DIR/derived/weekly_pulse.json
 
 Runs LOCALLY, not in CI: its input includes local-only raw commits.
 
@@ -30,12 +30,12 @@ BURST_MIN_HISTORY = 4      # below this, don't claim to know the baseline
 BURST_FLOOR = 4            # tiny-dataset guard, matches the original constant
 
 
-from aa_paths import PUB_DIR, REPO, raw_commits_path
+from aa_paths import DERIVED_DIR, DERIVED_EMBEDDINGS, DERIVED_PULSE, DERIVED_TOPICS, raw_commits_path
 
 COMMITS_IN = raw_commits_path()
-TOPICS_IN = PUB_DIR / "topics.json"
-EMBEDDINGS_IN = PUB_DIR / "embeddings.json"
-OUT = PUB_DIR / "weekly_pulse.json"
+TOPICS_IN = DERIVED_TOPICS
+EMBEDDINGS_IN = DERIVED_EMBEDDINGS
+OUT = DERIVED_PULSE
 
 
 def median(xs: list[float]) -> float:
@@ -165,7 +165,8 @@ def main() -> int:
         json.dumps(pulse, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
-    print(f"✅ Weekly pulse: {len(pulse)} weeks → {OUT.relative_to(REPO)}")
+    DERIVED_DIR.mkdir(parents=True, exist_ok=True)
+    print(f"✅ Weekly pulse: {len(pulse)} weeks → {OUT}")
     if pulse:
         print(f"   🔥 burst flagged in {burst_weeks}/{len(pulse)} weeks "
               f"({burst_weeks / len(pulse):.0%}) — rolling median + {BURST_MAD_MULTIPLIER}·MAD")

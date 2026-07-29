@@ -1,0 +1,39 @@
+# Lab-internal profile. Quarto merges this over _quarto.yml when
+# QUARTO_PROFILE=lab, so the same pages render against data/lab — which carries
+# author names and commit subjects for everyone, not just consenting authors.
+#
+#   python scripts/join.py --profile lab
+#   QUARTO_PROFILE=lab quarto preview
+#
+# Output goes to _site-lab/, and both it and data/lab/ are gitignored. This is
+# never deployed: GitHub Pages serves _site/ from the public profile only.
+
+project:
+  output-dir: _site-lab
+  resources:
+    - "data/lab/**/*.json"
+    - "assets/**"
+
+website:
+  title: "Activity Atlas — 랩 내부"
+  description: "랩 내부 전용 빌드. 저자 실명과 커밋 제목 포함 — 배포 금지."
+
+format:
+  html:
+    include-in-header:
+      text: |
+        <script>window.AA_DATA_ROOT = "data/lab";</script>
+        <style>
+          /* Standing reminder that this build is not the public one. */
+          body::before {
+            content: "랩 내부 전용 빌드 · 저자 실명 포함 · 배포 금지";
+            display: block;
+            background: #D55E00;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
+            text-align: center;
+            padding: 6px 12px;
+          }
+        </style>

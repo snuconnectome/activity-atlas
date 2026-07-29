@@ -71,7 +71,11 @@ clinical translation · human/animal neuro · education · infra)별 월간 누�
 import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.16/+esm";
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
-const commits = await fetch("data/pub/commits_slim.json").then(r => r.json());
+// Rendered twice from the same source: the public profile reads the redacted
+// data/pub, the lab profile (QUARTO_PROFILE=lab) reads data/lab.
+const ROOT = window.AA_DATA_ROOT ?? "data/pub";
+
+const commits = await fetch(`${ROOT}/commits_slim.json`).then(r => r.json());
 
 // ─── KPI tiles ────────────────────────────────────────────
 const distinctRepos = new Set(commits.map(c => `${c.org}/${c.repo}`)).size;
@@ -181,7 +185,7 @@ document.getElementById("org-filter").addEventListener("change", e => renderCale
 // Colours come from the pipeline (data/pub/palette.json) rather than hex
 // literals here, so the domain, WP, and category axes cannot drift apart
 // between the Python side and the pages.
-const palette = await fetch("data/pub/palette.json").then(r => r.json());
+const palette = await fetch(`${ROOT}/palette.json`).then(r => r.json());
 
 // ─── Stream: monthly flow by scientific domain ────────────
 // Stacked, not overlaid. With 8 series and a curve, unstacked areas crossed

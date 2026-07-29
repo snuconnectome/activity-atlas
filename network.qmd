@@ -28,11 +28,15 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 import { sankey as d3sankey, sankeyLinkHorizontal, sankeyJustify } from "https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/+esm";
 import cytoscape from "https://cdn.jsdelivr.net/npm/cytoscape@3.30.0/+esm";
 
+// Rendered twice from the same source: the public profile reads the redacted
+// data/pub, the lab profile (QUARTO_PROFILE=lab) reads data/lab.
+const ROOT = window.AA_DATA_ROOT ?? "data/pub";
+
 const [commits, embeddings, topicsDoc, palette] = await Promise.all([
-  fetch("data/pub/commits_slim.json").then(r => r.json()),
-  fetch("data/pub/embeddings.json").then(r => r.json()),
-  fetch("data/pub/topics.json").then(r => r.json()),
-  fetch("data/pub/palette.json").then(r => r.json()),
+  fetch(`${ROOT}/commits_slim.json`).then(r => r.json()),
+  fetch(`${ROOT}/embeddings.json`).then(r => r.json()),
+  fetch(`${ROOT}/topics.json`).then(r => r.json()),
+  fetch(`${ROOT}/palette.json`).then(r => r.json()),
 ]);
 
 const topics = topicsDoc.topics;
