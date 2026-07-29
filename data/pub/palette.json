@@ -1,6 +1,7 @@
 {
   "domain": {
     "brain-foundation-model": "#0072B2",
+    "quantum-ml": "#7B4EA8",
     "neural-field-modeling": "#56B4E9",
     "agentic-ai": "#009E73",
     "clinical-translation": "#D55E00",
@@ -17,6 +18,7 @@
     "WP4": "#E69F00",
     "WP5": "#5A5A6E",
     "PROP": "#CC79A7",
+    "QML": "#7B4EA8",
     "unbound": "#9E9E9E"
   },
   "category": {
@@ -39,6 +41,7 @@
     "WP4": "Education",
     "WP5": "Infra & Governance",
     "PROP": "제안서 (수주 활동)",
+    "QML": "양자 ML (WP 밖)",
     "unbound": "미분류"
   },
   "wp_budget_pct": {
@@ -55,6 +58,7 @@
     "WP4",
     "WP5",
     "PROP",
+    "QML",
     "unbound"
   ],
   "_source": "MASTER_PLAN_6YR.md:109-215 for wp_budget_pct; assets/tokens.css for hues"

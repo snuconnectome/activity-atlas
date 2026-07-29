@@ -6,11 +6,13 @@
     "WP2": "agentic-ai",
     "WP3": "clinical-translation",
     "WP4": "education",
-    "WP5": "infra"
+    "WP5": "infra",
+    "QML": "quantum-ml"
   },
   "_domain_enum": [
     "brain-foundation-model",
     "neural-field-modeling",
+    "quantum-ml",
     "agentic-ai",
     "clinical-translation",
     "human-neuro",
@@ -20,6 +22,12 @@
     "unclassified"
   ],
   "domain_rules": [
+    {
+      "pattern": "quantum|\\bqml\\b|qcnn|\\bqrl\\b|hqtcn|qtstransformer|qcomparative",
+      "domain": "quantum-ml",
+      "why": "양자·양자하이브리드 ML 라인. MASTER_PLAN의 5개 WP 어디에도 예산 배분이 없어 WP 축에서도 독립 버킷(QML)으로 뺀다",
+      "override_wp": true
+    },
     {
       "pattern": "neural[-_]?field|ginr|\\bnerd\\b|signerd",
       "domain": "neural-field-modeling",

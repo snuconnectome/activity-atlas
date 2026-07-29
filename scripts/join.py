@@ -57,6 +57,7 @@ KEEP_FIELDS = ("sha", "org", "repo", "author_date")
 # topic_model.py already uses for topic colours.
 DOMAIN_COLORS = {
     "brain-foundation-model": "#0072B2",
+    "quantum-ml": "#7B4EA8",
     "neural-field-modeling": "#56B4E9",
     "agentic-ai": "#009E73",
     "clinical-translation": "#D55E00",
@@ -68,7 +69,8 @@ DOMAIN_COLORS = {
 }
 WP_COLORS = {
     "WP1": "#003380", "WP2": "#009E73", "WP3": "#D55E00",
-    "WP4": "#E69F00", "WP5": "#5A5A6E", "PROP": "#CC79A7", "unbound": "#9E9E9E",
+    "WP4": "#E69F00", "WP5": "#5A5A6E",
+    "PROP": "#CC79A7", "QML": "#7B4EA8", "unbound": "#9E9E9E",
 }
 CATEGORY_COLORS = {
     "proposal": "#003380", "paper": "#0072B2", "education": "#E69F00",
@@ -84,7 +86,7 @@ WP_BUDGET_PCT = {"WP1": 40, "WP2": 15, "WP3": 25, "WP4": 10, "WP5": 10}
 WP_LABELS = {
     "WP1": "NFM Core", "WP2": "Agentic Science", "WP3": "Clinical Translation",
     "WP4": "Education", "WP5": "Infra & Governance",
-    "PROP": "제안서 (수주 활동)", "unbound": "미분류",
+    "PROP": "제안서 (수주 활동)", "QML": "양자 ML (WP 밖)", "unbound": "미분류",
 }
 
 # Proposal work gets its own bucket on the WP axis rather than being folded into
@@ -95,6 +97,14 @@ WP_LABELS = {
 # effort that has not happened yet. It carries no planned percentage: the
 # 40/15/25/10/10 split covers funded work, not the pursuit of funding.
 PROPOSAL_WP = "PROP"
+
+# Quantum ML has grown into a real line — a dozen repos — with no budget line in
+# MASTER_PLAN's five WPs. Filing it under one of them would hide that; leaving it
+# in 미분류 would read as a classification gap rather than a portfolio fact. So it
+# gets its own bucket, with no planned percentage, and a matching domain value so
+# it is visible on the scientific axis too.
+QUANTUM_WP = "QML"
+QUANTUM_DOMAIN = "quantum-ml"
 
 
 def first_match(rules: list[dict], key: str, text: str) -> tuple[str | None, str | None]:
@@ -118,7 +128,7 @@ def classify(full_name: str, curated: dict, rules: dict) -> dict:
         wp = entry.get("wp") or "unbound"
         domain = entry.get("domain")
         source = entry.get("source", "repo_map")
-        if not domain:
+        if not domain and wp != "unbound":
             # A curated entry already states its programme, so the WP default
             # wins. Only rules flagged override_wp may beat it — those encode
             # facts orthogonal to the programme axis (neural-field methods sit
@@ -126,6 +136,14 @@ def classify(full_name: str, curated: dict, rules: dict) -> dict:
             override, _ = first_match(
                 [r for r in rules["domain_rules"] if r.get("override_wp")], "domain", haystack)
             domain = override or rules["wp_to_domain"].get(wp) or "unclassified"
+        elif not domain:
+            # Curated but with no WP — proposal entries are the main case. There
+            # is no programme default to inherit, so resolve the science the same
+            # way an uncurated repo would. Without this, marking a repo as a
+            # proposal silently erased its domain: k-bfm-neurox went from
+            # brain-foundation-model to unclassified.
+            domain, _ = first_match(rules["domain_rules"], "domain", haystack)
+            domain = domain or "unclassified"
         role = entry.get("wp_role", "S")
         modality = entry.get("modality")
         indication = entry.get("indication")
@@ -140,9 +158,16 @@ def classify(full_name: str, curated: dict, rules: dict) -> dict:
     species, _ = first_match(rules["species_rules"], "species", haystack)
     category, _ = first_match(rules["category_rules"], "category", haystack)
 
+    # Quantum work with no curated WP lands in its own bucket. A curated WP is
+    # respected — ai-coscientist-qml is WP2 agentic tooling that happens to be a
+    # quantum variant, and REPO_MAP says so.
+    if domain == QUANTUM_DOMAIN and wp == "unbound":
+        wp = QUANTUM_WP
+
     # Proposal work overrides the programme axis but leaves `domain` alone, so a
     # brain-foundation-model proposal still reads as that science in the domain
-    # views while staying out of WP1's effort total.
+    # views while staying out of WP1's effort total. It also outranks the quantum
+    # bucket: lukor-2-qml is a bid, not quantum work already under way.
     activity = (entry or {}).get("activity")
     if activity == "proposal":
         wp = PROPOSAL_WP
@@ -204,7 +229,7 @@ def main() -> int:
         print(f"    {dom:26s} {n:4d} repos  {commits_n:5d} commits")
     print()
     print("  WP (budget axis):")
-    wp_order = ["WP1", "WP2", "WP3", "WP4", "WP5", PROPOSAL_WP, "unbound"]
+    wp_order = ["WP1", "WP2", "WP3", "WP4", "WP5", PROPOSAL_WP, QUANTUM_WP, "unbound"]
     counts = Counter(t["wp"] for t in taxonomy.values())
     for wp in [w for w in wp_order if w in counts] + [w for w in counts if w not in wp_order]:
         n = counts[wp]
@@ -257,7 +282,7 @@ def main() -> int:
         "org": ORG_COLORS,
         "wp_labels": WP_LABELS,
         "wp_budget_pct": WP_BUDGET_PCT,
-        "wp_order": ["WP1", "WP2", "WP3", "WP4", "WP5", "PROP", "unbound"],
+        "wp_order": ["WP1", "WP2", "WP3", "WP4", "WP5", "PROP", "QML", "unbound"],
         "_source": "MASTER_PLAN_6YR.md:109-215 for wp_budget_pct; assets/tokens.css for hues",
     }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 

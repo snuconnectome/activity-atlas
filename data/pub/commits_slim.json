@@ -1076,7 +1076,7 @@
     "author_date": "2026-07-21T09:12:40Z",
     "subject": "Add 참고자료 (공고문, DOE Genesis Mission, BNL narrative)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "infra",
     "wp": "PROP"
   },
   {
@@ -1086,7 +1086,7 @@
     "author_date": "2026-07-21T09:11:43Z",
     "subject": "Add 제출 양식 (양식1~3 HWP, 양식1 PDF)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "infra",
     "wp": "PROP"
   },
   {
@@ -1096,7 +1096,7 @@
     "author_date": "2026-07-21T09:10:31Z",
     "subject": "Initial commit: README, CLAUDE.md, .gitignore",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "infra",
     "wp": "PROP"
   },
   {
@@ -3636,7 +3636,7 @@
     "author_date": "2026-06-07T08:04:37Z",
     "subject": "docs: auto-add monthly Claude Code usage report for 2026-05",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "quantum-ml",
     "wp": "PROP"
   },
   {
@@ -4806,7 +4806,7 @@
     "author_date": "2026-05-22T06:57:27Z",
     "subject": "docs(kickoff): 발표자료 v3.8_final3 28 슬라이드 sub-page 생성 결과",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -4816,7 +4816,7 @@
     "author_date": "2026-05-22T05:17:43Z",
     "subject": "docs(kickoff): NeuroX 킥오프 & 해커톤 플레이북 Notion 업로드 스크립트 + 페이지 ID",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5566,7 +5566,7 @@
     "author_date": "2026-05-14T11:48:26Z",
     "subject": "docs(review_opinion): NRF 검토의견서 final hwpx + markdown 정보 추출 + PDF",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5576,7 +5576,7 @@
     "author_date": "2026-05-14T11:45:24Z",
     "subject": "Merge branch 'master' of https://github.com/neurox-org/k-bfm-neurox",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5586,7 +5586,7 @@
     "author_date": "2026-05-14T11:45:07Z",
     "subject": "docs(review_opinion): v5 markdown iterations (A1·B5·C1) + HANDOFF + docx 갱신",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5596,7 +5596,7 @@
     "author_date": "2026-05-14T11:43:26Z",
     "subject": "Add files via upload",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5606,7 +5606,7 @@
     "author_date": "2026-05-14T10:45:23Z",
     "subject": "docs(review_opinion): v5 docx 변환 script + 렌더링 산출",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5616,7 +5616,7 @@
     "author_date": "2026-05-14T09:54:01Z",
     "subject": "docs(review_opinion): NRF v5 (PI comments + NLM supplement + Parallel architectu",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5626,7 +5626,7 @@
     "author_date": "2026-05-14T09:31:17Z",
     "subject": "docs(handoff): add notion upload state for v5 plan",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5636,7 +5636,7 @@
     "author_date": "2026-05-14T09:31:09Z",
     "subject": "docs(handoff): v4 → v5 보강 plan (Parallel Cell Editing)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5646,7 +5646,7 @@
     "author_date": "2026-05-14T08:33:31Z",
     "subject": "docs(nrf): NRF 14건 질문 추출 + Notion parent 정리",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5656,7 +5656,7 @@
     "author_date": "2026-05-14T07:28:36Z",
     "subject": "docs(review_opinion): NRF v4 제출용 (RFP 충실 반영 + tense 미래 + 끝부분 정리)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5666,7 +5666,7 @@
     "author_date": "2026-05-14T06:06:21Z",
     "subject": "docs(review): write-loop agent review v3 + PI edit incorporated (보류)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5706,7 +5706,7 @@
     "author_date": "2026-05-14T01:56:34Z",
     "subject": "docs(review_opinion): NRF 14건 제출용 수정본 v3 (substantive revision)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5716,7 +5716,7 @@
     "author_date": "2026-05-14T01:30:43Z",
     "subject": "docs(review_opinion): NRF v2 markdown native rendering Notion sub-page",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5726,7 +5726,7 @@
     "author_date": "2026-05-14T01:26:53Z",
     "subject": "docs(review_opinion): NRF v2 critic-validated + Phase F-I 완료 — PDF overlay + 3 c",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5746,7 +5746,7 @@
     "author_date": "2026-05-14T00:55:10Z",
     "subject": "docs(review_opinion): NRF 14 의견 응답 v2 — M1 framework reframe + §D 도전성 동의문",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -5986,7 +5986,7 @@
     "author_date": "2026-05-12T10:58:03Z",
     "subject": "docs(discovery): Chip_Deployment 세션 마감 — HANDOFF + BNL 이메일 draft",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -6016,7 +6016,7 @@
     "author_date": "2026-05-12T04:27:26Z",
     "subject": "docs(discovery): Chip_Deployment KB 완성 — 133 sources NLM 노트북 + 인덱스",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -6026,7 +6026,7 @@
     "author_date": "2026-05-12T03:46:53Z",
     "subject": "docs(discovery): add Chip_Deployment track — wearable EEG chip × BFM SOTA",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -7306,7 +7306,7 @@
     "author_date": "2026-05-07T08:11:19Z",
     "subject": "docs(proposal): HANDOFF.md §12 Session close (2026-05-07)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -7386,7 +7386,7 @@
     "author_date": "2026-05-07T07:36:56Z",
     "subject": "docs(proposal): 2026-05-07 협약 보완 검토 산출물 추가",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -7516,7 +7516,7 @@
     "author_date": "2026-05-07T02:14:15Z",
     "subject": "docs: add compressed proposal PDFs for upload",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -9126,7 +9126,7 @@
     "author_date": "2026-04-28T01:52:28Z",
     "subject": "Wave G+1: Method-scope refresh — ACTION_PLAN/CLAUDE/README + abstract + Deco col",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -9226,7 +9226,7 @@
     "author_date": "2026-04-27T11:43:19Z",
     "subject": "Wave G — METHOD PIVOT: Drop infant focus, archive 100+ files, new WBD-FM skeleto",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -9526,7 +9526,7 @@
     "author_date": "2026-04-26T09:35:20Z",
     "subject": "Wave F: adversarial review v3 + D-Day operational prep + verify suite PASS 13/14",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -9626,7 +9626,7 @@
     "author_date": "2026-04-26T06:05:10Z",
     "subject": "Wave E-final-plus++ E: 8 document templates + index README",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -9676,7 +9676,7 @@
     "author_date": "2026-04-25T14:02:25Z",
     "subject": "Wave E-final-plus: critic v3 4 P0 + Pilot AMP fix + v3.2 P1 leftover + README + ",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -9696,7 +9696,7 @@
     "author_date": "2026-04-25T12:09:43Z",
     "subject": "Wave E-final Cycles 1-6: v3.1 cleanup + drift sweep + UGR pre-aviso + checklist ",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -9786,7 +9786,7 @@
     "author_date": "2026-04-25T06:17:40Z",
     "subject": "Wave E-prep J: full_proposal_v3 skeleton + Pγ3 power calc fix + CLAUDE.md update",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -9816,7 +9816,7 @@
     "author_date": "2026-04-25T05:37:37Z",
     "subject": "Wave E-prep C: IRIS submission draft expand 19 -> 22 sections (790 -> 1142 lines",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -9826,7 +9826,7 @@
     "author_date": "2026-04-25T05:37:20Z",
     "subject": "Wave E-prep 8-agent swarm: refs verify + figures polish + AEI checklist + advers",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -9836,7 +9836,7 @@
     "author_date": "2026-04-25T03:57:34Z",
     "subject": "Wave D-prep autonomous: factual cleanup + γ/α formal + figures + rubric + budget",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -10016,7 +10016,7 @@
     "author_date": "2026-04-24T23:59:17Z",
     "subject": "Wave C top-tier reinforcement: pilot scaffold + 72-ref + adversarial + figures +",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -10096,7 +10096,7 @@
     "author_date": "2026-04-24T15:17:30Z",
     "subject": "Wave B submission prep + consistency audit + P0 cleanup",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -10136,7 +10136,7 @@
     "author_date": "2026-04-24T13:40:16Z",
     "subject": "Wave 2+: cold emails v1 finalized, WP detailing, full_proposal_v1 integration",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -10146,7 +10146,7 @@
     "author_date": "2026-04-24T13:18:36Z",
     "subject": "Wave 2 Science Elevation: concept_note_v2 + 4 annexes + RL authorization templat",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -10166,7 +10166,7 @@
     "author_date": "2026-04-24T12:30:00Z",
     "subject": "Wave A + Corrections: AEI single-IP rule confirmed, terminology/budget/emails up",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -10206,7 +10206,7 @@
     "author_date": "2026-04-24T11:52:20Z",
     "subject": "Create NotebookLM Knowledge Base for the project + new CLAUDE.md",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -10226,7 +10226,7 @@
     "author_date": "2026-04-24T11:44:49Z",
     "subject": "Plan revision 2026-04-24: drop BSC, pre-empt AEI single-PI, tighten W1 sequence",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -10266,7 +10266,7 @@
     "author_date": "2026-04-24T11:21:02Z",
     "subject": "Expand NLM inventory with six additional notebook describes",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -10276,7 +10276,7 @@
     "author_date": "2026-04-24T11:10:16Z",
     "subject": "Absorb NLM account inventory and Q1 landscape findings",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -10296,7 +10296,7 @@
     "author_date": "2026-04-24T10:29:36Z",
     "subject": "Absorb BSC collaboration research, update partner strategy",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -10306,7 +10306,7 @@
     "author_date": "2026-04-24T10:13:09Z",
     "subject": "Absorb GPT strategy notes, build action plan and proposal scaffolding",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -10316,7 +10316,7 @@
     "author_date": "2026-04-24T09:57:44Z",
     "subject": "Initial repository setup for Spain-Korea BFM joint proposal",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -10926,7 +10926,7 @@
     "author_date": "2026-04-19T11:27:25Z",
     "subject": "docs: add SYSTEM_STATUS technical snapshot and link from README/HANDOFF",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "quantum-ml",
     "wp": "PROP"
   },
   {
@@ -10946,7 +10946,7 @@
     "author_date": "2026-04-19T10:59:09Z",
     "subject": "Update proposal plan to highlight Park's Multi-Chip first-author papers",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "quantum-ml",
     "wp": "PROP"
   },
   {
@@ -10956,7 +10956,7 @@
     "author_date": "2026-04-19T10:54:44Z",
     "subject": "Add competitive analysis: Kim Eunseong (KAIST) vs Park Junghoon (SNU)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "quantum-ml",
     "wp": "PROP"
   },
   {
@@ -10966,7 +10966,7 @@
     "author_date": "2026-04-19T09:14:27Z",
     "subject": "Add hand-off email draft to Park Jeonghoon",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "quantum-ml",
     "wp": "PROP"
   },
   {
@@ -10976,7 +10976,7 @@
     "author_date": "2026-04-19T09:10:57Z",
     "subject": "Add LUKOR-2 strategy docs, partner shortlist, and hand-off structure",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "quantum-ml",
     "wp": "PROP"
   },
   {
@@ -10996,7 +10996,7 @@
     "author_date": "2026-04-19T07:50:16Z",
     "subject": "Add LUKOR-2 grant materials and consolidate workspace",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "quantum-ml",
     "wp": "PROP"
   },
   {
@@ -11006,7 +11006,7 @@
     "author_date": "2026-04-19T06:32:55Z",
     "subject": "Initialize Lux-EEG Foundation Model repository",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "quantum-ml",
     "wp": "PROP"
   },
   {
@@ -14896,7 +14896,7 @@
     "author_date": "2026-03-16T08:05:16Z",
     "subject": "docs: add FINAL_slide.pdf",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -14906,7 +14906,7 @@
     "author_date": "2026-03-16T07:53:02Z",
     "subject": "chore: update .gitignore to exclude image files (png, jpg, jpeg) and remove edit",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -14916,7 +14916,7 @@
     "author_date": "2026-03-16T05:31:01Z",
     "subject": "Fix NEW_BUSINESS: remove hex codes from prompt, add var11-var15, update viewer",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -14926,7 +14926,7 @@
     "author_date": "2026-03-16T05:19:26Z",
     "subject": "Fix NEW_BUSINESS viewer: update commit SHA to bypass CDN cache",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -14936,7 +14936,7 @@
     "author_date": "2026-03-16T05:16:58Z",
     "subject": "Update NEW_BUSINESS 10 variants",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -14946,7 +14946,7 @@
     "author_date": "2026-03-16T05:11:05Z",
     "subject": "Add NEW_PARADIGM viewer and 10 variants",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -14956,7 +14956,7 @@
     "author_date": "2026-03-16T04:37:27Z",
     "subject": "Fix viewer: use commit-specific URL to bypass CDN cache",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -14966,7 +14966,7 @@
     "author_date": "2026-03-16T04:34:44Z",
     "subject": "Update NEW_BUSINESS with NeuroX-specific pillars (Gen 2.0 IP, K-BDS, Triple-Trac",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -14976,7 +14976,7 @@
     "author_date": "2026-03-16T04:25:11Z",
     "subject": "fix(presentation): regenerate NEW_OVERVIEW with white-background NeuroX deck the",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -14986,7 +14986,7 @@
     "author_date": "2026-03-16T04:24:28Z",
     "subject": "Regenerate NEW_BUSINESS with pure white background + viewer",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -14996,7 +14996,7 @@
     "author_date": "2026-03-16T04:05:10Z",
     "subject": "feat(presentation): add NEW_OVERVIEW 10 variants, update viewer and script",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15006,7 +15006,7 @@
     "author_date": "2026-03-16T03:13:29Z",
     "subject": "fix(presentation): constrain NEW_BUSINESS prompt to enforce uniform layout and a",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15016,7 +15016,7 @@
     "author_date": "2026-03-16T03:08:24Z",
     "subject": "feat(presentation): add variants 6-10 for NEW_BUSINESS and update viewer",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15026,7 +15026,7 @@
     "author_date": "2026-03-16T03:01:15Z",
     "subject": "feat(presentation): add NEW_BUSINESS infographic variants and update viewer",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15036,7 +15036,7 @@
     "author_date": "2026-03-16T02:34:00Z",
     "subject": "Regenerate NEW_S07 with minimal text for clear rendering",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15046,7 +15046,7 @@
     "author_date": "2026-03-16T02:11:39Z",
     "subject": "Regenerate NEW_S07 with 2-tier layout (Human vs NeuroX)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15056,7 +15056,7 @@
     "author_date": "2026-03-16T02:02:19Z",
     "subject": "Regenerate NEW_S07 variants without footer text",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15066,7 +15066,7 @@
     "author_date": "2026-03-16T01:43:21Z",
     "subject": "Update S01-S17 viewer to include NEW_S06 and NEW_S07",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15076,7 +15076,7 @@
     "author_date": "2026-03-16T01:39:11Z",
     "subject": "Add NEW_S07 prompt, 10 variants, and viewer HTML",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15086,7 +15086,7 @@
     "author_date": "2026-03-16T01:13:56Z",
     "subject": "Add App viewer HTML (AppA-AppD)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15096,7 +15096,7 @@
     "author_date": "2026-03-16T00:55:56Z",
     "subject": "Add NEW_S06 viewer HTML",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15106,7 +15106,7 @@
     "author_date": "2026-03-16T00:54:34Z",
     "subject": "Add NEW_S06 prompt and 10 variants (Shared Semantic Space + Zero-Shot Inference)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15116,7 +15116,7 @@
     "author_date": "2026-03-16T00:26:36Z",
     "subject": "Add consolidated viewer for slides S01 to S17",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15126,7 +15126,7 @@
     "author_date": "2026-03-15T21:46:50Z",
     "subject": "feat: viewer에 S11 섹션 추가 + S7/AppA/AppD 프롬프트 수정 반영",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15136,7 +15136,7 @@
     "author_date": "2026-03-15T21:41:47Z",
     "subject": "feat: regenerate NEW_S05 (AS-IS/TO-BE → topographic wave only) + S7 header fix",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15146,7 +15146,7 @@
     "author_date": "2026-03-15T21:12:42Z",
     "subject": "feat: viewer에 S08/S08B 추가, AppA/AppD 프롬프트 개선, PI 뷰어 탭 추가",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15156,7 +15156,7 @@
     "author_date": "2026-03-15T21:04:50Z",
     "subject": "Update S7 headers/content, simplify AppD to TRL-only, add keyword labels to AppA",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15166,7 +15166,7 @@
     "author_date": "2026-03-15T21:04:19Z",
     "subject": "fix: use raw.githubusercontent.com base URL for htmlpreview image loading",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15176,7 +15176,7 @@
     "author_date": "2026-03-15T20:59:14Z",
     "subject": "feat: add NEW_PI infographic (5 variants) + update Appendix viewer",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15186,7 +15186,7 @@
     "author_date": "2026-03-15T20:37:20Z",
     "subject": "fix: viewer_Appendix.html - add raw.githubusercontent BASE URL for htmlpreview",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15196,7 +15196,7 @@
     "author_date": "2026-03-15T20:14:36Z",
     "subject": "feat: Appendix A-D 이미지 16개 생성 완료 + viewer_Appendix.html, NEW_PI 수정, S11 subtitle",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15206,7 +15206,7 @@
     "author_date": "2026-03-15T20:11:43Z",
     "subject": "feat: add NEW_SCALE prompt v4.3 and generated 5 variants",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15216,7 +15216,7 @@
     "author_date": "2026-03-15T19:44:07Z",
     "subject": "Update S12 PI prompt based on user feedback",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15226,7 +15226,7 @@
     "author_date": "2026-03-15T19:44:04Z",
     "subject": "feat: add S07 variants (5 vars) to infographic viewer",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15236,7 +15236,7 @@
     "author_date": "2026-03-15T19:36:31Z",
     "subject": "feat: regen S07 v4.3 (5 vars) - Structure Right/Left into Meaning Alignment vs X",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15246,7 +15246,7 @@
     "author_date": "2026-03-15T19:13:57Z",
     "subject": "feat: regen NEW_S05 v4.3 — fix 6배 효율 차이 hallucination, unify header/metric hiera",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15256,7 +15256,7 @@
     "author_date": "2026-03-15T19:10:36Z",
     "subject": "Regenerate S06 v4.3 variants with updated prompt",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15266,7 +15266,7 @@
     "author_date": "2026-03-15T18:43:07Z",
     "subject": "feat: regen NEW_S05 v4.3 (5 vars) — 재현 장벽→기확보 인프라 리프레이밍 반영",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15276,7 +15276,7 @@
     "author_date": "2026-03-15T18:42:17Z",
     "subject": "Fix image paths for htmlpreview.github.io",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15286,7 +15286,7 @@
     "author_date": "2026-03-15T18:40:41Z",
     "subject": "Add S06/S07 variant gallery HTML",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15296,7 +15296,7 @@
     "author_date": "2026-03-15T18:27:24Z",
     "subject": "feat: regen NEW_S04/S05 v4.3 (5 vars each) + fix NEW_ prefix support + update vi",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15306,7 +15306,7 @@
     "author_date": "2026-03-15T17:59:34Z",
     "subject": "feat: NEW_S04/S05 infographics + S06 regen + HTML viewer + preprocess_prompt pat",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15316,7 +15316,7 @@
     "author_date": "2026-03-15T15:25:38Z",
     "subject": "fix: thread-safe manifest writes + disk-file mtime fallback in map builder",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15326,7 +15326,7 @@
     "author_date": "2026-03-15T15:22:01Z",
     "subject": "fix: add S09 00:05 generation entries to manifest",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15336,7 +15336,7 @@
     "author_date": "2026-03-15T15:19:46Z",
     "subject": "feat: redesign S9 with icon-driven visuals + update S10 text density",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15346,7 +15346,7 @@
     "author_date": "2026-03-15T15:15:24Z",
     "subject": "polish: S10 텍스트 밀도 최적화 — 카드 구조 통일, 지시문 개선",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15356,7 +15356,7 @@
     "author_date": "2026-03-15T14:55:09Z",
     "subject": "feat: regenerate S6/S7 infographics v4.3 (2026-03-15 23:39)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15366,7 +15366,7 @@
     "author_date": "2026-03-15T14:54:45Z",
     "subject": "fix: update S09 manifest timestamps to reflect actual regeneration time",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15376,7 +15376,7 @@
     "author_date": "2026-03-15T14:37:04Z",
     "subject": "feat: unify S8/S8b titles to Aim 3 연구 12/13 frame and regenerate images",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15386,7 +15386,7 @@
     "author_date": "2026-03-15T13:58:09Z",
     "subject": "fix: S7 DIVER-CLIP 파일럿 리뷰 상태 구체화 (Interspeech)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15396,7 +15396,7 @@
     "author_date": "2026-03-15T13:54:43Z",
     "subject": "fix: S7 SaMD → 의료기기 인허가 용어 변경",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15406,7 +15406,7 @@
     "author_date": "2026-03-15T13:54:27Z",
     "subject": "enhance: S7 NotebookLM pitch 포인트 보강 + 교수님 수동 편집 반영",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15416,7 +15416,7 @@
     "author_date": "2026-03-15T13:50:01Z",
     "subject": "fix: S7 Card 1 허구 실적 제거 — 'Nature 25' 삭제",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15426,7 +15426,7 @@
     "author_date": "2026-03-15T13:30:25Z",
     "subject": "feat: regenerate S8/S8b/S9 infographics v4.3 + add S6/S7 images + auto-commit wo",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15436,7 +15436,7 @@
     "author_date": "2026-03-15T13:29:52Z",
     "subject": "polish: S6/S7 리뷰 4개 수정사항 일괄 반영",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15446,7 +15446,7 @@
     "author_date": "2026-03-15T13:23:15Z",
     "subject": "fix: S6 Agency 블록 직관적 용어 및 대조 시각화 추가",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15456,7 +15456,7 @@
     "author_date": "2026-03-15T13:16:46Z",
     "subject": "enhance: S6 Video 블록 아이콘 시각화 추가 (inlet 중복 회피)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15466,7 +15466,7 @@
     "author_date": "2026-03-15T13:12:16Z",
     "subject": "redesign: S6 통합 데이터 inlet 설계 — 100명+/24/7 중복 제거, 4-column 플로우",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15476,7 +15476,7 @@
     "author_date": "2026-03-15T13:09:48Z",
     "subject": "enhance: S6 전면 재설계 — Speech/Video 블록에 24/7·100명+ 아이콘 시각화 추가",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15486,7 +15486,7 @@
     "author_date": "2026-03-15T13:07:43Z",
     "subject": "enhance: S6 Deep Phenotyping 아이콘 시각화, S7 Centaur/POYO 표현 정제",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15496,7 +15496,7 @@
     "author_date": "2026-03-15T12:54:44Z",
     "subject": "refactor: S6/S7 Aim 2 정체성 수정 — 141B→Behavior Anchor, DIVER-CLIP/Centaur 보강",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15506,7 +15506,7 @@
     "author_date": "2026-03-15T12:26:33Z",
     "subject": "feat: add dedicated S8/S8b/S9 v4.3 infographic review viewer",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15516,7 +15516,7 @@
     "author_date": "2026-03-15T12:07:14Z",
     "subject": "refine S6-S7 Aim2 messaging for reviewer clarity",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15526,7 +15526,7 @@
     "author_date": "2026-03-15T11:25:01Z",
     "subject": "presentation: Aim 4 S10/S11 v4.3 수정안 반영, 인포그래픽 생성 및 뷰어 개선",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15536,7 +15536,7 @@
     "author_date": "2026-03-15T11:03:35Z",
     "subject": "fix: ground S6-S9 prompts on proposal facts",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15546,7 +15546,7 @@
     "author_date": "2026-03-15T10:31:49Z",
     "subject": "fix: publish latest Aim 3 viewer assets",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15556,7 +15556,7 @@
     "author_date": "2026-03-15T10:07:17Z",
     "subject": "feat: integrate S8b into presentation workflow",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15566,7 +15566,7 @@
     "author_date": "2026-03-15T09:08:17Z",
     "subject": "fix: replace URL query parsing with input field and hash routing",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15576,7 +15576,7 @@
     "author_date": "2026-03-15T09:06:28Z",
     "subject": "fix: parse slide params correctly under htmlpreview",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15586,7 +15586,7 @@
     "author_date": "2026-03-15T09:04:35Z",
     "subject": "fix: simplify GitHub slide viewer to single latest-map flow",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15596,7 +15596,7 @@
     "author_date": "2026-03-15T08:58:03Z",
     "subject": "feat: publish HTML viewer and S08/S09 variant assets",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15606,7 +15606,7 @@
     "author_date": "2026-03-15T07:40:48Z",
     "subject": "refactor: upgrade S8 v4.3 with proposal-native terminology",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15616,7 +15616,7 @@
     "author_date": "2026-03-15T07:26:49Z",
     "subject": "refactor: redesign S9 v4.3 with state-dependent causation logic",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15626,7 +15626,7 @@
     "author_date": "2026-03-15T07:21:41Z",
     "subject": "chore: stop tracking .env file to prevent API key leaks",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15636,7 +15636,7 @@
     "author_date": "2026-03-15T06:56:06Z",
     "subject": "feat: add S9 cursor draft and notebooklm prompt for A/B comparison",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15646,7 +15646,7 @@
     "author_date": "2026-03-15T06:53:07Z",
     "subject": "docs: replace 장전 with academic wording and add Layer 2 strategy guide",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15656,7 +15656,7 @@
     "author_date": "2026-03-15T06:51:19Z",
     "subject": "fix: enforce single hero metric rule and correct $700M+ allocation in S7",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15666,7 +15666,7 @@
     "author_date": "2026-03-15T06:48:12Z",
     "subject": "refactor: redesign S7 v4.3 with 2-layer strategy (significance + barrier)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15676,7 +15676,7 @@
     "author_date": "2026-03-15T06:42:14Z",
     "subject": "feat: add v4.3 Aim 2/3/4 role-split prompts and validation tooling",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15686,7 +15686,7 @@
     "author_date": "2026-03-15T05:57:05Z",
     "subject": "chore: normalize S1-S21 v4.2 prompt templates and audit checks",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15696,7 +15696,7 @@
     "author_date": "2026-03-15T05:22:06Z",
     "subject": "docs: refresh html viewers with unified context banner",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15706,7 +15706,7 @@
     "author_date": "2026-03-15T05:03:10Z",
     "subject": "docs: integrate locked handoff context across agent system docs",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15716,7 +15716,7 @@
     "author_date": "2026-03-15T04:56:57Z",
     "subject": "docs: onboard agent-first prompt workflow system",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15726,7 +15726,7 @@
     "author_date": "2026-03-15T04:53:41Z",
     "subject": "docs: add agent reference links to master workspace",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15736,7 +15736,7 @@
     "author_date": "2026-03-15T04:53:05Z",
     "subject": "feat: add streamlined multi-editor prompt workflow to master hub",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15746,7 +15746,7 @@
     "author_date": "2026-03-15T04:41:41Z",
     "subject": "feat: expand master html with full prompts and variants",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15756,7 +15756,7 @@
     "author_date": "2026-03-15T04:38:10Z",
     "subject": "docs: add unified master visual prompt workspace",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15766,7 +15766,7 @@
     "author_date": "2026-03-15T04:16:06Z",
     "subject": "chore: checkpoint presentation prompt pipeline artifacts",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15776,7 +15776,7 @@
     "author_date": "2026-03-15T04:10:06Z",
     "subject": "feat: viewer에 실사용 프롬프트 상시 표시 및 매핑 데이터 추가",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15786,7 +15786,7 @@
     "author_date": "2026-03-15T04:04:30Z",
     "subject": "docs: handoff에 실제 프롬프트-이미지 매핑 추가",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15796,7 +15796,7 @@
     "author_date": "2026-03-15T03:57:11Z",
     "subject": "docs: infographic 생성 핸드오프 문서 추가",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15806,7 +15806,7 @@
     "author_date": "2026-03-15T03:27:58Z",
     "subject": "feat: 0312 프롬프트 landscape 인포그래픽 3-variant 생성 및 뷰어 추가",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15816,7 +15816,7 @@
     "author_date": "2026-03-14T09:20:43Z",
     "subject": "refactor: Phase 1.5 병렬화 아키텍처 — 7 에이전트 → 21 에이전트 (각 1 슬라이드)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15826,7 +15826,7 @@
     "author_date": "2026-03-14T09:03:47Z",
     "subject": "docs: Phase 1.5 Pre-Image QA Review 실행 가이드 추가",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15836,7 +15836,7 @@
     "author_date": "2026-03-14T08:39:50Z",
     "subject": "feat: NeuroX Prompt Pipeline Phase 1 Complete — 21 prompts gate-keeping validate",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15846,7 +15846,7 @@
     "author_date": "2026-03-14T07:03:47Z",
     "subject": "feat: MASTER_PLAN_v4 + S01 인포그래픽 프롬프트 v3 + v3.9 슬라이드 업데이트",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15856,7 +15856,7 @@
     "author_date": "2026-03-13T15:18:07Z",
     "subject": "feat: 완전 슬라이드 PNG 패키지 생성 - Portrait + Square 모든 버전 (34개)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15866,7 +15866,7 @@
     "author_date": "2026-03-13T15:06:42Z",
     "subject": "feat: 최신 인포그래픽 갤러리 완성 - HTML + PDF (34개 이미지)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15876,7 +15876,7 @@
     "author_date": "2026-03-13T14:26:10Z",
     "subject": "feat: 전체 슬라이드 Layout Balance 최적화 완료 (v3.8)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15896,7 +15896,7 @@
     "author_date": "2026-03-13T13:33:15Z",
     "subject": "feat: 인포그래픽 v2 파이프라인 완료 - S10/S11 추가 (18/18)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15906,7 +15906,7 @@
     "author_date": "2026-03-13T13:02:37Z",
     "subject": "fix: COWORK_PROMPT_v6.md 삭제 참조 정리 + 인포그래픽 v2 S06-S09 추가",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15916,7 +15916,7 @@
     "author_date": "2026-03-13T12:37:54Z",
     "subject": "feat: slide_bundle 자급자족 패키지 + 인포그래픽 v2 portrait/square + generate_infographics_v",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15926,7 +15926,7 @@
     "author_date": "2026-03-13T11:22:39Z",
     "subject": "docs: NLM 인포그래픽 scientific vs professional 스타일 비교 PDF 추가",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15936,7 +15936,7 @@
     "author_date": "2026-03-13T11:21:14Z",
     "subject": "feat: NeuroX v3.8 슬라이드 + Feedback Loop 전 Phase 완료 + 인포그래픽 v2 파이프라인",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15956,7 +15956,7 @@
     "author_date": "2026-03-13T05:53:03Z",
     "subject": "docs: Cowork v6 독립 실행 프롬프트 분리 및 CLAUDE.md v3.7 업데이트",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -15976,7 +15976,7 @@
     "author_date": "2026-03-13T04:18:41Z",
     "subject": "feat: NeuroX v3.7 PPT/PDF 재생성 — v2 인포그래픽 8장 적용",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16006,7 +16006,7 @@
     "author_date": "2026-03-12T13:28:58Z",
     "subject": "docs: NeuroX 갤러리 스크린샷, 참고 논문, 슬라이드 PDF 추가",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16016,7 +16016,7 @@
     "author_date": "2026-03-12T09:38:36Z",
     "subject": "feat: NeuroX 인포그래픽 26장 한국어 통일 재생성 완료",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16026,7 +16026,7 @@
     "author_date": "2026-03-12T06:05:08Z",
     "subject": "Merge branch 'master' of https://github.com/Transconnectome/k-bfm",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16036,7 +16036,7 @@
     "author_date": "2026-03-12T05:59:49Z",
     "subject": "docs: 세션 핸드오프 문서 추가 — S06/S07 재시도 가이드 및 NLM rate limit 진단 포함",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16046,7 +16046,7 @@
     "author_date": "2026-03-12T05:17:11Z",
     "subject": "feat: NeuroX NLM 인포그래픽 파이프라인 24/26 완료 — S06·S07 rate limit 미해제",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16056,7 +16056,7 @@
     "author_date": "2026-03-11T05:35:48Z",
     "subject": "feat: Phase 3 Agent Swarm 완료 — v3.7 슬라이드 + DOCX 생성",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16066,7 +16066,7 @@
     "author_date": "2026-03-10T16:00:41Z",
     "subject": "feat: S1 인포그래픽 추가 + DOCX를 slides/ 폴더로 이동 (md와 동일 위치)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16076,7 +16076,7 @@
     "author_date": "2026-03-10T15:50:03Z",
     "subject": "docs: _eval_input_v3.docx 생성 — Google Docs 공유용 (이미지 임베딩)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16086,7 +16086,7 @@
     "author_date": "2026-03-10T15:45:40Z",
     "subject": "refactor: 이미지 매핑을 _eval_input_v3.md에 직접 임베딩 — 단일 소스 원칙",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16096,7 +16096,7 @@
     "author_date": "2026-03-10T15:32:11Z",
     "subject": "Jiookui-MacBookPro.local 2026-3-11:0:32:11",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16106,7 +16106,7 @@
     "author_date": "2026-03-10T15:29:54Z",
     "subject": "Merge branch 'master' of https://github.com/transconnectome/k-bfm",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16116,7 +16116,7 @@
     "author_date": "2026-03-10T15:27:36Z",
     "subject": "Jiookui-MacBookPro.local 2026-3-11:0:27:36",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16136,7 +16136,7 @@
     "author_date": "2026-03-10T15:23:18Z",
     "subject": "Merge branch 'master' of https://github.com/Transconnectome/k-bfm",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16146,7 +16146,7 @@
     "author_date": "2026-03-10T15:17:50Z",
     "subject": "feat: 이미지 매핑 v3 + NLM 인포그래픽 8개 생성",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16166,7 +16166,7 @@
     "author_date": "2026-03-10T15:04:04Z",
     "subject": "feat: S19 해커톤 시스템 추가 — NLM fact-checked (연 2회, 30-50명, 합숙)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16176,7 +16176,7 @@
     "author_date": "2026-03-10T14:37:32Z",
     "subject": "refactor: S11-S18 재구조화 — S16 통합, S17-S18 분산 (20→21장)",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16186,7 +16186,7 @@
     "author_date": "2026-03-10T14:21:30Z",
     "subject": "Merge branch 'master' of https://github.com/Transconnectome/k-bfm",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16196,7 +16196,7 @@
     "author_date": "2026-03-10T14:20:00Z",
     "subject": "Jiookui-MacBookPro.local 2026-3-10:23:19:59",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16206,7 +16206,7 @@
     "author_date": "2026-03-10T14:18:44Z",
     "subject": "fix: 7대 차별성 ⑤ 명칭 보강 — heavy tail problem + 인력 구성 명시",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16216,7 +16216,7 @@
     "author_date": "2026-03-10T13:35:50Z",
     "subject": "Jiookui-MacBookPro.local 2026-3-10:22:35:50",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16226,7 +16226,7 @@
     "author_date": "2026-03-10T13:18:07Z",
     "subject": "feat: Apply verification checks 1,3,4,5,7 to v3.1 slides with NLM fact-checking",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16236,7 +16236,7 @@
     "author_date": "2026-03-10T12:12:05Z",
     "subject": "feat: restructure slides to 7대 차별성 (science-innovation based) + verification doc",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16246,7 +16246,7 @@
     "author_date": "2026-03-10T10:41:02Z",
     "subject": "feat: Create _eval_input_v3.md with fact-check corrections + Genesis Mission + c",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16256,7 +16256,7 @@
     "author_date": "2026-03-10T09:30:51Z",
     "subject": "docs: compress proposal PDF (57→15MB) and add pipeline README",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16266,7 +16266,7 @@
     "author_date": "2026-03-10T09:27:04Z",
     "subject": "docs: replace old proposal PDF with updated 0310 version",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16276,7 +16276,7 @@
     "author_date": "2026-03-10T09:15:45Z",
     "subject": "Merge branch 'master' of https://github.com/Transconnectome/k-bfm",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16286,7 +16286,7 @@
     "author_date": "2026-03-10T09:15:25Z",
     "subject": "docs: add proposal PDF and text extracts",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16296,7 +16296,7 @@
     "author_date": "2026-03-10T09:12:44Z",
     "subject": "Merge branch 'master' of https://github.com/Transconnectome/k-bfm",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16306,7 +16306,7 @@
     "author_date": "2026-03-10T09:11:54Z",
     "subject": "docs: add proposal compression pipeline outputs (L1-L4, evaluation, core insight",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16316,7 +16316,7 @@
     "author_date": "2026-03-10T07:59:56Z",
     "subject": "Jiookui-MacBookPro.local 2026-3-10:16:59:56",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16326,7 +16326,7 @@
     "author_date": "2026-03-10T07:56:01Z",
     "subject": "docs: Add reference paper 2603.05225v1.pdf",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16336,7 +16336,7 @@
     "author_date": "2026-03-10T07:49:35Z",
     "subject": "Jiookui-MacBookPro.local 2026-3-10:16:49:35",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16346,7 +16346,7 @@
     "author_date": "2026-03-10T07:48:16Z",
     "subject": "Jiookui-MacBookPro.local 2026-3-10:16:48:16",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16356,7 +16356,7 @@
     "author_date": "2026-03-10T06:40:13Z",
     "subject": "feat: v5 SNU-Aligned Neuroscience theme for presentation",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16426,7 +16426,7 @@
     "author_date": "2026-03-10T00:40:16Z",
     "subject": "feat: Add 29 study reference images for presentation slides",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16436,7 +16436,7 @@
     "author_date": "2026-03-10T00:38:58Z",
     "subject": "docs: Add proposal PDFs, HWP forms, and utility scripts",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16446,7 +16446,7 @@
     "author_date": "2026-03-10T00:37:16Z",
     "subject": "feat: Add Cowork v4 presentation system + Claude Code PPT generator",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16466,7 +16466,7 @@
     "author_date": "2026-03-09T12:02:40Z",
     "subject": "feat: Complete compression eval system + PPT generation pipeline",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16736,7 +16736,7 @@
     "author_date": "2026-03-06T14:21:54Z",
     "subject": "feat: Implement TTS v2 Workflow - Complete Phase 0 Infrastructure",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -16746,7 +16746,7 @@
     "author_date": "2026-03-06T00:21:38Z",
     "subject": "Update K-BFM strategy documents with two core innovations",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -17216,7 +17216,7 @@
     "author_date": "2026-02-08T05:50:45Z",
     "subject": "현재제안서",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -17876,7 +17876,7 @@
     "author_date": "2026-01-27T09:03:09Z",
     "subject": "refactor: move context to root and refine Significance section with Gen 2.0 evid",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -17886,7 +17886,7 @@
     "author_date": "2026-01-27T07:45:25Z",
     "subject": "chore: cleanup context files and update proposal docs",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -17896,7 +17896,7 @@
     "author_date": "2026-01-27T05:03:42Z",
     "subject": "feat: Initialize Antigravity Research OS (v2026) & Pivot to Gen 2.0 Logic",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -17906,7 +17906,7 @@
     "author_date": "2026-01-26T10:31:44Z",
     "subject": "proposal: Refine KDI/PIAAC citation with precise cognitive decline age data",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -17916,7 +17916,7 @@
     "author_date": "2026-01-26T10:27:09Z",
     "subject": "proposal: add strategic gap highlight blockquote to Chapter 1 conclusion",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -17926,7 +17926,7 @@
     "author_date": "2026-01-26T10:24:13Z",
     "subject": "fix: replace remaining K-NeuroMind with NeuroX in strategy docs",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -17936,7 +17936,7 @@
     "author_date": "2026-01-26T10:23:17Z",
     "subject": "fix: replace remaining K-NeuroMind with NeuroX in full draft",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -17946,7 +17946,7 @@
     "author_date": "2026-01-26T10:09:07Z",
     "subject": "refactor: rename project from K-NeuroMind to NeuroX in all documents",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -17956,7 +17956,7 @@
     "author_date": "2026-01-26T10:06:13Z",
     "subject": "proposal: add quantitative economic analysis (BOK/KDI) to Chapter 1.1",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -17966,7 +17966,7 @@
     "author_date": "2026-01-26T10:02:17Z",
     "subject": "proposal: clarify Foundation Model as Healthcare OS analogy in Chapter 1",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -17976,7 +17976,7 @@
     "author_date": "2026-01-26T09:54:54Z",
     "subject": "docs: add comprehensive structure summary for Chapter 1",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -17986,7 +17986,7 @@
     "author_date": "2026-01-26T09:50:39Z",
     "subject": "proposal: enhance Chapter 1.2 with Dual-Stream and Brain Tuning strategies (RAG-",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -17996,7 +17996,7 @@
     "author_date": "2026-01-26T09:47:21Z",
     "subject": "proposal: add Chapter 1.3 Global Trends to complete Necessity section",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18006,7 +18006,7 @@
     "author_date": "2026-01-26T09:42:57Z",
     "subject": "proposal: complete rewrite of Chapter 1 with 3-tier structure (Summary/Demand/Te",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18016,7 +18016,7 @@
     "author_date": "2026-01-26T09:28:38Z",
     "subject": "docs: bind new proposal workflow and unique strengths to README and ONBOARDING",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18026,7 +18026,7 @@
     "author_date": "2026-01-26T09:23:40Z",
     "subject": "proposal: refine Chapter 1 with unique technical differentiators (Neural ODE, Pe",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18036,7 +18036,7 @@
     "author_date": "2026-01-26T09:07:15Z",
     "subject": "strat: initialize 100-page proposal drafting workflow and first chapter",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18046,7 +18046,7 @@
     "author_date": "2026-01-26T09:02:18Z",
     "subject": "strat: synchronize local context with Google Doc proposal insights",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18056,7 +18056,7 @@
     "author_date": "2026-01-26T08:52:33Z",
     "subject": "strat: finalize evaluation criteria analysis with exact RFP scoring",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18066,7 +18066,7 @@
     "author_date": "2026-01-26T08:51:40Z",
     "subject": "strat: integrate 35/25/40 evaluation criteria and strategic language",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18076,7 +18076,7 @@
     "author_date": "2026-01-26T08:42:47Z",
     "subject": "docs: move Google Doc link to the absolute top of README for visibility",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18086,7 +18086,7 @@
     "author_date": "2026-01-26T08:40:23Z",
     "subject": "docs: finalize faculty research profiles and highlight Google Doc proposal link",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18096,7 +18096,7 @@
     "author_date": "2026-01-26T08:37:08Z",
     "subject": "docs: add Prof. Minyoung Jung to participation faculty in README",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18106,7 +18106,7 @@
     "author_date": "2026-01-26T08:34:43Z",
     "subject": "feat: integrate Prof. Minyoung Jung expertise and Life-Cycle Neural Resilience s",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18116,7 +18116,7 @@
     "author_date": "2026-01-26T01:50:51Z",
     "subject": "feat: add Precision VNS proposal and AI-CoScientist integration docs",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18166,7 +18166,7 @@
     "author_date": "2026-01-21T03:24:04Z",
     "subject": "docs: restructure strategy to 4-Pillar Aims based on updated business plan",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18176,7 +18176,7 @@
     "author_date": "2026-01-21T01:40:28Z",
     "subject": "docs: create SPECIFIC_AIMS.md based on faculty inputs",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18186,7 +18186,7 @@
     "author_date": "2026-01-21T01:18:01Z",
     "subject": "docs: integrate ALCF NeuroX benchmark and complete rebranding",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18196,7 +18196,7 @@
     "author_date": "2026-01-21T01:15:58Z",
     "subject": "docs: global rebranding K-NeuroMind to NeuroX",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18206,7 +18206,7 @@
     "author_date": "2026-01-21T01:14:49Z",
     "subject": "docs: integrate NeuroX Triple-X strategy into Grand Strategy",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18216,7 +18216,7 @@
     "author_date": "2026-01-21T01:11:34Z",
     "subject": "docs: translate Grand Strategy to Korean",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18226,7 +18226,7 @@
     "author_date": "2026-01-21T01:09:03Z",
     "subject": "feat: add K-NeuroMind Grand Strategy document",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18236,7 +18236,7 @@
     "author_date": "2026-01-21T01:02:26Z",
     "subject": "docs: add Swift and Diver key references to README and analysis",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18246,7 +18246,7 @@
     "author_date": "2026-01-21T00:58:29Z",
     "subject": "docs: integrate Nature 2025 Ooi et al. as key strategic reference",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18256,7 +18256,7 @@
     "author_date": "2026-01-21T00:53:25Z",
     "subject": "feat: sync K-NeuroMind Business Idea Overview from Google Docs",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18266,7 +18266,7 @@
     "author_date": "2026-01-21T00:46:40Z",
     "subject": "feat: add K-NeuroMind RAG components and documentation",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18276,7 +18276,7 @@
     "author_date": "2026-01-21T00:44:00Z",
     "subject": "chore: update K-NeuroMind gdoc status",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18296,7 +18296,7 @@
     "author_date": "2026-01-16T01:34:56Z",
     "subject": "docs: README에 제안서 핵심 메시지, 팀 구성, 제출 기한 섹션 추가",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18306,7 +18306,7 @@
     "author_date": "2026-01-16T01:11:02Z",
     "subject": "docs: 온보딩 가이드 구축 및 김성신 교수 연구 심층 분석 추가",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18316,7 +18316,7 @@
     "author_date": "2026-01-16T01:01:57Z",
     "subject": "Add K-NeuroMind project documents",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18326,7 +18326,7 @@
     "author_date": "2026-01-16T01:01:19Z",
     "subject": "feat: K-NeuroMind 제안서 작성 전 체계적 준비 작업 완료",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18336,7 +18336,7 @@
     "author_date": "2026-01-16T00:30:20Z",
     "subject": "Add new RFP PDF: rfp-kneuromind.pdf",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18356,7 +18356,7 @@
     "author_date": "2026-01-14T13:20:43Z",
     "subject": "Docs: Update Repository Structure in README",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -18366,7 +18366,7 @@
     "author_date": "2026-01-14T13:19:15Z",
     "subject": "Docs: Update context references in README and .cursorrules",
     "repo_category": "proposal",
-    "domain": "unclassified",
+    "domain": "brain-foundation-model",
     "wp": "PROP"
   },
   {
@@ -19406,7 +19406,7 @@
     "author_date": "2025-11-27T13:12:18Z",
     "subject": "Phase 2 Complete: Math-Aware Ingestion, Semantic Clustering, Automated GraphRAG",
     "repo_category": "core",
-    "domain": "agentic-ai",
+    "domain": "quantum-ml",
     "wp": "WP2"
   },
   {
