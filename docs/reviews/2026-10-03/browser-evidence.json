@@ -1,0 +1,102 @@
+{
+  "base": "https://snuconnectome.github.io/activity-atlas/",
+  "pages": {
+    "index.html": {
+      "status": 200,
+      "counts": {
+        ".kpi-tile": 4,
+        "#calendar svg": 2,
+        "#stream svg": 10,
+        "#wp-budget svg": 3
+      },
+      "page_errors": [],
+      "kpi_values": [
+        "2226",
+        "134",
+        "42",
+        "2026-07-29"
+      ]
+    },
+    "latent.html": {
+      "status": 200,
+      "counts": {
+        "#umap-svg circle": 2183,
+        ".topic-chip": 12,
+        "#topic-table tr": 12
+      },
+      "page_errors": []
+    },
+    "network.html": {
+      "status": 200,
+      "counts": {
+        "#cy canvas": 3,
+        "#sankey svg": 1
+      },
+      "page_errors": []
+    },
+    "lifecycle.html": {
+      "status": 200,
+      "counts": {
+        "#lifecycle-scatter svg": 10,
+        "#succession tbody tr": 16,
+        "#archive-queue tbody tr": 40
+      },
+      "page_errors": []
+    },
+    "drift.html": {
+      "status": 200,
+      "counts": {
+        "#drift-table pre": 1
+      },
+      "page_errors": []
+    },
+    "pulse.html": {
+      "status": 200,
+      "counts": {
+        "details.pulse-week": 40
+      },
+      "page_errors": []
+    },
+    "people.html": {
+      "status": 200,
+      "counts": {
+        ".person-card": 0,
+        "#people-gate": 1
+      },
+      "page_errors": []
+    },
+    "about.html": {
+      "status": 200,
+      "counts": {
+        "main": 1
+      },
+      "page_errors": []
+    }
+  },
+  "resources": {
+    "data/pub/commits_slim.json": {
+      "status": 200,
+      "sha256": "15ec27caa7846f2fb732208aca21e16bfb8c90fb763a57fe24f8cd261d015df0",
+      "matches_local_bytes": true
+    },
+    "data/pub/lifecycle.json": {
+      "status": 200,
+      "sha256": "b3e50344ac03962eb085f1202f17d72aef1e3e998a187cbac083e64a6c919840",
+      "matches_local_bytes": true
+    },
+    "data/raw/commits.json": {
+      "status": 404
+    },
+    "data/pub/people.json": {
+      "status": 404
+    }
+  },
+  "synthetic_html_injection": {
+    "script_executed": true,
+    "fixture_only": true
+  },
+  "iso_year_runtime": {
+    "current": "2025-W01",
+    "iso": "2026-W01"
+  }
+}

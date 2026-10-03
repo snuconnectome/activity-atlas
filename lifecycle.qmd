@@ -1,14 +1,16 @@
 ---
-title: "Lifecycle — repo 생애주기와 승계 리스크"
-subtitle: "무엇을 아카이브하고, 누가 나가면 무엇이 멈추는가"
+title: "Lifecycle — 관측 활동과 점검 후보"
+subtitle: "관측 범위 안의 활동 기록 · 소유권과 검토는 별도 확인"
 ---
 
 가로축은 마지막 활동 이후 경과일(로그 스케일), 세로축은 최근 1년간 **두 주 이상** 손댄
-기여자 수입니다. 점 크기는 person-week(한 사람이 한 주에 한 repo를 건드리면 1),
+관측 기여자 수입니다. 점 크기는 person-week(한 사람이 한 주에 한 repo를 건드리면 1),
 색은 학문 도메인입니다.
 
 기여자가 한 명이라는 것 자체는 문제가 아닙니다 — 개인 연구노트나 단독 저자 초고는
-원래 혼자 씁니다. 그래서 **승계 리스크는 연구코드·도구 도메인에만**, 그것도 최근
+원래 혼자 씁니다. PI만 관측했거나 수집 범위를 확인하지 못한 데이터에서는 승계 후보를 표시하지 않습니다.
+
+전체 저자 수집에서도 이 후보는 실제 소유권을 입증하지 않습니다. 따라서 **승계 리스크는 연구코드·도구 도메인에만**, 그것도 최근
 6개월 안에 움직인 repo에만 표시합니다.
 
 ```{=html}
@@ -18,7 +20,7 @@ subtitle: "무엇을 아카이브하고, 누가 나가면 무엇이 멈추는가
 </div>
 ```
 
-## ⚠️ 승계 리스크 — 한 사람만 붙어 있는 활성 연구코드
+## ⚠️ 승계 점검 후보 — 전체 저자 수집에서만 표시
 
 ```{=html}
 <div id="succession"></div>
@@ -33,6 +35,7 @@ subtitle: "무엇을 아카이브하고, 누가 나가면 무엇이 멈추는가
 
 <script type="module">
 import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.16/+esm";
+import {escapeHTML, safeColor, number} from "./assets/dom-safety.js";
 
 // Rendered twice from the same source: the public profile reads the redacted
 // data/pub, the lab profile (QUARTO_PROFILE=lab) reads data/lab.
@@ -129,11 +132,11 @@ function table(target, rows_, cols, empty) {
 }
 
 table("succession", risk, [
-  { h: "repo", f: r => `<code>${r.repo}</code>` },
-  { h: "도메인", f: r => `<span style="color:${palette.domain[r.domain] ?? "#666"}">●</span> ${r.domain}` },
-  { h: "WP", f: r => r.wp },
-  { h: "person-week", f: r => r.person_weeks },
-  { h: "마지막 활동", f: r => `${r.idle_days}일 전` },
+  { h: "repo", f: r => `<code>${escapeHTML(r.repo)}</code>` },
+  { h: "도메인", f: r => `<span style="color:${safeColor(palette.domain[r.domain])}">●</span> ${escapeHTML(r.domain)}` },
+  { h: "WP", f: r => escapeHTML(r.wp) },
+  { h: "person-week", f: r => number(r.person_weeks) },
+  { h: "마지막 활동", f: r => `${number(r.idle_days)}일 전` },
 ], "해당 없음");
 
 // ─── Archive queue ────────────────────────────────────────
@@ -141,10 +144,10 @@ const dormant = rows.filter(r => !r.archived && r.idle_days !== null && r.idle_d
   .sort((a, b) => b.idle_days - a.idle_days);
 
 table("archive-queue", dormant.slice(0, 40), [
-  { h: "repo", f: r => `<code>${r.repo}</code>` },
-  { h: "마지막 활동", f: r => `${r.idle_days}일 전` },
+  { h: "repo", f: r => `<code>${escapeHTML(r.repo)}</code>` },
+  { h: "마지막 활동", f: r => `${number(r.idle_days)}일 전` },
   { h: "아카이브 명령", f: r =>
-      `<code style="font-size:0.8rem;">gh repo archive ${r.repo} --yes</code>` },
+      `<code style="font-size:0.8rem;">gh repo archive ${escapeHTML(r.repo)} --yes</code>` },
 ], "해당 없음");
 
 if (dormant.length > 40) {

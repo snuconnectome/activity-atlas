@@ -3,7 +3,7 @@ title: "Drift — 분류되지 않은 활동"
 subtitle: "어느 WP에도 매핑되지 않은 repo, 활동량 순"
 ---
 
-예산 대비 실제 투입 그래프의 신뢰도는 이 페이지의 숫자가 얼마나 작은지에 달려 있습니다.
+계획 배분과 GitHub 활동 구성 그래프의 신뢰도는 이 페이지의 숫자가 얼마나 작은지에 달려 있습니다.
 미분류가 크면 그 비교는 아직 결론이 아닙니다.
 
 분류를 여기서 자동으로 확정하지 않습니다. 아래 제안은 `data/taxonomy/rules.json`의
@@ -20,6 +20,7 @@ subtitle: "어느 WP에도 매핑되지 않은 repo, 활동량 순"
 
 <script type="module">
 import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.16/+esm";
+import {escapeHTML, number, totalCount} from "./assets/dom-safety.js";
 
 // Rendered twice from the same source: the public profile reads the redacted
 // data/pub, the lab profile (QUARTO_PROFILE=lab) reads data/lab.
@@ -31,12 +32,12 @@ const [drift, commits, palette] = await Promise.all([
   fetch(`${ROOT}/palette.json`).then(r => r.json()),
 ]);
 
-const unboundCommits = drift.reduce((s, d) => s + d.commits, 0);
+const unboundCommits = drift.reduce((s, d) => s + number(d.commits), 0);
 document.getElementById("drift-summary").innerHTML = `
   <div class="kpi-row">
     <div class="kpi-tile"><div class="label">미분류 repo</div><div class="value">${drift.length}</div></div>
     <div class="kpi-tile"><div class="label">해당 commit</div><div class="value">${unboundCommits}</div></div>
-    <div class="kpi-tile"><div class="label">전체 대비</div><div class="value">${(100 * unboundCommits / commits.length).toFixed(0)}%</div></div>
+    <div class="kpi-tile"><div class="label">전체 대비</div><div class="value">${(100 * unboundCommits / Math.max(1, totalCount(commits))).toFixed(0)}%</div></div>
   </div>`;
 
 // ─── Top unclassified by activity ─────────────────────────
@@ -81,8 +82,8 @@ el.innerHTML = `
   </p>
   <pre style="background:var(--aa-snu-ice); padding:12px; border-radius:6px; overflow-x:auto; font-size:0.82rem;">${
     top.map(d =>
-      `"${d.repo}": {"wp": "WP?", "domain": "${d.suggested_domain ?? "?"}", "source": "manual", "note": "근거를 여기에"},` +
-      `   // ${d.commits} commits`
+      `"${escapeHTML(d.repo)}": {"wp": "WP?", "domain": "${escapeHTML(d.suggested_domain ?? "?")}", "source": "manual", "note": "근거를 여기에"},` +
+      `   // ${number(d.commits)} commits`
     ).join("\n") || "// 미분류 없음"
   }</pre>`;
 </script>

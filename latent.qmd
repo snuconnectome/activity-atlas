@@ -29,6 +29,7 @@ subtitle: "Commit message embedding을 BERTopic + UMAP으로 투영"
 
 <script type="module">
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+import {escapeHTML, safeColor, number} from "./assets/dom-safety.js";
 
 // Rendered twice from the same source: the public profile reads the redacted
 // data/pub, the lab profile (QUARTO_PROFILE=lab) reads data/lab.
@@ -42,7 +43,7 @@ const [commits, embeddings, topicsDoc] = await Promise.all([
 
 const topics = topicsDoc.topics;
 const topicById = new Map(topics.map(t => [t.topic_id, t]));
-const commitBySha = new Map(commits.map(c => [c.sha, c]));
+const commitBySha = new Map(commits.map(c => [c.event_id ?? c.sha, c]));
 
 // ─── Topic chips ──────────────────────────────────────────
 const chipContainer = document.getElementById("topic-chips");
@@ -50,7 +51,7 @@ let activeTopic = null;
 topics.forEach(t => {
   const chip = document.createElement("span");
   chip.className = "topic-chip";
-  chip.style.background = t.color;
+  chip.style.background = safeColor(t.color);
   chip.textContent = `${t.label} (${t.size})`;
   chip.dataset.topicId = t.topic_id;
   chip.addEventListener("click", () => {
@@ -69,10 +70,10 @@ topics.forEach(t => {
   const tr = document.createElement("tr");
   tr.style.borderBottom = "1px solid var(--aa-snu-border)";
   tr.innerHTML = `
-    <td style="padding:8px 12px;"><span style="display:inline-block; width:14px; height:14px; background:${t.color}; border-radius:2px; vertical-align:middle; margin-right:6px;"></span>${t.topic_id}</td>
-    <td style="padding:8px 12px; font-weight:500;">${t.label}</td>
-    <td style="padding:8px 12px;">${t.size}</td>
-    <td style="padding:8px 12px; color: var(--aa-snu-gray); font-family: var(--aa-font-mono); font-size: 0.85rem;">${(t.top_words || []).join(", ")}</td>
+    <td style="padding:8px 12px;"><span style="display:inline-block; width:14px; height:14px; background:${safeColor(t.color)}; border-radius:2px; vertical-align:middle; margin-right:6px;"></span>${number(t.topic_id)}</td>
+    <td style="padding:8px 12px; font-weight:500;">${escapeHTML(t.label)}</td>
+    <td style="padding:8px 12px;">${number(t.size)}</td>
+    <td style="padding:8px 12px; color: var(--aa-snu-gray); font-family: var(--aa-font-mono); font-size: 0.85rem;">${escapeHTML((t.top_words || []).join(", "))}</td>
   `;
   tbody.appendChild(tr);
 });
@@ -106,14 +107,14 @@ const dots = g.selectAll("circle")
   .attr("data-topic", d => d.topic_id)
   .style("cursor", "pointer")
   .on("mouseover", (event, d) => {
-    const commit = commitBySha.get(d.sha);
+    const commit = commitBySha.get(d.event_id ?? d.sha);
     if (!commit) return;
     const msg = commit.subject ?? "";
-    const url = `https://github.com/${commit.org}/${commit.repo}/commit/${commit.sha}`;
+    const url = `https://github.com/${encodeURIComponent(commit.org)}/${encodeURIComponent(commit.repo)}/commit/${encodeURIComponent(commit.sha)}`;
     tooltip
       .html(`
-        <div style="margin-bottom:4px; opacity:0.7; font-size:0.75rem;">${commit.org}/${commit.repo}</div>
-        <div style="margin-bottom:6px;">${msg}</div>
+        <div style="margin-bottom:4px; opacity:0.7; font-size:0.75rem;">${escapeHTML(commit.org)}/${escapeHTML(commit.repo)}</div>
+        <div style="margin-bottom:6px;">${escapeHTML(msg)}</div>
         <div><a href="${url}" target="_blank" rel="noopener">↗ GitHub commit</a></div>
       `)
       .style("left", (event.pageX + 14) + "px")

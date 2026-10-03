@@ -30,6 +30,11 @@ on:
       - "assets/**"
       - "data/pub/**"
       - ".github/workflows/build.yml"
+      - "scripts/**"
+      - "tests/**"
+      - "data/schema.json"
+      - "data/taxonomy/**"
+      - "requirements-dev.txt"
 
 permissions:
   contents: read
@@ -76,8 +81,30 @@ jobs:
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install test dependencies
+        run: |
+          pip install -r requirements-dev.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Fixture and data contract tests
+        run: python -m unittest discover -s tests -v
+
       - name: Quarto render
         run: quarto render
+
+      - name: Verify entire public artifact
+        run: python scripts/check_public.py --site _site
+
+      - name: Browser security regression
+        run: |
+          python -m http.server 9000 --bind 127.0.0.1 --directory _site &
+          atlas_server_pid=$!
+          trap 'kill "$atlas_server_pid"' EXIT
+          AA_TEST_URL=http://127.0.0.1:9000 python -m unittest discover -s tests -p test_browser_safety.py -v
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

@@ -1,0 +1,123 @@
+{
+  "checked_at_utc": "2026-10-03T11:03:34.460051+00:00",
+  "head": "c024eed53626877bf60dbbc6f2c45efb5ba9205b",
+  "probes": {
+    "collective_nonconsent": {
+      "masked_topics": 0,
+      "secret_label_retained": true
+    },
+    "pulse_label_bypass": {
+      "exit_code": 0,
+      "topic_masked": true,
+      "pulse_secret_retained": true
+    },
+    "same_count_wrong_dataset": {
+      "exit_code": 0,
+      "dangling_embedding_published": true
+    },
+    "missing_derived": {
+      "exit_code": 0,
+      "old_topics_preserved": true
+    },
+    "full_fetch_scope": {
+      "exit_code": 0,
+      "non_PI_retained": true,
+      "expired_retained": true,
+      "rows": 2
+    },
+    "sha_repository_collision": {
+      "exit_code": 0,
+      "repository_associations_expected": 2,
+      "repository_associations_actual": 1
+    },
+    "calendar_gaps": {
+      "exit_code": 0,
+      "pulse_rows_for_21_week_span": 2,
+      "calls_prior_active_week_previous_week": true
+    },
+    "people_sparkline": {
+      "bar_count_for_20_week_gap": 2,
+      "values": [
+        1,
+        1
+      ]
+    },
+    "false_contact": {
+      "contact_days_despite_PI_commit_before_person_joined": 140
+    },
+    "zero_days_sort": {
+      "observed_days_order": [
+        0,
+        30
+      ],
+      "required_order": [
+        30,
+        0
+      ]
+    },
+    "repo_week_time_proxy": {
+      "one_person_one_week_repo_week_count": 2,
+      "person_week_count": 1
+    },
+    "iso_year_calendar": {
+      "current_format_equivalent": "2025-W01",
+      "required_iso_week": "2026-W01",
+      "date": "2025-12-29"
+    },
+    "workmem_snooze_cooldown": {
+      "score_during_future_snooze": 75.0,
+      "score_one_minute_after_nudge": 85.0,
+      "default_threshold": 55,
+      "score_path_only_no_notification_sent": true
+    }
+  },
+  "current": {
+    "public_rows": 2226,
+    "public_repos": 134,
+    "latest_commit_utc": "2026-07-29T15:43:24Z",
+    "private_active_repo_names_in_pub": 104,
+    "private_inventory_names_in_lifecycle": 277,
+    "private_names_in_tracked_taxonomy": 115,
+    "lifecycle_rows": 435,
+    "public_contributor_max": 1,
+    "public_succession_flags": 16,
+    "missing_sha_or_subject_rows": 43,
+    "raw_rows": 2226,
+    "topic_source_rows": 2226,
+    "public_has_people": false,
+    "schema_invalid_commit_rows": 43,
+    "lab_rows": 6926,
+    "lab_rows_with_sha": 2499,
+    "lab_embeddings": 2499,
+    "lab_topic_model_rows": 6466,
+    "public_solo_flags_with_multiple_contributors_in_old_lab_artifact": 3
+  },
+  "source_hashes": {
+    "scripts/workmem.py": "6cf66ef87efc54bebb230db439e5c04609687df4f5c3d0ee2a98c7d92de7339a",
+    "scripts/topic_model.py": "fc6414ad3a2e1483f25525cff9a30826fd2537a9ece021d13afc1bb0bedec52d",
+    "scripts/weekly_pulse.py": "22409a295a6b3fed06203fcb065c8695ef15b2892e9325ec0a7cd4c4439d0396",
+    "scripts/fetch_commits.py": "a537b19a96e7caf04cc5119301b37b4131a45856646c8b2e0af6eca9f844a5f4",
+    "scripts/aa_paths.py": "e882591d7e691a19854756316eebc5e605dbe4ec930c4cd3d11b8ca150da9065",
+    "scripts/seed_taxonomy.py": "665206c1daf1577f3142c819ec4da9e60592192027a32a6b3e1338f4c5479dba",
+    "scripts/join.py": "2552231902101c6f4c8ed8ca3ab76e2c7b9ba0e27a3c6983353f53c2cdce1352",
+    "drift.qmd": "649a94166ccea352111075292b35959b4c5657ef98ecf5054238316871774bb2",
+    "latent.qmd": "f863fb0a1fb6c87019e96dc74fb94a48856e18a92f7195e35dd9f218cdc03c12",
+    "people.qmd": "781ba79d7cc22df678e7aea9b0b3d627ad790a9cbcfc7e3065933cb1fa60026c",
+    "network.qmd": "0033aee78e87548ea3128bab9c6d8f7236a5ec957c87461104d0f6518c978ff0",
+    "index.qmd": "79ef2ba876992c3d2636afa25600aa83c75c7d36f21dc66ee7d720b610fa5803",
+    "lifecycle.qmd": "4c9d1a519e50e89ae57e997f7bae2e8e51a70ad57150d08a064de215331977c8",
+    "about.qmd": "f9a29611e680461eed7d9c925c827fdfe51ff08fe1341837c438604910ce38ad",
+    "pulse.qmd": "e256c3fd3bf0c56d2440b66dfb3cf8d1d1f39f0746c6fcbfc76a8390bf7f298e",
+    ".github/workflows/build.yml": "0fce7971cdbc2575aa9e5f8a3a9db1de4063f88ae1d40eba48b72d01c6a8016f",
+    "data/schema.json": "f5e2c85f644e5b4c4a4027ee7f812317301920c7e5b062873d140968b92f8026"
+  },
+  "syntax_files_checked": [
+    "workmem.py",
+    "topic_model.py",
+    "weekly_pulse.py",
+    "fetch_commits.py",
+    "aa_paths.py",
+    "seed_taxonomy.py",
+    "join.py"
+  ]
+}

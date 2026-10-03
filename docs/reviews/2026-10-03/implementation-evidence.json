@@ -1,0 +1,46 @@
+{
+  "base_sha": "c024eed53626877bf60dbbc6f2c45efb5ba9205b",
+  "scope": "pi",
+  "collection_complete": true,
+  "collected_at": "2026-10-03T11:39:49.104580+00:00",
+  "raw_events": 4484,
+  "public_weighted_events": 4484,
+  "network_weighted_events": 4484,
+  "public_rows": 1067,
+  "aggregate_rows": 619,
+  "public_coordinates": 424,
+  "topics": 12,
+  "pulse_weeks": 53,
+  "inventory_repos": 486,
+  "repositories_succeeded": 313,
+  "repositories_failed": 0,
+  "private_identifier_scan_files": 47,
+  "private_identifier_hit_file_count": 0,
+  "private_taxonomy_original_bytes_preserved": true,
+  "identifier_matching": "exact org/repo with identifier boundaries; excludes prefix-only matches",
+  "regression_tests": {
+    "passed": 38,
+    "failed": 0,
+    "skipped": 0,
+    "browser_tests": 4
+  },
+  "clean_ci_snapshot": {
+    "nonbrowser_passed": 34,
+    "browser_passed": 4,
+    "quarto_render_exit": 0,
+    "artifact_guard_errors": 0
+  },
+  "local_quarto_render_exit": 0,
+  "public_artifact_guard_errors": 0,
+  "git_diff_check_exit": 0,
+  "delivery": {
+    "committed": false,
+    "pushed": false,
+    "deployed": false
+  },
+  "scope_exclusions": [
+    "historical Git cleanup",
+    "working-memory companion",
+    "all-author live refresh"
+  ]
+}

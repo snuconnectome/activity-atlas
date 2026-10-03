@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Fetch commits across 3 GitHub organizations → local raw store.
 
-Writes: $ACTIVITY_ATLAS_DATA_DIR/raw/commits.json  (default ~/.local/share/activity-atlas)
-        $ACTIVITY_ATLAS_DATA_DIR/raw/state.json    (per-repo incremental cursor)
+Writes: $ACTIVITY_ATLAS_DATA_DIR/scopes/<scope>/raw/commits.json  (default ~/.local/share/activity-atlas)
+        $ACTIVITY_ATLAS_DATA_DIR/scopes/<scope>/raw/state.json    (per-repo incremental cursor)
 
 Never writes into the repo. Raw rows carry full commit message bodies for repos
 that are overwhelmingly private; scripts/join.py produces the publishable
@@ -42,7 +42,8 @@ import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from aa_paths import RAW_COMMITS, RAW_DIR, RAW_INVENTORY, RAW_STATE, raw_commits_path
+from aa_paths import RAW_COMMITS, RAW_DIR, RAW_INVENTORY, RAW_STATE, SCOPE, scope_paths, raw_commits_path
+from snapshot_contract import event_key, fingerprint, write_snapshot
 
 # ---------------------------------------------------------------------------
 # Config
@@ -88,7 +89,11 @@ def gh(args: list[str], jq: str | None = None) -> tuple[str | None, str | None]:
     cmd = ["gh"] + args
     if jq:
         cmd += ["--jq", jq]
-    proc = subprocess.run(cmd, capture_output=True, text=True, check=False)
+    try:
+        proc = subprocess.run(cmd, capture_output=True, text=True, check=False, timeout=120)
+    except subprocess.TimeoutExpired:
+        return None, 'GitHub request timed out'
+
     if proc.returncode != 0:
         return None, (proc.stderr or "").strip()
     return proc.stdout, None
@@ -137,7 +142,7 @@ def repo_commits(org: str, repo: str, since_iso: str) -> tuple[list[dict], str |
         try:
             commits.append(json.loads(line))
         except json.JSONDecodeError:
-            continue
+            return [], "Malformed commit API response"
     return commits, None
 
 
@@ -153,6 +158,7 @@ def normalize(raw: dict, org: str, repo: str, visibility: str) -> dict:
     """Raw gh commit → schema `commit_raw` row (data/schema.json 0.2.0)."""
     login = raw.get("login", "")
     return {
+        'event_id': f"{org}/{repo}@{raw.get('sha', '')}",
         "sha": raw.get("sha", ""),
         "org": org,
         "repo": repo,
@@ -201,6 +207,7 @@ def load_existing() -> list[dict]:
 
 
 def main() -> int:
+    global RAW_COMMITS, RAW_DIR, RAW_INVENTORY, RAW_STATE
     ap = argparse.ArgumentParser(description="Fetch commits across orgs into the local raw store.")
     ap.add_argument("--full", action="store_true",
                     help="ignore per-repo cursors and refetch the whole window")
@@ -209,16 +216,21 @@ def main() -> int:
     ap.add_argument("--all-authors", action="store_true",
                     help="keep every contributor, not just the PI (Phase 4; lab-internal only)")
     args = ap.parse_args()
+    scope = 'all' if args.all_authors else SCOPE
+    RAW_DIR = scope_paths(scope)['raw']
+    RAW_COMMITS = RAW_DIR / 'commits.json'
+    RAW_STATE = RAW_DIR / 'state.json'
+    RAW_INVENTORY = RAW_DIR / 'repos.json'
 
     now = datetime.now(timezone.utc)
     window_start = (now - timedelta(days=LOOKBACK_DAYS)).strftime("%Y-%m-%dT%H:%M:%SZ")
     state = {} if args.full else load_state()
 
-    keep_logins = None if args.all_authors else {canonical(x) for x in PI_LOGINS}
+    keep_logins = None if scope == 'all' else {canonical(x) for x in PI_LOGINS}
 
     print(f"Activity Atlas — fetching commits since {window_start[:10]}")
     print(f"  Orgs:    {', '.join(ORGS)}")
-    print(f"  Authors: {'ALL contributors' if args.all_authors else ', '.join(PI_LOGINS) + f' → {canonical(PI_LOGINS[0])}'}")
+    print(f"  Authors: {'ALL contributors' if scope == 'all' else ', '.join(PI_LOGINS) + f' → {canonical(PI_LOGINS[0])}'}")
     print(f"  Mode:    {'full' if args.full else 'incremental'}")
     print(f"  Store:   {RAW_COMMITS}")
     print()
@@ -260,8 +272,16 @@ def main() -> int:
         return 0
 
     # ── Walk repos ───────────────────────────────────────────────────────
-    existing = load_existing()
-    by_sha = {c["sha"]: c for c in existing if c.get("sha")}
+    existing = [] if args.full else (json.loads(RAW_COMMITS.read_text()) if RAW_COMMITS.exists() else [])
+    visibility_by_repo = {(r['org'], r['repo']):r['visibility'] for r in inventory}
+    for row in existing:
+        row['repo_visibility'] = visibility_by_repo.get((row['org'],row['repo']), 'UNKNOWN')
+        row['event_id'] = event_key(row)
+    # Repository association is part of an event. A shared SHA across mirrors
+    # is still activity in each repository.
+    by_sha = {(c['org'], c['repo'], c['sha']): c for c in existing
+              if c.get('sha') and c.get('author_date', '') >= window_start
+              and (keep_logins is None or canonical(c.get('author_login', '')) in keep_logins)}
     kept_before = len(by_sha)
 
     failed_repos: list[str] = []
@@ -285,9 +305,17 @@ def main() -> int:
             if keep_logins is not None and canonical(login) not in keep_logins:
                 continue
             row = normalize(raw, org, repo, visibility)
-            if row["sha"] and row["sha"] not in by_sha:
+            try:
+                stamp = datetime.fromisoformat(row['author_date'].replace('Z','+00:00'))
+            except (ValueError, TypeError):
+                failed_repos.append(full)
+                break
+            if not datetime.fromisoformat(window_start.replace('Z','+00:00')) <= stamp <= now:
+                continue
+            key = (org, repo, row['sha'])
+            if row["sha"] and key not in by_sha:
                 new_rows += 1
-            by_sha[row["sha"]] = row
+            by_sha[key] = row
 
         # Advance the cursor only for repos that answered successfully.
         state[full] = now.strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -297,15 +325,19 @@ def main() -> int:
 
     commits = sorted(by_sha.values(), key=lambda c: c["author_date"], reverse=True)
 
+    if failed_repos:
+        print(f"❌ {len(failed_repos)} repositories failed; previous snapshot preserved.", file=sys.stderr)
+        return 1
+
     # ── Write ────────────────────────────────────────────────────────────
-    RAW_DIR.mkdir(parents=True, exist_ok=True)
-    RAW_COMMITS.write_text(
-        json.dumps(commits, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    RAW_STATE.write_text(
-        json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    RAW_INVENTORY.write_text(
-        json.dumps(sorted(inventory, key=lambda r: (r["org"], r["repo"])),
-                   indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    manifest = {
+        'scope': scope, 'complete': True, 'observed_from': window_start,
+        'observed_through': now.isoformat(), 'collected_at': now.isoformat(),
+        'source_fingerprint': fingerprint(commits, scope), 'n_commits': len(commits),
+        'repositories_succeeded': len(targets), 'repositories_failed': 0,
+    }
+    write_snapshot(RAW_DIR, {'commits.json':commits,'state.json':state,
+                   'repos.json':sorted(inventory,key=lambda r:(r['org'],r['repo'])), 'manifest.json':manifest})
 
     # ── Report ───────────────────────────────────────────────────────────
     by_author: dict[str, int] = {}
@@ -323,16 +355,6 @@ def main() -> int:
         merged = canonical(login)
         arrow = f" → {merged}" if merged != login else ""
         print(f"     {login:24s}{arrow:>16s}  {n:5d}")
-
-    if failed_repos:
-        print()
-        print(f"❌ {len(failed_repos)} repos failed — data is INCOMPLETE:", file=sys.stderr)
-        for f in failed_repos[:10]:
-            print(f"     {f}", file=sys.stderr)
-        if len(failed_repos) > 10:
-            print(f"     … and {len(failed_repos) - 10} more", file=sys.stderr)
-        print("   Their cursors were not advanced; rerun to retry.", file=sys.stderr)
-        return 1
 
     return 0
 

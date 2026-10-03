@@ -30,7 +30,9 @@ BURST_MIN_HISTORY = 4      # below this, don't claim to know the baseline
 BURST_FLOOR = 4            # tiny-dataset guard, matches the original constant
 
 
-from aa_paths import DERIVED_DIR, DERIVED_EMBEDDINGS, DERIVED_PULSE, DERIVED_TOPICS, raw_commits_path
+from aa_paths import DERIVED_DIR, RAW_MANIFEST, DERIVED_EMBEDDINGS, DERIVED_PULSE, DERIVED_TOPICS, SCOPE, raw_commits_path
+from time_axis import calendar_weeks
+from snapshot_contract import fingerprint, content_digest
 
 COMMITS_IN = raw_commits_path()
 TOPICS_IN = DERIVED_TOPICS
@@ -76,9 +78,18 @@ def main() -> int:
     topics_doc = json.loads(TOPICS_IN.read_text(encoding="utf-8"))
     embeddings = json.loads(EMBEDDINGS_IN.read_text(encoding="utf-8"))
 
+    collection = json.loads(RAW_MANIFEST.read_text()) if RAW_MANIFEST.exists() else {}
+    source_fingerprint = fingerprint(commits, SCOPE)
+    if collection.get('complete') is not True or collection.get('scope') != SCOPE or collection.get('source_fingerprint') != source_fingerprint or topics_doc.get('metadata',{}).get('source_fingerprint') != source_fingerprint:
+        print('ERROR: collection and topic snapshot do not match.', file=sys.stderr)
+        return 1
+
     # Maps
     topic_label = {t["topic_id"]: t["label"] for t in topics_doc["topics"]}
-    sha_to_topic = {e["sha"]: e["topic_id"] for e in embeddings}
+    from snapshot_contract import event_key
+    if any('event_id' in e for e in embeddings):
+        for c in commits:c['event_id']=event_key(c)
+    sha_to_topic = {e.get('event_id', e["sha"]): e["topic_id"] for e in embeddings}
 
     # Group commits by ISO week
     by_week: dict[str, list[dict]] = defaultdict(list)
@@ -87,7 +98,8 @@ def main() -> int:
             continue
         by_week[iso_week(c["author_date"])].append(c)
 
-    weeks = sorted(by_week.keys())
+    dates = [c['author_date'] for c in commits if c.get('author_date')]
+    weeks = calendar_weeks(collection.get('observed_from',min(dates)), collection['observed_through']) if dates else []
     pulse: list[dict] = []
     burst_weeks = 0
 
@@ -99,12 +111,12 @@ def main() -> int:
         commit_count = len(cs)
         repo_counter = Counter(f"{c['org']}/{c['repo']}" for c in cs)
         topic_counter = Counter(
-            sha_to_topic.get(c["sha"], -1) for c in cs
+            sha_to_topic.get(c.get('event_id', c["sha"]), -1) for c in cs
         )
         org_counter = Counter(c["org"] for c in cs)
 
         repos_prev = {f"{c['org']}/{c['repo']}" for c in cs_prev}
-        topics_prev = {sha_to_topic.get(c["sha"], -1) for c in cs_prev}
+        topics_prev = {sha_to_topic.get(c.get('event_id', c["sha"]), -1) for c in cs_prev}
 
         # Top-3 topics (exclude -1 outlier unless dominant)
         ranked_topics = topic_counter.most_common()
@@ -161,11 +173,13 @@ def main() -> int:
     # Sort newest-first for the page
     pulse.sort(key=lambda p: p["week_iso"], reverse=True)
 
+    DERIVED_DIR.mkdir(parents=True, exist_ok=True)
     OUT.write_text(
         json.dumps(pulse, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
-    DERIVED_DIR.mkdir(parents=True, exist_ok=True)
+    OUT.with_suffix('.meta.json').write_text(json.dumps({'source_fingerprint': source_fingerprint,
+        'topics_digest': content_digest(topics_doc), 'pulse_digest': content_digest(pulse)}) + '\n')
     print(f"✅ Weekly pulse: {len(pulse)} weeks → {OUT}")
     if pulse:
         print(f"   🔥 burst flagged in {burst_weeks}/{len(pulse)} weeks "

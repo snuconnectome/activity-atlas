@@ -7,6 +7,10 @@ project:
     # data/pub/ is publishable.
     - "data/pub/**/*.json"
     - "assets/**"
+    - "!_site-lab/**"
+    - "!data/lab/**"
+    - "!data/raw/**"
+    - "!data/tmp/**"
   render:
     - index.qmd
     - lifecycle.qmd
@@ -19,7 +23,7 @@ project:
 
 website:
   title: "Activity Atlas"
-  description: "8개월간 GitHub 활동의 시각적 거울 — snuconnectome × Transconnectome × neurox-org"
+  description: "최근 12개월 GitHub 활동의 시각적 거울 — snuconnectome × Transconnectome × neurox-org"
   page-navigation: true
   search:
     type: textbox
@@ -52,7 +56,7 @@ website:
     left: |
       Built with Quarto · Observable Plot · D3 · Cytoscape · BERTopic
     right: |
-      Rebuilds every Monday 08:00 UTC
+      Rebuilds Monday 08:00 UTC · collection time in Overview
 
 format:
   html:

@@ -1,0 +1,13 @@
+{
+  "scope": "pi",
+  "complete": true,
+  "observed_from": "2025-10-03T11:39:49Z",
+  "observed_through": "2026-10-03T11:39:49.104580+00:00",
+  "collected_at": "2026-10-03T11:39:49.104580+00:00",
+  "repositories_succeeded": 313,
+  "repositories_failed": 0,
+  "schema_version": "0.3.0",
+  "n_commits": 4484,
+  "published_at": "2026-10-03T11:56:01.145237+00:00",
+  "payload_digest": "424a0cb43082273dffc8630a0f692d3a0b5d5cbe278fbd7045c3dd58106fab37"
+}

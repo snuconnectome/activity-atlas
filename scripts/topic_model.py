@@ -39,8 +39,9 @@ from umap import UMAP
 
 from aa_paths import (
     DERIVED_DIR, DERIVED_EMBEDDINGS, DERIVED_REGISTRY, DERIVED_TOPICS,
-    raw_commits_path,
+    raw_commits_path, SCOPE,
 )
+from snapshot_contract import fingerprint, event_key, content_digest
 
 COMMITS_IN = raw_commits_path()
 TOPICS_OUT = DERIVED_TOPICS
@@ -364,6 +365,7 @@ def main() -> int:
             # projecting — otherwise a stale run over lab-wide data could be
             # emitted into the public profile without anything looking wrong.
             "source_n_commits": len(commits),
+            "source_fingerprint": fingerprint(commits, SCOPE),
             "source_n_authors": len({c.get("author_canonical") or c.get("author_login", "")
                                      for c in commits}),
             "clustering_method": clustering_method,
@@ -380,6 +382,7 @@ def main() -> int:
 
     embedding_records = [
         {
+            "event_id": event_key(c),
             "sha": c["sha"],
             "x": float(coords[i, 0]),
             "y": float(coords[i, 1]),
@@ -391,6 +394,8 @@ def main() -> int:
         json.dumps(embedding_records, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
+    topics_doc['metadata']['embedding_digest'] = content_digest(embedding_records)
+    TOPICS_OUT.write_text(json.dumps(topics_doc,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
 
     print()
     print(f"✅ {clustering_method}: {len(topic_records)} clusters")

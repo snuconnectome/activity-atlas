@@ -4,171 +4,104 @@
       "topic_id": -1,
       "label": "outliers",
       "top_words": [],
-      "size": 764,
-      "slot": -1,
-      "color": "#9E9E9E"
+      "size": 1665,
+      "color": "#9E9E9E",
+      "slot": -1
     },
     {
       "topic_id": 0,
-      "label": "session / revision / 세션",
-      "top_words": [
-        "session",
-        "revision",
-        "세션",
-        "rebuttal",
-        "summary"
-      ],
-      "size": 597,
-      "slot": 0,
-      "color": "#0072B2"
+      "label": "topic-0",
+      "top_words": [],
+      "size": 965,
+      "color": "#0072B2",
+      "slot": 0
     },
     {
       "topic_id": 1,
-      "label": "rag system / rag pipeline / for rag",
-      "top_words": [
-        "rag system",
-        "rag pipeline",
-        "for rag",
-        "llm integration",
-        "rag"
-      ],
-      "size": 192,
-      "slot": 1,
-      "color": "#E69F00"
+      "label": "topic-1",
+      "top_words": [],
+      "size": 453,
+      "color": "#E69F00",
+      "slot": 1
     },
     {
       "topic_id": 2,
-      "label": "com intro_v10 / co authored / intro_v10",
-      "top_words": [
-        "com intro_v10",
-        "co authored",
-        "intro_v10",
-        "authored by",
-        "claude opus"
-      ],
-      "size": 159,
-      "slot": 2,
-      "color": "#009E73"
+      "label": "topic-2",
+      "top_words": [],
+      "size": 294,
+      "color": "#009E73",
+      "slot": 2
     },
     {
       "topic_id": 3,
-      "label": "3a4c update / changed files / update docs",
-      "top_words": [
-        "3a4c update",
-        "changed files",
-        "update docs",
-        "final_2026 student_exam_cha_jiook_v0",
-        "exam final_2026"
-      ],
-      "size": 115,
-      "slot": 3,
-      "color": "#D55E00"
+      "label": "topic-3",
+      "top_words": [],
+      "size": 214,
+      "color": "#D55E00",
+      "slot": 3
     },
     {
       "topic_id": 4,
-      "label": "update readme / readme md / comprehensive readme",
-      "top_words": [
-        "update readme",
-        "readme md",
-        "comprehensive readme",
-        "readme add",
-        "in readme"
-      ],
-      "size": 85,
-      "slot": 4,
-      "color": "#56B4E9"
+      "label": "topic-4",
+      "top_words": [],
+      "size": 180,
+      "color": "#56B4E9",
+      "slot": 4
     },
     {
       "topic_id": 5,
-      "label": "new_s05 / new_s05 v4 / infographic variants",
-      "top_words": [
-        "new_s05",
-        "new_s05 v4",
-        "infographic variants",
-        "new_s07",
-        "variants update"
-      ],
-      "size": 83,
-      "slot": 5,
-      "color": "#CC79A7"
+      "label": "topic-5",
+      "top_words": [],
+      "size": 147,
+      "color": "#CC79A7",
+      "slot": 5
     },
     {
       "topic_id": 6,
-      "label": "parse_evidence_blocks / trinity 013 / 013 p1b",
-      "top_words": [
-        "parse_evidence_blocks",
-        "trinity 013",
-        "013 p1b",
-        "trinity 009",
-        "p1b red"
-      ],
-      "size": 53,
-      "slot": 6,
-      "color": "#F0E442"
+      "label": "topic-6",
+      "top_words": [],
+      "size": 139,
+      "color": "#F0E442",
+      "slot": 6
     },
     {
       "topic_id": 7,
-      "label": "wave 5a / wave 4a / wave 3a",
-      "top_words": [
-        "wave 5a",
-        "wave 4a",
-        "wave 3a",
-        "wave 4c",
-        "wave 5c"
-      ],
-      "size": 51,
-      "slot": 7,
-      "color": "#000000"
+      "label": "topic-7",
+      "top_words": [],
+      "size": 85,
+      "color": "#000000",
+      "slot": 7
     },
     {
       "topic_id": 8,
-      "label": "update gitignore / add github / github pages",
-      "top_words": [
-        "update gitignore",
-        "add github",
-        "github pages",
-        "update project",
-        "github"
-      ],
-      "size": 39,
-      "slot": 8,
-      "color": "#0072B2"
+      "label": "topic-8",
+      "top_words": [],
+      "size": 73,
+      "color": "#0072B2",
+      "slot": 8
     },
     {
       "topic_id": 9,
-      "label": "upload add / upload / via upload",
-      "top_words": [
-        "upload add",
-        "upload",
-        "via upload",
-        "add files",
-        "files via"
-      ],
-      "size": 23,
-      "slot": 9,
-      "color": "#E69F00"
+      "label": "topic-9",
+      "top_words": [],
+      "size": 59,
+      "color": "#E69F00",
+      "slot": 9
     },
     {
       "topic_id": 10,
-      "label": "initial commit / commit initial / commit",
-      "top_words": [
-        "initial commit",
-        "commit initial",
-        "commit",
-        "commit project",
-        "proposal initial"
-      ],
-      "size": 22,
-      "slot": 10,
-      "color": "#009E73"
+      "label": "topic-10",
+      "top_words": [],
+      "size": 48,
+      "color": "#009E73",
+      "slot": 10
     }
   ],
   "metadata": {
-    "source_n_commits": 2226,
-    "source_n_authors": 1,
+    "source_n_commits": 4484,
     "clustering_method": "hdbscan",
-    "n_commits": 2183,
+    "n_commits": 4322,
     "model": "paraphrase-multilingual-MiniLM-L12-v2",
-    "generated_at": "2026-07-29T19:09:30.700117+00:00"
+    "generated_at": "2026-10-03T11:49:32.607027+00:00"
   }
 }

@@ -1,61 +1,42 @@
 ---
 title: "About"
-subtitle: "이 사이트는 무엇이고, 어떻게 만들었는가"
+subtitle: "관측 범위・方法・更新を確認する"
 ---
 
-## 무엇
+## 무엇을 보여 주는가
 
-지난 12개월간 세 개의 GitHub 조직에서 제가 한 commit들을 — 무엇이 어디로 흘러갔는지 정량적으로 보기 위해 — 매주 자동으로 갱신되는 정적 웹사이트로 시각화합니다.
+세 GitHub 조직의 최근 365일 활동을 8개 화면으로 살펴봅니다. 기본 범위는 PI 계정입니다. Overview에 수집 범위·관측 기간·실제 수집 시각을 표시합니다.
 
-| Org | Active repos |
-|-----|--------------|
-| [snuconnectome](https://github.com/snuconnectome) | 8 |
-| [Transconnectome](https://github.com/Transconnectome) | 12 |
-| [neurox-org](https://github.com/neurox-org) | 3 |
+접근 가능한 저장소 중 최근 갱신된 비아카이브 저장소의 기본 브랜치 커밋을 수집합니다. GitHub 계정과 연결되지 않은 커밋 및 봇 계정은 제외합니다. 실험·독서·면담·다른 문서 도구의 작업은 이 데이터에 포함되지 않습니다.
 
-## 네 가지 lens
+| 화면 | 보는 내용 |
+|---|---|
+| [Overview](index.qmd) | 시간축·계획 배분과 활동 비중·도메인 |
+| [Latent](latent.qmd) | 메시지 임베딩의 토픽과 UMAP |
+| [Lifecycle](lifecycle.qmd) | 관측 기여자·경과일·점검 후보 |
+| [Network](network.qmd) | 전체 집계 기반 도메인 그래프·조직→토픽 |
+| [Pulse](pulse.qmd) | 0건인 주를 포함한 연속 ISO 주별 변화 |
+| [Drift](drift.qmd) | 공개 저장소 분류 점검 |
+| [1:1](people.qmd) | 내부 빌드 전용 공유 repo PI commit 기록 |
 
-| Page | Lens | 주요 도구 |
-|------|------|----------|
-| [Overview](index.qmd) | Temporal | Observable Plot calendar + stream graph |
-| [Latent](latent.qmd) | Semantic | BERTopic + UMAP, D3 zoomable scatter |
-| [Network](network.qmd) | Structural | Cytoscape.js + Sankey |
-| [Pulse](pulse.qmd) | Narrative | Rule-based weekly delta |
+커밋 비중은 시간·예산·성과의 측정값이 아닙니다. 관측 기여자 수는 실제 소유권과 다릅니다. 공유 repo의 PI commit은 면담이나 검토 여부를 입증하지 않습니다.
 
-## 어떻게
+## 데이터가 화면으로 오는 과정
 
-### 데이터 파이프라인 (Python)
+로컬 수집 → 메시지 임베딩과 토픽 분석 → 주별 집계 → 공개 정책과 분류 적용 → Quarto 렌더 → 산출물 및 브라우저 검증 순서입니다.
 
-1. `scripts/fetch_commits.py` — `gh` CLI로 3 orgs의 commit metadata 수집
-2. `scripts/topic_model.py` — `paraphrase-multilingual-MiniLM-L12-v2`로 commit message 임베딩 후 BERTopic + HDBSCAN 클러스터링 (HDBSCAN fail 시 KMeans fallback)
-3. `scripts/weekly_pulse.py` — ISO week별 commit 집계 + 전주 대비 rule-based delta
+원본·모델 파생물·비공개 분류는 로컬에 보관합니다. 공개 저장소 활동만 이름·링크·좌표를 표시하며, private와 unknown 활동은 저장소 식별자 없는 일별 그룹으로 집계합니다. 본문은 공개 저장소의 동의한 저자에게만 허용합니다. 제한된 출처가 섞인 토픽은 중립 라벨을 사용합니다.
 
-출력은 `data/*.json`으로 schema-locked: `commits` · `topics` · `embeddings` · `weekly_pulse`.
+토픽은 multilingual MiniLM 메시지 임베딩과 BERTopic/HDBSCAN으로 구성하며, 충분한 군집이 없으면 KMeans로 대체합니다. Latent의 좌표 표본과 Network의 전체 집계는 구분합니다. 토픽 분류는 작업 이해를 돕는 탐색 도구이며 연구 주제의 과학적 타당성을 검증한 결과는 아닙니다.
 
-### 시각화 (JavaScript ESM)
+## 업데이트와 검증
 
-- [Quarto](https://quarto.org/) for static site generation
-- [Observable Plot](https://observablehq.com/plot) for calendar heatmap, stream graph, Sankey
-- [D3.js](https://d3js.org/) for UMAP scatter zoom/pan
-- [Cytoscape.js](https://js.cytoscape.org/) for force-directed network
-- 모든 라이브러리는 [esm.sh](https://esm.sh) CDN에서 ES module로 직접 import (번들러 없음)
+GitHub Actions의 매주 월요일 08:00 UTC 일정은 저장된 공개 JSON을 검증·재렌더·배포합니다. 새 GitHub 활동 수집과 분석은 로컬에서 수행합니다. 따라서 사이트 빌드 시각이 최근이어도 데이터가 최근이라는 의미는 아닙니다.
 
-### 디자인
+수집·분석의 입력 지문과 해시를 확인하고, 공개 JSON 스키마·비공개 경로 및 필드·8개 화면의 DOM과 JavaScript 실행·주요 HTML 삽입 경로를 테스트합니다. 전체 접근성이나 모든 상호작용을 인증한 것은 아닙니다.
 
-- **SNU Blue** (`#003380`) + **Signal Orange** (`#E69F00`)
-- **Okabe-Ito color-blind safe palette** (8% prevalence safe)
-- 한국어 우선 폰트 스택: Pretendard · KoPub · Noto Sans KR
-- WCAG AAA contrast on all text
+## 도구와 소스
 
-### 자동 갱신
+[Quarto](https://quarto.org/), [Observable Plot](https://observablehq.com/plot), [D3](https://d3js.org/), [Cytoscape.js](https://js.cytoscape.org/)를 사용합니다. Sankey는 d3-sankey로 그립니다.
 
-GitHub Actions cron: 매주 월요일 08:00 UTC + manual `workflow_dispatch`. HF 모델은 `actions/cache@v4`로 캐싱.
-
-## 영향 받은 곳
-
-디지털 저널리즘 — NYT The Upshot, Reuters Graphics, [Pudding](https://pudding.cool/), FiveThirtyEight.
-"여러 lens로 같은 데이터 보기" 패턴은 그쪽에서 빌려왔습니다.
-
-## 소스 / 라이센스
-
-[github.com/snuconnectome/activity-atlas](https://github.com/snuconnectome/activity-atlas) · MIT
+[소스와 실행 안내](https://github.com/snuconnectome/activity-atlas) · MIT

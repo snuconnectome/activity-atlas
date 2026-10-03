@@ -27,20 +27,19 @@ repo 134개를 한 화면에 놓으면 거의 모든 쌍이 토픽을 공유해 
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 import { sankey as d3sankey, sankeyLinkHorizontal, sankeyJustify } from "https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/+esm";
 import cytoscape from "https://cdn.jsdelivr.net/npm/cytoscape@3.30.0/+esm";
+import {escapeHTML, totalCount} from "./assets/dom-safety.js";
 
 // Rendered twice from the same source: the public profile reads the redacted
 // data/pub, the lab profile (QUARTO_PROFILE=lab) reads data/lab.
 const ROOT = window.AA_DATA_ROOT ?? "data/pub";
 
-const [commits, embeddings, topicsDoc, palette] = await Promise.all([
-  fetch(`${ROOT}/commits_slim.json`).then(r => r.json()),
-  fetch(`${ROOT}/embeddings.json`).then(r => r.json()),
+const [commits, topicsDoc, palette] = await Promise.all([
+  fetch(`${ROOT}/network.json`).then(r => r.json()),
   fetch(`${ROOT}/topics.json`).then(r => r.json()),
   fetch(`${ROOT}/palette.json`).then(r => r.json()),
 ]);
 
 const topics = topicsDoc.topics;
-const shaToTopic = new Map(embeddings.map(e => [e.sha, e.topic_id]));
 const topicById = new Map(topics.map(t => [t.topic_id, t]));
 const orgColors = {
   "snuconnectome": "#003380",
@@ -72,9 +71,9 @@ function groupBy(rows, keyFn) {
 function topicVector(rows) {
   const v = new Map();
   for (const c of rows) {
-    const t = shaToTopic.get(c.sha) ?? -1;
-    if (t === -1) continue;
-    v.set(t, (v.get(t) ?? 0) + 1);
+    for (const [tid, n] of Object.entries(c.topic_counts || {})) {
+      v.set(+tid, (v.get(+tid) ?? 0) + n);
+    }
   }
   return v;
 }
@@ -91,10 +90,10 @@ function buildElements(rows, keyFn, labelFn, colorFn) {
   const groups = groupBy(rows, keyFn);
   const keys = [...groups.keys()].sort();
   const vectors = new Map(keys.map(k => [k, topicVector(groups.get(k))]));
-  const maxN = Math.max(...keys.map(k => groups.get(k).length), 1);
+  const maxN = Math.max(...keys.map(k => totalCount(groups.get(k))), 1);
 
   const nodes = keys.map(k => {
-    const n = groups.get(k).length;
+    const n = totalCount(groups.get(k));
     return { data: {
       id: k,
       label: labelFn(k),
@@ -205,14 +204,14 @@ function showDomains() {
 function showRepos(domain) {
   const rows = commits.filter(c => domainOf(c) === domain);
   const el = buildElements(
-    rows, c => `${c.org}/${c.repo}`, k => k.split("/")[1],
+    rows, c => c.repo ? `${c.org}/${c.repo}` : 'aggregate/비공개 집계', k => k.split("/")[1],
     () => palette.domain[domain] ?? "#888");
   currentDomain = domain;
   cy.elements().remove();
   cy.add([...el.nodes, ...el.edges]);
   relayout();
   status.innerHTML =
-    `<strong>${domain}</strong> — repo ${el.nodes.length}개, commit ${rows.length}건 · ` +
+    `<strong>${escapeHTML(domain)}</strong> — 표시 그룹 ${el.nodes.length}개, commit ${totalCount(rows)}건 · ` +
     `<a href="#" id="cy-back">← 도메인 전체로</a>`;
   document.getElementById("cy-back").addEventListener("click", ev => {
     ev.preventDefault();
@@ -229,10 +228,10 @@ showDomains();
 // ─── Sankey: Org → Topic (d3-sankey, manual SVG) ──────────
 const orgTopicCount = new Map();
 for (const c of commits) {
-  const t = shaToTopic.get(c.sha) ?? -1;
-  if (t === -1) continue;
-  const k = `${c.org}|${t}`;
-  orgTopicCount.set(k, (orgTopicCount.get(k) ?? 0) + 1);
+  for (const [t, n] of Object.entries(c.topic_counts || {})) {
+    const k = `${c.org}|${t}`;
+    orgTopicCount.set(k, (orgTopicCount.get(k) ?? 0) + n);
+  }
 }
 
 const orgSet = [...new Set(commits.map(c => c.org))];

@@ -34,7 +34,8 @@ from aa_paths import REPO
 
 REPO_MAP = Path("/home/juke/git/agentic-ai/docs/REPO_MAP.md")
 TAXONOMY_DIR = REPO / "data" / "taxonomy"
-REPOS_OUT = TAXONOMY_DIR / "repos.json"
+from aa_paths import PRIVATE_TAXONOMY
+REPOS_OUT = PRIVATE_TAXONOMY
 
 ORGS = ["snuconnectome", "Transconnectome", "neurox-org"]
 
@@ -116,7 +117,7 @@ def main() -> int:
         print(f"❌ {REPO_MAP} not found", file=sys.stderr)
         return 1
     if REPOS_OUT.exists() and not args.force and not args.dry_run:
-        print(f"❌ {REPOS_OUT.relative_to(REPO)} already exists.", file=sys.stderr)
+        print(f"❌ {REPOS_OUT} already exists.", file=sys.stderr)
         print("   Seeding is one-shot; it would discard manual classifications.", file=sys.stderr)
         print("   Pass --force only if you mean to lose them.", file=sys.stderr)
         return 1
@@ -191,9 +192,9 @@ def main() -> int:
         ),
         "repos": dict(sorted(resolved.items())),
     }
-    TAXONOMY_DIR.mkdir(parents=True, exist_ok=True)
+    REPOS_OUT.parent.mkdir(parents=True, exist_ok=True)
     REPOS_OUT.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"\n✅ wrote {len(resolved)} entries → {REPOS_OUT.relative_to(REPO)}")
+    print(f"\n✅ wrote {len(resolved)} entries → {REPOS_OUT}")
     return 0
 
 

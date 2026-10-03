@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Join raw commits with the taxonomy, then emit the published projection.
 
-Reads:  $ACTIVITY_ATLAS_DATA_DIR/raw/commits.json   (local only)
+Reads:  $ACTIVITY_ATLAS_DATA_DIR/scopes/<scope>/raw/commits.json   (local only)
         data/taxonomy/repos.json                     (curated, committed)
         data/taxonomy/rules.json                     (fallback patterns)
 Writes: data/<profile>/*.json   (profile = pub | lab)
@@ -36,25 +36,31 @@ import argparse
 import json
 import re
 import sys
+import tempfile
 from collections import Counter
+from datetime import datetime, timezone
 from pathlib import Path
+from time_axis import calendar_weeks
+from snapshot_contract import replace_generation, fingerprint, event_key, content_digest
 
 from aa_paths import (
     DERIVED_EMBEDDINGS, DERIVED_PULSE, DERIVED_TOPICS, RAW_INVENTORY,
-    PROFILE_DIRS, PUB_DIR, REPO, raw_commits_path,
+    PROFILE_DIRS, PUB_DIR, REPO, PRIVATE_TAXONOMY, SCOPE, RAW_MANIFEST, raw_commits_path,
 )
 
 ROSTER = Path("/home/juke/git/lab-ai-usage/roster.json")
 
 TAXONOMY_DIR = REPO / "data" / "taxonomy"
 REPOS_IN = TAXONOMY_DIR / "repos.json"
+PRIVATE_REPOS_IN = PRIVATE_TAXONOMY
+PULSE_META = DERIVED_PULSE.with_suffix('.meta.json')
 RULES_IN = TAXONOMY_DIR / "rules.json"
 
 SUBJECT_MAX = 80
 
 # Fields carried into the published projection. An allowlist, so a new raw
 # field can never leak by default.
-KEEP_FIELDS = ("sha", "org", "repo", "author_date")
+KEEP_FIELDS = ("sha", "event_id", "org", "repo", "author_date")
 
 # Okabe-Ito, matching assets/tokens.css and topic_model.py. Colours are baked
 # into the data here so the pages stop carrying hex literals — the same pattern
@@ -116,11 +122,7 @@ QUANTUM_DOMAIN = "quantum-ml"
 # error — a new lab member must never be published by virtue of not being listed.
 PARTICIPANTS = Path("/home/juke/git/lab-ai-usage/participants.json")
 
-# A cluster label is n-grams lifted from commit messages. If one non-consenting
-# person wrote most of a cluster, publishing its label republishes their words
-# under a thin disguise, so the label is replaced with a neutral id.
-TOPIC_MIN_SIZE = 8
-TOPIC_MAX_SINGLE_SHARE = 0.60
+# Topic labels inherit every contributing source's publication restrictions.
 
 
 def load_consent() -> set[str]:
@@ -162,13 +164,9 @@ def downsample_embeddings(embeddings: list[dict]) -> tuple[list[dict], int]:
     return kept, len(embeddings) - len(kept)
 
 
-# Effort is measured in person-repo-weeks, not commits: one person touching one
-# repo in one ISO week counts once. Commit counts are dominated by commit style
-# — one repo here has 164 commits from a single contributor while another has
-# 725 from five — and lab-ai-usage/aggregator.py:132 already retired commit
-# totals as a Goodhart-prone measure. A person-week has a ceiling of 1, so it
-# cannot be inflated, and it shares its unit with the thing a budget actually
-# buys: someone's time.
+# A person-repo-week records one person's GitHub participation in one repo
+# during one ISO week. It measures observed activity breadth, not hours, cost,
+# productivity, or a budget allocation. Touching more repositories increases it.
 def iso_week(iso_dt: str) -> str:
     from datetime import datetime
     y, w, _ = datetime.fromisoformat(iso_dt.replace("Z", "+00:00")).isocalendar()
@@ -201,7 +199,7 @@ def read_derived(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def build_lifecycle(commits, taxonomy, inventory, pw):
+def build_lifecycle(commits, taxonomy, inventory, pw, scope="unknown"):
     """Per-repo state for the lifecycle / succession view."""
     from datetime import datetime, timezone
     now = datetime.now(timezone.utc)
@@ -249,7 +247,7 @@ def build_lifecycle(commits, taxonomy, inventory, pw):
             # Succession risk is only asserted where solo ownership is a real
             # hazard: research code and tooling, not logs or personal drafts.
             "succession_risk": (
-                len(committed) == 1 and not is_log and not inv["archived"]
+                scope == 'all' and len(committed) == 1 and not is_log and not inv["archived"]
                 and t["domain"] in SOLO_RISK_DOMAINS
                 and days is not None and days < 180
             ),
@@ -261,7 +259,7 @@ def classify_fallback(_key):
     return {"domain": "unclassified", "wp": "unbound"}
 
 
-def build_people(commits, taxonomy, pw, roster):
+def build_people(commits, taxonomy, pw, roster, observed_through=None):
     """Per-person cards. Lab profile only — never emitted publicly."""
     from datetime import datetime, timezone
     now = datetime.now(timezone.utc)
@@ -271,10 +269,7 @@ def build_people(commits, taxonomy, pw, roster):
     for c in commits:
         by_author.setdefault(c.get("author_canonical") or c.get("author_login") or "", []).append(c)
 
-    # When the PI last touched a repo — the basis for "how long since I looked
-    # at this person's work". The sort key is deliberately about the PI's
-    # attention, not the person's output, so the card cannot be read as a
-    # productivity ranking.
+    # Shared-repository commit proxy, not evidence of contact or review.
     pi_last: dict[str, str] = {}
     for c in by_author.get("jcha9928", []):
         k = f"{c['org']}/{c['repo']}"
@@ -290,7 +285,9 @@ def build_people(commits, taxonomy, pw, roster):
         if author in pi or not author:
             continue
         repos = sorted({f"{c['org']}/{c['repo']}" for c in rows_})
-        contact = max((pi_last.get(r, "") for r in repos), default="")
+        first_activity = {r: min(c['author_date'] for c in rows_ if f"{c['org']}/{c['repo']}" == r) for r in repos}
+        contact = max((pi_last.get(r, "") for r in repos
+                       if pi_last.get(r, '') >= first_activity[r]), default="")
         since = None
         if contact:
             since = (now - datetime.fromisoformat(contact.replace("Z", "+00:00"))).days
@@ -299,7 +296,10 @@ def build_people(commits, taxonomy, pw, roster):
         # sparkline reads as a productivity chart no matter how it is labelled.
         weeks = weeks_by_author.get(author, set())
         recent = Counter(wk for _r, wk in weeks)
-        last8 = [recent.get(w, 0) for w in sorted({wk for _r, wk in weeks})[-8:]]
+        from datetime import timedelta
+        cutoff = observed_through or max(c['author_date'] for c in commits)
+        start = (datetime.fromisoformat(cutoff.replace('Z','+00:00')) - timedelta(weeks=7)).isoformat()
+        last8 = [recent.get(w, 0) for w in calendar_weeks(start, cutoff)]
 
         doms = Counter(taxonomy.get(f"{c['org']}/{c['repo']}", {}).get("domain", "")
                        for c in rows_)
@@ -312,11 +312,12 @@ def build_people(commits, taxonomy, pw, roster):
             "active_weeks": len({wk for _r, wk in weeks}),
             "recent_repo_counts": last8,
             "domains": [d for d, _ in doms.most_common(3) if d],
-            "days_since_pi_contact": since,
+            "days_since_pi_repo_commit": since,
             "last_activity": max(c["author_date"] for c in rows_)[:10],
         })
     # Sorted by PI attention debt, longest first. Never by volume.
-    return sorted(rows, key=lambda r: -(r["days_since_pi_contact"] or 9999))
+    return sorted(rows, key=lambda r: (r['days_since_pi_repo_commit'] is None,
+                  r['days_since_pi_repo_commit'] or 0), reverse=True)
 
 
 def build_drift(taxonomy, commits_per_repo, rules):
@@ -338,28 +339,82 @@ def build_drift(taxonomy, commits_per_repo, rules):
     return sorted(rows, key=lambda r: -r["commits"])
 
 
+def publication_mode(commit):
+    """Identity may be published only for a positively known public repository.
+
+    Author consent does not grant permission to publish private repo content.
+    Unknown visibility uses the same aggregate-only policy as private data.
+    """
+    return "full" if commit.get("repo_visibility") == "PUBLIC" else "aggregate_only"
+
+
 def mask_topic_labels(topics_doc, embeddings, commits, consent):
-    """Replace labels that a single non-consenting author dominates."""
-    sha_author = {c["sha"]: (c.get("author_canonical") or c.get("author_login") or "")
+    """A label inherits restrictions from every source event, not its majority."""
+    sha_author = {c.get('event_id', c['sha']): (c.get("author_canonical") or c.get("author_login") or "")
                   for c in commits}
+    sources = {c.get('event_id', c['sha']): c for c in commits}
     per_topic: dict[int, Counter] = {}
+    restricted = set()
     for e in embeddings:
-        per_topic.setdefault(e["topic_id"], Counter())[sha_author.get(e["sha"], "")] += 1
+        key = e.get('event_id', e['sha'])
+        per_topic.setdefault(e["topic_id"], Counter())[sha_author.get(key, "")] += 1
+        source = sources.get(key)
+        if source is None or publication_mode(source) != "full":
+            restricted.add(e["topic_id"])
 
     masked = 0
     for t in topics_doc.get("topics", []):
         tid = t["topic_id"]
         authors = per_topic.get(tid, Counter())
         total = sum(authors.values())
-        if not total:
-            continue
-        risky = [(a, n) for a, n in authors.items()
-                 if a not in consent and n / total > TOPIC_MAX_SINGLE_SHARE]
-        if risky or (total < TOPIC_MIN_SIZE and any(a not in consent for a in authors)):
+        if not total or tid in restricted or any(a not in consent for a in authors):
             t["label"] = f"topic-{tid}" if tid != -1 else "outliers"
             t["top_words"] = []
             masked += 1
     return topics_doc, masked
+
+
+def public_pulse(commits, embeddings, topics_doc, observed_through=None, observed_from=None):
+    """Rebuild public prose from counts and already-approved labels.
+
+    Never copy private derived narrative and attempt string redaction: labels
+    and repo names may appear in any free-text bullet.
+    """
+    assignments = {e.get('event_id', e['sha']): e['topic_id'] for e in embeddings}
+    labels = {t['topic_id']: t['label'] for t in topics_doc['topics']}
+    weeks = {}
+    for c in commits:
+        weeks.setdefault(iso_week(c['author_date']), []).append(c)
+    output = []
+    previous = 0
+    dates = [c['author_date'] for c in commits]
+    for week in calendar_weeks(observed_from or min(dates), observed_through or max(dates)) if dates else []:
+        rows = weeks.get(week, [])
+        topics = Counter(assignments.get(c.get('event_id',c['sha']), -1) for c in rows)
+        top = [tid for tid, _ in topics.most_common() if tid != -1][:3]
+        bullets = [f"{len(rows)} commits ({len(rows)-previous:+d} vs 전주)"]
+        if top:
+            bullets.append('주요 토픽: ' + ', '.join(labels.get(t, f'topic-{t}') for t in top))
+        output.append({'week_iso': week, 'commit_count': len(rows), 'top_topics': top, 'delta_bullets': bullets})
+        previous = len(rows)
+    return output[::-1]
+
+
+def network_projection(commits, taxonomy, embeddings, public):
+    """Full topic counts, independent of the Latent coordinate sample."""
+    assignments = {e.get('event_id', e['sha']): e['topic_id'] for e in embeddings}
+    groups = {}
+    for c in commits:
+        full = f"{c['org']}/{c['repo']}"
+        t = taxonomy[full]
+        name = c['repo'] if not public or publication_mode(c) == 'full' else None
+        key = (c['org'], name, t['domain'])
+        g = groups.setdefault(key, {'org': c['org'], 'repo': name, 'domain': t['domain'], 'count': 0, 'topic_counts': {}})
+        g['count'] += 1
+        tid = assignments.get(c.get('event_id',c['sha']), -1)
+        if tid != -1:
+            g['topic_counts'][str(tid)] = g['topic_counts'].get(str(tid), 0) + 1
+    return list(groups.values())
 
 
 def first_match(rules: list[dict], key: str, text: str) -> tuple[str | None, str | None]:
@@ -459,6 +514,8 @@ def main() -> int:
 
     commits = json.loads(raw_path.read_text(encoding="utf-8"))
     curated = json.loads(REPOS_IN.read_text(encoding="utf-8"))["repos"]
+    if PRIVATE_REPOS_IN.exists():
+        curated.update(json.loads(PRIVATE_REPOS_IN.read_text(encoding="utf-8"))["repos"])
     rules = json.loads(RULES_IN.read_text(encoding="utf-8"))
 
     repos = sorted({f"{c['org']}/{c['repo']}" for c in commits})
@@ -479,14 +536,14 @@ def main() -> int:
         n = by_source.get(src, 0)
         label = {"repo_map": "curated (REPO_MAP seed)", "rule": "pattern rule",
                  "none": "unclassified"}[src]
-        print(f"    {label:28s} {n:4d} repos  ({n / len(repos):4.0%})")
+        print(f"    {label:28s} {n:4d} repos  ({n / max(1,len(repos)):4.0%})")
     print()
     print("  domain:")
     for dom, n in Counter(t["domain"] for t in taxonomy.values()).most_common():
         commits_n = sum(commits_per_repo[r] for r, t in taxonomy.items() if t["domain"] == dom)
         print(f"    {dom:26s} {n:4d} repos  {commits_n:5d} commits")
     print()
-    print("  WP (budget axis):")
+    print("  WP (activity classification):")
     wp_order = ["WP1", "WP2", "WP3", "WP4", "WP5", PROPOSAL_WP, QUANTUM_WP, "unbound"]
     counts = Counter(t["wp"] for t in taxonomy.values())
     for wp in [w for w in wp_order if w in counts] + [w for w in counts if w not in wp_order]:
@@ -494,7 +551,7 @@ def main() -> int:
         commits_n = sum(commits_per_repo[r] for r, t in taxonomy.items() if t["wp"] == wp)
         planned = WP_BUDGET_PCT.get(wp)
         plan_str = f"  plan {planned:2d}%" if planned else "  plan  — "
-        actual = commits_n / len(commits)
+        actual = commits_n / max(1,len(commits))
         print(f"    {wp:8s} {WP_LABELS.get(wp, ''):20s} {n:4d} repos  "
               f"{commits_n:5d} commits ({actual:4.0%}){plan_str}")
 
@@ -502,11 +559,13 @@ def main() -> int:
         print()
         print(f"  ⚠️  {len(unclassified)} repos unclassified. Highest-activity first —")
         print("      add them to data/taxonomy/repos.json or extend rules.json:")
-        for r in unclassified[:10]:
+        report_repos = [r for r in unclassified if args.profile == 'lab' or any(
+            f"{c['org']}/{c['repo']}" == r and publication_mode(c) == 'full' for c in commits)]
+        for r in report_repos[:10]:
             print(f'        "{r}": {{"wp": "WP?", "domain": "?", "source": "manual"}},'
                   f'   # {commits_per_repo[r]} commits')
-        if len(unclassified) > 10:
-            print(f"        … and {len(unclassified) - 10} more")
+        if len(unclassified) > len(report_repos):
+            print(f"        {len(unclassified) - len(report_repos)} aggregate-only repo names omitted")
 
     if args.report:
         print("\n(report only — nothing written)")
@@ -520,12 +579,41 @@ def main() -> int:
     topics_doc = read_derived(DERIVED_TOPICS)
     embeddings = read_derived(DERIVED_EMBEDDINGS)
     pulse = read_derived(DERIVED_PULSE)
+    pulse_meta = read_derived(PULSE_META)
+    if topics_doc is None or embeddings is None or pulse is None or pulse_meta is None or not RAW_INVENTORY.exists():
+        print('❌ Missing required analysis or inventory; previous projection preserved.', file=sys.stderr)
+        return 1
+    expected_fingerprint = fingerprint(commits, SCOPE)
+    collection = read_derived(RAW_MANIFEST)
+    if not collection or collection.get('complete') is not True or collection.get('scope') != SCOPE or collection.get('source_fingerprint') != expected_fingerprint:
+        print('❌ Missing, incomplete, or mismatched collection manifest; previous projection preserved.', file=sys.stderr)
+        return 1
+    if topics_doc.get('metadata', {}).get('source_fingerprint') != expected_fingerprint or pulse_meta.get('source_fingerprint') != expected_fingerprint:
+        print('❌ Analysis belongs to another input snapshot; previous projection preserved.', file=sys.stderr)
+        return 1
+    if topics_doc['metadata'].get('embedding_digest') != content_digest(embeddings) or pulse_meta.get('topics_digest') != content_digest(topics_doc) or pulse_meta.get('pulse_digest') != content_digest(pulse):
+        print('❌ Mixed or changed analysis artifacts; previous projection preserved.', file=sys.stderr)
+        return 1
+    # Legacy synthetic fixtures use SHA; current collectors/model output use
+    # repository event IDs. Reject unknown and duplicate points before writing.
+    event_mode = any('event_id' in e for e in embeddings)
+    if event_mode:
+        for c in commits:c['event_id'] = event_key(c)
+    source_keys = {c.get('event_id', c['sha']) for c in commits}
+    point_keys = [e.get('event_id', e['sha']) for e in embeddings]
+    if not set(point_keys) <= source_keys or len(point_keys) != len(set(point_keys)):
+        print('❌ Unknown or duplicate analysis event references.', file=sys.stderr)
+        return 1
+    full_embeddings = embeddings or []
 
     dropped_points = 0
     scatter_shas: set[str] = set()
     if embeddings:
+        if public:
+            allowed_shas = {c.get('event_id', c['sha']) for c in commits if publication_mode(c) == 'full'}
+            embeddings = [e for e in embeddings if e.get('event_id', e['sha']) in allowed_shas]
         embeddings, dropped_points = downsample_embeddings(embeddings)
-        scatter_shas = {e["sha"] for e in embeddings}
+        scatter_shas = {e.get('event_id', e["sha"]) for e in embeddings}
 
     # Refuse to project a topic model built from a different commit set. This
     # is the failure that nearly shipped: after switching the raw store back to
@@ -542,20 +630,43 @@ def main() -> int:
 
     masked_topics = 0
     if topics_doc and public:
-        topics_doc, masked_topics = mask_topic_labels(topics_doc, embeddings or [], commits, consent)
+        topics_doc, masked_topics = mask_topic_labels(topics_doc, full_embeddings, commits, consent)
+        pulse = public_pulse(commits, full_embeddings, topics_doc, collection['observed_through'], collection['observed_from'])
+        # Explicit public contracts prevent new private producer fields from
+        # silently becoming public, including metadata and coordinate records.
+        topics_doc = {'topics': [{k:t[k] for k in ('topic_id','label','top_words','size','color','slot') if k in t}
+                                 for t in topics_doc['topics']],
+            'metadata': {k:v for k,v in topics_doc['metadata'].items() if k in {
+                'source_n_commits','clustering_method','n_commits','model','generated_at'}}}
+        embeddings = [{k:e[k] for k in ('event_id','sha','x','y','topic_id') if k in e} for e in embeddings]
+        # Input hashes and author cardinality are private provenance.
+        topics_doc['metadata'].pop('source_fingerprint', None)
+        topics_doc['metadata'].pop('source_n_authors', None)
+        topics_doc['metadata'].pop('embedding_digest', None)
 
     # ── Commit rows ──────────────────────────────────────────────────────
     # sha and subject exist only so the scatter can look up a hovered point.
     # Carrying them on every row cost 655 KB of payload at lab scale for rows
     # nothing could ever hover, so they ride only on rows the scatter draws.
     slim = []
+    aggregate_rows = {}
     suppressed_subjects = 0
     for c in commits:
         full = f"{c['org']}/{c['repo']}"
         t = taxonomy[full]
-        on_scatter = c["sha"] in scatter_shas
-        row = {k: c[k] for k in KEEP_FIELDS if k in c and (k != "sha" or on_scatter)}
+        on_scatter = c.get('event_id', c["sha"]) in scatter_shas
+        row = {k: c[k] for k in KEEP_FIELDS if k in c and (k not in {"sha", 'event_id'} or on_scatter)}
         author = c.get("author_canonical") or c.get("author_login") or ""
+
+        if public and publication_mode(c) != 'full':
+            # No private repo pseudonym, SHA, exact time, subject, or coordinate.
+            key = (c['org'], c['author_date'][:10], t['domain'], t['wp'], t['category'])
+            group = aggregate_rows.setdefault(key, {'org': c['org'],
+                'author_date': c['author_date'][:10] + 'T00:00:00Z',
+                'domain': t['domain'], 'wp': t['wp'], 'repo_category': t['category'],
+                'count': 0, 'aggregate_only': True})
+            group['count'] += 1
+            continue
 
         if on_scatter:
             if public and not may_publish_text(author, consent):
@@ -572,8 +683,9 @@ def main() -> int:
         row["domain"] = t["domain"]
         row["wp"] = t["wp"]
         slim.append(row)
+    slim.extend(aggregate_rows.values())
 
-    allowed = set(KEEP_FIELDS) | {"subject", "repo_category", "domain", "wp"}
+    allowed = set(KEEP_FIELDS) | {"subject", "repo_category", "domain", "wp", "count", "aggregate_only"}
     if not public:
         allowed.add("author")
     leaked = {k for row in slim for k in row} - allowed
@@ -584,11 +696,16 @@ def main() -> int:
         print("\n❌ author identity present in the public projection", file=sys.stderr)
         return 1
 
-    out_dir.mkdir(parents=True, exist_ok=True)
+    destination = out_dir
+    scratch = REPO / 'data' / 'tmp'
+    scratch.mkdir(parents=True, exist_ok=True)
+    out_dir = Path(tempfile.mkdtemp(prefix=f'{args.profile}-', dir=scratch))
     # No indent on the two large payloads: pretty-printing commits_slim cost
     # 2.4 MB of leading spaces at lab scale, all of it downloaded by the browser.
     (out_dir / "commits_slim.json").write_text(
         json.dumps(slim, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    (out_dir / 'network.json').write_text(json.dumps(network_projection(
+        commits, taxonomy, full_embeddings, public), ensure_ascii=False) + '\n', encoding='utf-8')
 
     for name, payload, compact in (("topics.json", topics_doc, False),
                                    ("embeddings.json", embeddings, True),
@@ -621,12 +738,14 @@ def main() -> int:
                       "pushed_at": None, "archived": False,
                       "visibility": "UNKNOWN", "active": True} for r in repos]
 
+    safe_repos = {f"{c['org']}/{c['repo']}" for c in commits if not public or publication_mode(c) == 'full'}
+    safe_inventory = [r for r in inventory if not public or r.get('visibility') == 'PUBLIC']
     (out_dir / "lifecycle.json").write_text(json.dumps(
-        build_lifecycle(commits, taxonomy, inventory, pw),
+        build_lifecycle(commits, taxonomy, safe_inventory, pw, scope=collection['scope']),
         ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
 
     (out_dir / "drift.json").write_text(json.dumps(
-        build_drift(taxonomy, commits_per_repo, rules),
+        build_drift({r: t for r, t in taxonomy.items() if r in safe_repos}, commits_per_repo, rules),
         indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     # People cards carry names, so they exist in the lab profile only. A stale
@@ -640,7 +759,7 @@ def main() -> int:
             roster = {k: v for k, v in json.loads(ROSTER.read_text(encoding="utf-8")).items()
                       if not k.startswith("__")}
         people_path.write_text(json.dumps(
-            build_people(commits, taxonomy, pw, roster),
+            build_people(commits, taxonomy, pw, roster, observed_through=collection['observed_through']),
             indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     (out_dir / "taxonomy_coverage.json").write_text(json.dumps({
@@ -648,16 +767,26 @@ def main() -> int:
         "n_repos": len(repos),
         "by_source": dict(by_source),
         "unclassified_repos": len(unclassified),
-        "repos": {r: taxonomy[r] | {"commits": commits_per_repo[r]} for r in repos},
+        "aggregate_only_repos": len(repos) - len(safe_repos),
+        "repos": {r: taxonomy[r] | {"commits": commits_per_repo[r]} for r in repos if r in safe_repos},
     }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
+    manifest = {k: collection[k] for k in ('scope', 'complete', 'observed_from',
+        'observed_through', 'collected_at', 'repositories_succeeded', 'repositories_failed')}
+    manifest.update({'schema_version': '0.3.0', 'n_commits': len(commits),
+        'published_at': datetime.now(timezone.utc).isoformat(),
+        'payload_digest': content_digest({p.name: json.loads(p.read_text()) for p in sorted(out_dir.glob('*.json'))})})
+    (out_dir/'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n')
+    replace_generation(out_dir, destination)
+    out_dir = destination
+
     print()
-    print(f"✅ profile={args.profile}: {len(slim)} commits → {out_dir.relative_to(REPO)}/")
+    print(f"✅ profile={args.profile}: {len(commits)} commits, {len(slim)} output rows → {out_dir.relative_to(REPO)}/")
     if dropped_points:
         print(f"   산점도 다운샘플: {dropped_points}점 제외 → {len(embeddings)}점")
     if public:
         print(f"   비동의 저자 subject 비공개: {suppressed_subjects}건")
-        print(f"   비동의 저자 우세 토픽 라벨 마스킹: {masked_topics}개")
+        print(f"   제한된 출처 토픽 라벨 마스킹: {masked_topics}개")
     else:
         print("   ⚠️ lab 프로파일 — 저자 실명과 커밋 제목이 들어 있습니다. 커밋 금지.")
     return 0
